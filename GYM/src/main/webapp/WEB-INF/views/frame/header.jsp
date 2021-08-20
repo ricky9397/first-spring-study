@@ -9,7 +9,7 @@
 		<ul>
 			<li><a href="#">ABOUT</a></li>
 			<li><a href="<c:url value="/chatting/carryLists"/>">1:1MATCHING</a></li>
-			<li><a href="#">PLACE</a></li>
+			<li><a href="<c:url value="/place/list"/>">PLACE</a></li>
 			<li><a href="#">COMMUNITY</a></li>
 			<li><a href="<c:url value="/mypage/mypage"/>">MY BODY</a></li>
 		</ul>
@@ -17,7 +17,7 @@
 	<div class="sub_nav">
 		<div class="chatting">
 			<a href="<c:url value="/chatting/chat"/>">
-			<img src="<c:url value="/images/chatting_icon.png"/>" alt="chatting">
+			<img src="<c:url value="/images/icon/chatting_icon.png"/>" alt="chatting">
 			</a>
 		</div>
 		<a href="#" class="login"> LOGIN </a>
