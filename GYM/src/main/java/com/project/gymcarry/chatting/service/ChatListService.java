@@ -1,4 +1,4 @@
-package com.project.gymcarry.chatroom;
+package com.project.gymcarry.chatting.service;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.project.gymcarry.chatting.ChatListDto;
 import com.project.gymcarry.dao.ChatDao;
 
 @Service
-public class ChatTestService {
+public class ChatListService {
 
 	@Autowired
 	private SqlSessionTemplate template;
