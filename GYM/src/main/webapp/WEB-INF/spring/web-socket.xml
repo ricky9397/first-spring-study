@@ -7,8 +7,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	
-	<!-- 웹소켓 핸들러 -->
 	<bean id="webSocketHandler" class="com.project.gymcarry.websokethandler.WebSocketHandler"/>
 	
 	<websocket:handlers>
