@@ -180,7 +180,7 @@ $(document).ready(function() {
    //서버로 접속할때는 localhost로 설정해줘야됨 (관리자)
    // 본인의 서버로 접속할경우, admin으로 들어가야만 채팅이 가능하다.
    if(id=='admin'){
-      ws = new WebSocket("ws://localhost:8090/WebSocketProject/echo.do");
+      ws = new WebSocket("ws://localhost:8181/WebSocketProject/echo.do");
    }
    
    // 그 외 회원은 admin을 제외한 다른 아이디로 접속 시, 채팅참여가 가능하다.
