@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="login"
 		resultType="com.project.gymcarry.member.MemberDto"
 	>
-		select * from member where mememail=#{param1} and mempw=#{param2}
+		select memidx, memnick from member where mememail=#{param1} and mempw=#{param2}
 	</select>
 	
 	
@@ -22,23 +22,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{mememail},#{mempw},#{memname},#{memnick})
 	</insert>
 	
-	<select id="selectByMemberIdx"
-		resultType="com.project.gymcarry.member.MemberDto"
-	>
-		select memidx from member where mememail=#{param1}
-	</select>
-	
-	
 	<!-- carry -->
 	<select id="carryLogin"
-		resultType="com.project.gymcarry.carry.CarryDto"
+		resultType="com.project.gymcarry.carry.CarryDtoTest"
 	>
 		select * from carry where crid=#{param1} and crpw=#{param2}
 	</select>
 	
 	
 	<insert id="insertCarry"
-		parameterType="com.project.gymcarry.carry.CarryDto"
+		parameterType="com.project.gymcarry.carry.CarryDtoTest"
 		useGeneratedKeys="true"
 		keyProperty="cridx"
 		>

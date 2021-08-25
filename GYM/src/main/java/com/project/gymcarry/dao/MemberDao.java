@@ -1,6 +1,6 @@
 package com.project.gymcarry.dao;
 
-import com.project.gymcarry.carry.CarryDto;
+import com.project.gymcarry.carry.CarryDtoTest;
 import com.project.gymcarry.member.MemberDto;
 
 public interface MemberDao {
@@ -9,11 +9,9 @@ public interface MemberDao {
 	MemberDto login(String id, String pw);
 	// 멤버회원가입
 	int insertMember(MemberDto memberDto);
-	// 멤버idx값
-	MemberDto selectByMemberIdx(String id);
 	// 케리회원가입
-	int insertCarry(CarryDto carryDto);
+	int insertCarry(CarryDtoTest carryDto);
 	// 케리로그인
-	CarryDto carryLogin(String id, String pw);
+	CarryDtoTest carryLogin(String id, String pw);
 	
 }
