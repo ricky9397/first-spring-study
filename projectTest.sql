@@ -76,19 +76,52 @@ insert into member(mememail, mempw, memname, memnick) values();
 select * from member where MEMEMAIL='test@test.com' and mempw='1234';
 select memidx from member where MEMEMAIL='test@test.com';
 
-
-
-
-
 CREATE TABLE `CARRY` (
   `CRIDX` int NOT NULL AUTO_INCREMENT COMMENT '캐리IDX',
   `CRID` varchar(30) NOT NULL COMMENT '캐리아이디',
   `CRPW` varchar(30) NOT NULL COMMENT '비밀번호',
   `CRNAME` varchar(50) NOT NULL COMMENT '캐리실명',
   `CRNICK` varchar(50) NOT NULL COMMENT '캐리닉네임',
+  `CRGENDER` varchar(5) NOT NULL COMMENT '성별',
+  `CRPHONE` varchar(50) NOT NULL COMMENT '캐리연락처',
+  `CRINTRO` mediumtext COMMENT '소갯말',
+  `CRDEPART` mediumtext COMMENT '전문분야',
+  `CRFIELD` mediumtext COMMENT '종목',
+  `CRCERTI1` mediumtext COMMENT '자격및경력1',
+  `CRCERTI2` mediumtext COMMENT '자격및경력2',
+  `CRCERTI3` mediumtext COMMENT '자격및경력3',
+  `CRCERTI4` mediumtext COMMENT '자격및경력4',
+  `CRCERTI5` mediumtext COMMENT '자격및경력5',
+  `PROPRICE1` int NOT NULL COMMENT '수업1회가격',
+  `PROPRICE5` int NOT NULL COMMENT '수업5회가격',
+  `PROPRICE10` int NOT NULL COMMENT '수업10회가격',
+  `PROPRICE20` int NOT NULL COMMENT '수업20회가격',
+  `FACEORNOT` tinyint(1) NOT NULL COMMENT '비대면&대면',
   `PLACENAME` varchar(255) DEFAULT NULL COMMENT '소속플레이스',
-  PRIMARY KEY (`CRIDX`)
-);
+  `PLACEIDX` int DEFAULT NULL COMMENT '플레이스IDX',
+  PRIMARY KEY (`CRIDX`),
+  KEY `FK_PLACE_TO_CARRY` (`PLACEIDX`),
+  CONSTRAINT `FK_PLACE_TO_CARRY` FOREIGN KEY (`PLACEIDX`) REFERENCES `PLACE` (`PLACEIDX`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='캐리정보';
+
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `CARRYREVIEW` (
+  `REVIEWIDX` int NOT NULL AUTO_INCREMENT COMMENT '리뷰IDX',
+  `REVIEWCONTENT` mediumtext COMMENT '리뷰내용',
+  `CRIDX` int DEFAULT NULL COMMENT '캐리IDX',
+  `MEMIDX` int DEFAULT NULL COMMENT '회원번호',
+  PRIMARY KEY (`REVIEWIDX`),
+  KEY `FK_CARRY_TO_CARRYREVIEW` (`CRIDX`),
+  KEY `FK_MEMBER_TO_CARRYREVIEW` (`MEMIDX`),
+  CONSTRAINT `FK_CARRY_TO_CARRYREVIEW` FOREIGN KEY (`CRIDX`) REFERENCES `CARRY` (`CRIDX`),
+  CONSTRAINT `FK_MEMBER_TO_CARRYREVIEW` FOREIGN KEY (`MEMIDX`) REFERENCES `MEMBER` (`MEMIDX`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='캐리상세페이지 리뷰댓글';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 select * from carry;
 select * from carry where crid='test' and crpw="1111";
 
@@ -107,7 +140,12 @@ delete from chatlist where chatidx=1;
 insert into chatlist(crnick,mememail) value('dd','dd');
 select * from chatlist where crnick='황철순';
 
-select c.crnick, c.placename
+select c.crnick, c.placename, l.chatidx
+from chatlist l
+join carry c on l.cridx=c.cridx
+join member m on l.memidx=m.memidx;
+
+select c.crnick, c.placename, l.chatidx
 from carry c, member m, chatlist l
 where l.cridx=c.cridx and m.memidx=l.memidx;
 
@@ -118,6 +156,7 @@ CREATE TABLE `CHATROOM` (
   `CHATDATE` timestamp NOT NULL COMMENT '대화시간',
   `CRIDX` int NOT NULL COMMENT '캐리번호',
   `MEMIDX` int NOT NULL COMMENT '회원번호',
+  `CONTENTTYPE` INT DEFAULT 0 COMMENT '0=유저대화, 1=캐리대화',
   `CHATPOSITION` INT DEFAULT 0 COMMENT '0=방에서 안나감, 1=방에서나감',
   `CHATREAD` INT DEFAULT 0 COMMENT '0=읽지않음, 1=읽음',
   PRIMARY KEY (`MESSAGEIDX`),
@@ -129,5 +168,7 @@ CREATE TABLE `CHATROOM` (
   CONSTRAINT `FK_MEMBER_TO_CHATROOM` FOREIGN KEY (`MEMIDX`) REFERENCES `MEMBER` (`MEMIDX`)
 );
 insert into chatroom (chatidx, chatcontent, cridx, memidx) values(1, '안녕하세요', 1, 1);
+
+select * from chatroom where chatidx=1;
 
 
