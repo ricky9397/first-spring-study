@@ -168,8 +168,6 @@
 </table>
 
 
-
-
 <script type="text/javascript">
 var sock = null;
 var id = '${login.id}';
@@ -328,7 +326,7 @@ $(document).ready(function() {
 				var spl = roomSplit[i].split("/");
 				
 				if(spl[0] =='방이 존재하지 않습니다.'){
-					str += "<div class='item'><div class='content'><b title='방이존재하지않습니다'>"+spl[0]+"</b></div></div>";
+					str += "<div class='item'><div cla	ss='content'><b title='방이존재하지않습니다'>"+spl[0]+"</b></div></div>";
 				}
 				else{
 					//방이름 : spl[0] , 남은인원수 : spl[1] , 전체인원수:spl[2], 방내용:spl[3]
