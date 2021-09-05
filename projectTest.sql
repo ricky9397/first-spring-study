@@ -143,6 +143,14 @@ from chatlist l
 join carry c on l.cridx=c.cridx
 join member m on l.memidx=m.memidx;
 
+select * 
+from chatlist l
+join chatroom r
+where l.chatidx in (select max(r.chatidx) from chatroom r) group by r.chatidx;
+
+select * from chatroom order by chatdate desc;
+
+
 select c.crnick, c.placename, l.chatidx
 from carry c, member m, chatlist l
 where l.cridx=c.cridx and m.memidx=l.memidx;
