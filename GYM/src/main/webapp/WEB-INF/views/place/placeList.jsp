@@ -17,13 +17,13 @@
          </h1>
          <ul class="place_menu">
              <li class="on">
-                 전체
+                 <a href="<c:url value="/place/list"/>">전체</a>
              </li>
              <li>
                  헬스
              </li>
              <li>
-                 필라테스
+                 <a href="<c:url value="/place/pilates"/>">필라테스</a>
              </li>
              <li>
                  요가

@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.gymcarry.carry.CarryAllDto;
+import com.project.gymcarry.carry.CarryDto;
 import com.project.gymcarry.chatting.ChatListDto;
 import com.project.gymcarry.chatting.ChatRoomDto;
 import com.project.gymcarry.dao.MatchingDao;
@@ -18,10 +18,16 @@ public class MatchingListService {
 	private SqlSessionTemplate template;
 	private MatchingDao dao;
 	
-	// 채팅방 리스트
-	public List<ChatListDto> getChatList(){
+	// 멤버 채팅방 리스트
+	public List<ChatListDto> getChatList(int memIdx){
 		dao = template.getMapper(MatchingDao.class);
-		return dao.selectChatList();
+		return dao.selectChatList(memIdx);
+	}
+	
+	// 캐리 채팅방 리스트
+	public List<ChatListDto> getChatLists(int cridx){
+		dao = template.getMapper(MatchingDao.class);
+		return dao.selectCarryChatList(cridx);
 	}
 	
 	// 대화방 리스트
@@ -31,7 +37,7 @@ public class MatchingListService {
 	}
 	
 	// 매칭 캐리리스트
-	public List<CarryAllDto> getCarryList(){
+	public List<CarryDto> getCarryList(){
 		dao = template.getMapper(MatchingDao.class);
 		return dao.selectCarryList();
 	}
