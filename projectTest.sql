@@ -184,3 +184,26 @@ select * from chatlist;
 
 select chatcontent, chatdate from chatroom where chatidx=1 order by chatdate desc;
 
+select *
+from chatroom r, chatlist l, carry c, member m
+where l.cridx=c.cridx and m.memidx=l.memidx and r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx and m.memidx=1) group by r.chatidx;
+
+select * from chatlist;
+
+select max(chatidx) from chatlist where memidx=1;
+
+select *, (select max(l.chatidx) from chatlist l where m.memidx=1) as chat
+from chatroom r 
+join chatlist l on r.chatidx=l.chatidx
+join carry c on c.cridx=l.cridx 
+join member m on m.memidx=l.memidx group by r.chatidx;
+
+select * from chatroom where chatidx=1 and memidx=1 order by chatdate desc;
+
+select l.chatidx, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
+from chatlist l 
+join carry c on l.cridx=c.cridx
+join  member m on l.memidx=m.memidx 
+left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx and m.memidx) group by r.chatidx;
+
+select * from chatlist;
