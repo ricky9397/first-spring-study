@@ -202,8 +202,29 @@ select * from chatroom where chatidx=1 and memidx=1 order by chatdate desc;
 
 select l.chatidx, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
 from chatlist l 
-join carry c on l.cridx=c.cridx
-join  member m on l.memidx=m.memidx 
-left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx and m.memidx) group by r.chatidx;
+join carry c on l.cridx=c.cridx 
+join  member m on l.memidx=m.memidx and m.memidx=1
+left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx) group by r.chatidx;
+
+select l.chatidx, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
+from member m
+join chatlist l on l.memidx=m.memidx 
+join carry c on l.cridx=c.cridx and m.memidx=2
+left outer join chatroom r on l.chatidx=r.chatidx and r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx);
+
+
+select * 
+from chatroom r
+join likelist k on r.memidx=k.memidx 
+where chatidx=1;
+
+select * from chatroom where chatidx=1;
 
 select * from chatlist;
+
+update chatroom set chatread=1 where chatidx=1 and contenttype=0 and memidx=2;
+
+select * from chatroom where memidx=1;
+
+select * from member;
+select * from LIKELIST;
