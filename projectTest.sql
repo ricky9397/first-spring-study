@@ -127,6 +127,9 @@ CREATE TABLE `CHATLIST` (
   `CHATIDX` int NOT NULL auto_increment COMMENT '채팅방번호',
   `CRIDX` int NOT NULL COMMENT '캐리번호',
   `MEMIDX` int NOT NULL COMMENT '회원번호',
+  `MEMPOSITION` INT DEFAULT 0 COMMENT '멤버 0=방에서 안나감, 1=방에서나감, 2=다시들어옴',
+  `CARRYPOSITION` INT DEFAULT 0 COMMENT '캐리 0=방에서 안나감, 1=방에서나감, 2=다시들어옴',
+  `OUTDATE` timestamp default current_timestamp on update current_timestamp COMMENT '방에서 나간 날짜',
   PRIMARY KEY (`CHATIDX`),
   KEY `FK_CARRY_TO_CHATLIST` (`CRIDX`),
   KEY `FK_MEMBER_TO_CHATLIST` (`MEMIDX`),
@@ -163,9 +166,7 @@ CREATE TABLE `CHATROOM` (
   `CRIDX` int NOT NULL COMMENT '캐리번호',
   `MEMIDX` int NOT NULL COMMENT '회원번호',
   `CONTENTTYPE` INT DEFAULT 0 COMMENT '0=유저대화, 1=캐리대화',
-  `CHATPOSITION` INT DEFAULT 0 COMMENT '0=방에서 안나감, 1=방에서나감',
-  `CHATREAD` INT DEFAULT 0 COMMENT '0=읽지않음, 1=읽음',
-  `CHATLIKE` INT DEFAULT 0 COMMENT '0=좋아여, 1=좋아요',
+  `CHATREAD` INT DEFAULT 0 COMMENT '멤버메세지=0, 캐리메세지=1, 모두읽으면 2',
   PRIMARY KEY (`MESSAGEIDX`),
   KEY `FK_CARRY_TO_CHATROOM` (`CRIDX`),
   KEY `FK_MEMBER_TO_CHATROOM` (`MEMIDX`),
@@ -207,6 +208,22 @@ join  member m on l.memidx=m.memidx and m.memidx=1
 left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx) group by r.chatidx;
 
 select l.chatidx, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
+from chatlist l 
+join carry c on l.cridx=c.cridx 
+join  member m on l.memidx=m.memidx and m.memidx=1
+left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx);
+
+select *
+from chatlist l 
+join carry c on l.cridx=c.cridx 
+join  member m on l.memidx=m.memidx and m.memidx=1
+left outer join chatroom r on r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx)
+where  r.CHATPOSITION=0 or r.chatposition=2;
+
+
+
+select * from chatroom order by chatdate desc;
+select l.chatidx, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
 from member m
 join chatlist l on l.memidx=m.memidx 
 join carry c on l.cridx=c.cridx and m.memidx=2
@@ -222,9 +239,114 @@ select * from chatroom where chatidx=1;
 
 select * from chatlist;
 
+delete from chatlist where chatidx=1;
+
+select * from chatroom;
+select * from likelist;
 update chatroom set chatread=1 where chatidx=1 and contenttype=0 and memidx=2;
 
 select * from chatroom where memidx=1;
 
 select * from member;
 select * from LIKELIST;
+
+
+select *
+from chatlist l
+left outer join chatroom r on
+l.chatidx=r.chatidx
+left outer join likelist k on k.memidx=l.memidx and
+k.cridx=l.cridx
+where l.chatidx=1;
+
+select *
+from chatlist l
+left outer join chatroom r on l.chatidx=r.chatidx and r.chatdate < r.chatdate
+left outer join likelist k on k.memidx=l.memidx and k.cridx=l.cridx
+where l.chatidx=1;
+
+CREATE TABLE `CHATINOUT` (
+  `CHATINOUTIDX` INT NOT NULL auto_increment COMMENT 'INOUT테이블번호',
+  `CHATIDX` int NOT NULL COMMENT '채팅방번호',
+  `MEMPOSITION` INT DEFAULT 0 COMMENT '멤버 0=방에서 안나감, 1=방에서나감, 2=다시들어옴',
+  `CARRYPOSITION` INT DEFAULT 0 COMMENT '캐리 0=방에서 안나감, 1=방에서나감, 2=다시들어옴',
+  `OUTDATE` timestamp default current_timestamp COMMENT '방에서 나간 날짜',
+  PRIMARY KEY (`CHATINOUTIDX`),
+  KEY `FK_CHATLIST_TO_CHATINOUT` (`CHATIDX`),
+  CONSTRAINT `FK_CHATLIST_TO_CHATINOUT` FOREIGN KEY (`CHATIDX`) REFERENCES `CHATLIST` (`CHATIDX`)
+);
+select * from chatinout;
+select * from chatlist;
+select * from chatroom order by chatdate desc;
+
+update chatlist set memposition=1 and outdate=1111 where
+		chatidx=1;
+
+select *
+from chatlist l
+left outer join chatroom r on
+l.chatidx=r.chatidx
+left outer join likelist k on k.memidx=l.memidx and
+k.cridx=l.cridx
+where l.chatidx=1;
+
+select *
+from chatlist l
+left outer join chatroom r on
+l.chatidx=r.chatidx
+left outer join likelist k on k.memidx=l.memidx and k.cridx=l.cridx
+where l.chatidx=1 and r.chatdate > l.outdate and l.memposition=2 or l.carryposition=2;
+
+delete from r, l using chatroom r left join chatlist l on r.chatidx=l.chatidx 
+where r.chatidx=2;
+
+select l.*, r.* from chatlist l join chatroom r on l.chatidx=r.chatidx and r.chatidx=3;
+
+select l.chatidx, l.memposition, l.carryposition, l.outdate, r.chatcontent, r.chatdate, c.cridx, c.crnick,  c.placename, m.memidx, m.memnick, r.chatread
+from member m
+join chatlist l on l.memidx=m.memidx 
+join carry c on l.cridx=c.cridx and m.memidx=1
+left outer join chatroom r on l.chatidx=r.chatidx and r.messageidx = (SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx = l.chatidx and r.chatdate > l.outdate);
+
+select *
+from chatlist l
+left outer join chatroom r on l.chatidx=r.chatidx and r.chatdate > l.outdate
+left outer join likelist k on k.memidx=l.memidx and k.cridx=l.cridx 
+where l.chatidx=13 and l.memposition=2 or l.carryposition=2;
+
+
+
+select *
+from chatlist l
+left outer join chatroom r on l.chatidx=r.chatidx and r.chatdate >
+l.outdate and l.memposition=2 or l.carryposition=2
+left outer join likelist k on k.memidx=l.memidx and k.cridx=l.cridx
+where l.chatidx=5;
+
+
+
+select *
+		from chatlist l
+		left outer join chatroom r on
+		l.chatidx=r.chatidx
+		left outer join likelist k on k.memidx=l.memidx and
+		k.cridx=l.cridx
+		where l.chatidx=1 and r.chatdate > l.outdate
+		and l.memposition=2 or
+		l.carryposition=2;
+
+
+
+select * from carry;
+select * from chatlist l 
+left outer join chatinout o on l.chatidx=o.chatidx
+where l.cridx=1 and l.memidx=1;
+
+select * from chatlist where cridx=2 and memidx=1;
+select *
+		from chatlist l
+		left outer join chatroom r on
+		l.chatidx=r.chatidx
+		left outer join likelist k on k.memidx=l.memidx and
+		k.cridx=l.cridx
+		where l.chatidx=3;
