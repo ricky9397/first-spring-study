@@ -245,7 +245,7 @@ values
 insert into carryreview values (null, '리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다.', '3', '2');
 insert into carryreview values (null, '리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다.', '4', '1');
 
-insert into payment values (null, sysdate(), '1', '황지원', '010-2315-2568', '2', '20', '952000', '1');
+insert into payment values (null, sysdate(), '1', '황지원', '010-2315-2568', '2', '952000', '20', '1');
 
 
 
