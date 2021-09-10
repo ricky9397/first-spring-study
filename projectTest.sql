@@ -343,3 +343,13 @@ where l.cridx=1 and l.memidx=1;
 
 select count(*) from
 		chatlist where chatidx=5;
+        
+        
+select * from gymcarry.payment;
+
+select month(p.paydate) as month, c.crname, sum(p.payprice) as total
+from gymcarry.payment p 
+join gymcarry.carry c on c.cridx=p.cridx 
+where month(p.paydate)=9
+group by c.cridx order by sum(p.payprice) desc limit 4;
+
