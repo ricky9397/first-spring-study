@@ -353,3 +353,11 @@ join gymcarry.carry c on c.cridx=p.cridx
 where month(p.paydate)=9
 group by c.cridx order by sum(p.payprice) desc limit 4;
 
+select month(paydate), sum(payprice)
+from gymcarry.payment;
+
+select month(paydate) as month, sum(payprice) as total
+from gymcarry.payment group by month;
+
+select sum(payprice) from gymcarry.payment;
+
