@@ -474,3 +474,69 @@ select *,day(p.paydate) as day, sum(p.payprice) as total
 		from gymcarry.payment p
 		join gymcarry.carry c on c.cridx=p.cridx
 		where month(p.paydate)=1 group by day order by day;
+
+select *
+from gymcarry.payment p
+join gymcarry.carry c on c.cridx=p.cridx
+where year(p.paydate)=2021 order by month(p.paydate);
+        
+        
+select year(paydate) as year, sum(payprice) as total
+from gymcarry.payment group by year order by year;
+
+
+select month(paydate) as month, sum(payprice) as total,
+		monthname(paydate) as engmonth
+		from gymcarry.payment 
+        where year(paydate)=2021
+        group by month
+		order by month;
+        
+        
+select month(p.paydate) as month, c.crname, sum(p.payprice)
+		as total
+		from payment p
+		join carry c on c.cridx=p.cridx
+		where month(p.paydate)=9 and year(p.paydate)=2022
+		group by c.cridx order by sum(p.payprice)
+		desc limit 4;
+        
+select * from payment;        
+select day(paydate) as day, sum(payprice) as total
+		from gymcarry.payment
+		where month(paydate)=1 and year(paydate)=2021 group by day order by
+		day;    
+        
+        
+        
+select *
+		from (select month(p.paydate) as month, c.crname,
+		sum(p.payprice) as total,
+		monthname(p.paydate) as engmonth
+		from payment p
+		join carry c on c.cridx=p.cridx
+        where year(p.paydate)=2021
+		group by c.cridx,month(p.paydate) order by sum(p.payprice) desc) as ss
+		group by month order by month;  
+        
+        
+        
+select *
+		from (select month(p.paydate) as month, c.crname,
+		sum(p.payprice) as total,
+		monthname(p.paydate) as engmonth
+		from payment p
+		join carry c on c.cridx=p.cridx
+		where year(p.paydate)=2021
+		group by c.cridx,month(p.paydate) order by sum(p.payprice) desc) as ss
+		group by month order by month;        
+        
+        
+        
+select month(p.paydate) as month, c.crname, sum(p.paynum)as paynum, 
+c.crfield, c.crgender, sum(p.payprice) as total,
+monthname(p.paydate) as engmonth
+from payment p
+join carry c on c.cridx=p.cridx
+where year(p.paydate)=2021
+group by c.cridx,month(p.paydate) order by sum(p.payprice) desc;        
