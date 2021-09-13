@@ -361,3 +361,34 @@ from gymcarry.payment group by month;
 
 select sum(payprice) from gymcarry.payment;
 
+select *
+from payment p
+join carry c on c.cridx=p.cridx
+where month(p.paydate)=3
+;
+
+
+select month(p.paydate) as month, c.crgender, sum(c.crgender='남자') as men, sum(c.crgender='여자') as women
+from gymcarry.payment p 
+join gymcarry.carry c on c.cridx=p.cridx;
+
+select month(p.paydate) as month, sum(c.crgender='남자') as men, sum(c.crgender='여자') as women, monthname(p.paydate) as engmonth
+from gymcarry.payment p 
+join gymcarry.carry c on c.cridx=p.cridx
+group by month(p.paydate) order by month;
+
+select month(paydate) as month, sum(payprice) as total, monthname(paydate) as engmonth
+from gymcarry.payment 
+where month(paydate)=1
+group by month order by month;
+
+
+select *,month(p.paydate) as month, sum(p.payprice) as total
+		from gymcarry.payment p
+		join gymcarry.carry c on c.cridx=p.cridx
+		where month(p.paydate)=9 group by month order by month;
+
+select *,day(p.paydate) as day, sum(p.payprice) as total
+		from gymcarry.payment p
+		join gymcarry.carry c on c.cridx=p.cridx
+		where month(p.paydate)=1 group by day order by day;
