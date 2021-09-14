@@ -492,7 +492,7 @@ select month(paydate) as month, sum(payprice) as total,
         group by month
 		order by month;
         
-        
+	select * from carry;
 select month(p.paydate) as month, c.crname, sum(p.payprice)
 		as total
 		from payment p
@@ -519,7 +519,7 @@ select *
 		group by c.cridx,month(p.paydate) order by sum(p.payprice) desc) as ss
 		group by month order by month;  
         
-        
+select * from chatroom;
         
 select *
 		from (select month(p.paydate) as month, c.crname,
@@ -537,6 +537,6 @@ select month(p.paydate) as month, c.crname, sum(p.paynum)as paynum,
 c.crfield, c.crgender, sum(p.payprice) as total,
 monthname(p.paydate) as engmonth
 from payment p
-join carry c on c.cridx=p.cridx
+join carry c on c.cridx=p.cridxmember
 where year(p.paydate)=2021
 group by c.cridx,month(p.paydate) order by sum(p.payprice) desc;        
