@@ -245,7 +245,9 @@ values
 insert into carryreview values (null, '리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다.', '3', '2');
 insert into carryreview values (null, '리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다리뷰입니다.', '4', '1');
 
-insert into payment values (null, sysdate(), '1', '안돼', '010-2333-2568', '3', '100000', '5', '1');
+insert into payment values (null, sysdate(), '1', '황지원', '010-2315-2568', '2', '952000', '20', '1');
 
-
-
+insert into gymcarry.board (postname, postcontent, postnick,boardcategory,memidx)
+		value ('테스트2' , '테스트내용임2','테스트님','소통',14);
+insert into gymcarry.board (postname, postcontent, postnick,boardcategory,memidx)
+		value ('테스트2' , '테스트내용임2','테스트님','소통',1);

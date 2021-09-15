@@ -531,8 +531,9 @@ select *
 		group by c.cridx,month(p.paydate) order by sum(p.payprice) desc) as ss
 		group by month order by month;        
         
-        
-        
+select current_timestamp();       
+select now();
+select * from member;
 select month(p.paydate) as month, c.crname, sum(p.paynum)as paynum, 
 c.crfield, c.crgender, sum(p.payprice) as total,
 monthname(p.paydate) as engmonth
@@ -540,3 +541,23 @@ from payment p
 join carry c on c.cridx=p.cridxmember
 where year(p.paydate)=2021
 group by c.cridx,month(p.paydate) order by sum(p.payprice) desc;        
+
+select * from member;
+select * from gymcarry.chatlist;
+select * from carry;
+update chatlist set outcount=outcount +1 where
+		chatidx=1;
+        
+select * from carry;        
+select l.chatidx, l.outcount, l.outdate, r.chatcontent, r.chatdate, c.cridx, c.crnick, p.placename,
+		m.memidx, m.memnick, r.chatread, m.memphoto
+		from member m
+		join chatlist l on l.memidx=m.memidx
+		join carry c on l.cridx=c.cridx
+		join place p on p.placeidx=c.placeidx and c.cridx=1
+		left outer join chatroom r on l.chatidx=r.chatidx 
+		and r.messageidx=(SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx=l.chatidx);        
+        
+        
+
+
