@@ -1,11 +1,7 @@
-<%@page import="javafx.scene.control.Alert"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- 로그아웃 및 마이페이지 분리를 위한 은경이 만든 가라헤더 -->
-<!-- 로그아웃 및 마이페이지 분리를 위한 은경이 만든 가라헤더 -->
-<!-- 로그아웃 및 마이페이지 분리를 위한 은경이 만든 가라헤더 -->
 
 <header class="header">
 	<div class="logo">
@@ -17,19 +13,18 @@
 			<li><a href="<c:url value="/carry/allList"/>">1:1MATCHING</a></li>
 			<li><a href="<c:url value="/place/all"/>">PLACE</a></li>
 			<li><a href="<c:url value="/community/boardList"/>">COMMUNITY</a></li>
-			<li><a href="<c:url value="/mypage/mypage"/>">MY BODY</a></li>
-			<%-- <c:choose>
-				<c:when test="${session eq carry}">
-					<li><a href="<c:url value="/mypage/carrymypage/carrymypage"/>">MY
-							BODY</a></li>
+			<%-- <li><a href="<c:url value="/mypage/mypage"/>">MY BODY</a></li> --%>
+			<c:choose>
+				<c:when test="${loginSession.crnick ne null}">
+					<li><a href="<c:url value="/mypage/carrymypage"/>">MY PAGE</a></li>
 				</c:when>
-				<c:when test="${session eq member}">
-					<li><a value="MY BODY" href="/mypage/mypage"/>MY BODY</a></li>
+				<c:when test="${loginSession.memnick ne null}">
+					<li><a href="<c:url value="/mypage/mypage"/>">MY BODY</a></li>
 				</c:when>
-				<c:when test="${session eq null}">
-					<li><a value="MY BODY" href="/member/login"/>MY BODY</a></li>
+				<c:when test="${loginSession eq null}">
+					<li><a href="<c:url value="/member/login"/>">MY BODY</a></li>
 				</c:when>
-			</c:choose> --%>
+			</c:choose>
 		</ul>
 	</nav>
 	<div class="sub_nav">
@@ -42,7 +37,28 @@
 		<a href="<c:url value="/member/login"/>" class="login"> LOGIN </a>
 		</c:if>
 		<c:if test="${loginSession ne null}">
-		<a href="<c:url value="/member/logOut"/>" class="login"> LOGOUT </a>
+		<a href="<c:url value="/member/logOut"/>" class="login" onclick="kakaoLogout()"> LOGOUT </a>
 		</c:if>
 	</div>
 </header>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+	Kakao.init('0ecec0f1529ce019d44a9de3e0b3bb22');
+	//카카오 로그아웃  
+	function kakaoLogout() {
+		if (Kakao.Auth.getAccessToken()) {
+			Kakao.API.request({
+				url : '/v1/user/unlink',
+				success : function(response) {
+					console.log(response)
+					history.back();
+				},
+				fail : function(error) {
+					console.log(error)
+				},
+			})
+			Kakao.Auth.setAccessToken(undefined)
+		}
+	}
+</script>

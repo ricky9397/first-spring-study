@@ -559,5 +559,18 @@ select l.chatidx, l.outcount, l.outdate, r.chatcontent, r.chatdate, c.cridx, c.c
 		and r.messageidx=(SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx=l.chatidx);        
         
         
+select * from chatroom;
+select * from carry;
+select * from member;
+select count(*) from member where memnick='김명호';
 
 
+select * from chatroom where memidx=20 and cridx=19;
+select * from chatlist where memidx=20 and cridx=19;
+select * from member;
+
+select *
+		from chatlist l
+		left outer join chatroom r on
+		l.chatidx=r.chatidx
+		where l.chatidx=7;

@@ -1,3 +1,10 @@
+.profileImg {
+	height: 55px;
+	width: 55px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
 .no_review_msg {
 	text-align : center;
 	margin: 30px 0 0 0;
@@ -31,6 +38,7 @@
 	background-color: black;
 	padding: 7px 10px;
 	cursor: pointer;
+	transition: .3s all ease;
 }
 
 .proprice {
@@ -194,6 +202,7 @@
 	color: black;
 	padding: 7px 10px;
 	cursor: pointer;
+	transition: .3s all ease;
 }
 
 #write_review_btn {
@@ -262,6 +271,7 @@ textarea {
 	border: 1px solid #CCC;
 	background-color: black;
 	color : white;
+	transition: .3s all ease;
 }
 
 

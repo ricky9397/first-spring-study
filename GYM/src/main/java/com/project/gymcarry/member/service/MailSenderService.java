@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,11 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.project.gymcarry.carry.service.carrySha256;
 import com.project.gymcarry.dao.MemberDao;
+import com.project.gymcarry.find.TempPWD;
 
 @Service
 public class MailSenderService {
 
+	@Autowired
 	private JavaMailSender sender;
 	@Autowired
 	private SqlSessionTemplate template;
@@ -45,8 +49,7 @@ public class MailSenderService {
 		return create_joinkey(size);
 	}
 
-	
-	// 회원한테 보내는 가입 인증 메일
+// 회원한테 보내는 가입 인증 메일
 	public String send_mail(String mememail, String memname) {
 
 		String joinkey = getJoinkey(false, 8);
@@ -90,8 +93,8 @@ public class MailSenderService {
 		}
 		return joinkey;
 	}
-	
-	// 캐리에게 보내는 가입 인증 메일 
+
+	// 캐리에게 보내는 가입 인증 메일
 	public String crsend_mail(String cremail, String crname) {
 
 		String joinkey = getJoinkey(false, 8);
@@ -131,12 +134,12 @@ public class MailSenderService {
 			System.out.println("메일센더 메일발송 + cremail = " + cremail);
 
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			System.out.println("메일발송 실패 : " + e);
 		}
 		return joinkey;
 	}
-	
-	// 멤버 이메일 인증시 인증값 변경 
+
+	// 멤버 이메일 인증시 인증값 변경
 	public void alterjoinkey(String mememail, String joinkey, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -153,8 +156,8 @@ public class MailSenderService {
 			out.close();
 		}
 	}
-	
-	// 캐리 이메일 인증시 인증값 변경 
+
+	// 캐리 이메일 인증시 인증값 변경
 	public void cr_alterjoinkey(String cremail, String joinkey, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -172,7 +175,65 @@ public class MailSenderService {
 		}
 	}
 	
-
+	// 멤버 임시비번 생성 및 비번 찾기 이메일 전송
+	public void send_pwemail(String memname, String mememail) {
+		//이메일로 임시 비밀번호 보내주기
+		String tempPWD = TempPWD.randomPw();
+		System.out.println("생성된 임시 비밀번호 : "+tempPWD);	
+		
+		MimeMessage mail = sender.createMimeMessage();
+		String htmlStr = "<h2>안녕하세요 '"+ memname +"' 회원님!</h2><br><br>" 
+				+ "<p>짐캐리에서 임시 비밀번호를 발급해드립니다.</p>"
+				+ "<p>임시로 발급 드린 비밀번호는 <h2 style='color : blue'>'" + tempPWD +"'</h2>입니다. 로그인 후 마이페이지에서 비밀번호를 변경 후 이용해주세요.</p><br>"
+				+ "감사합니다!";
+		
+		try {
+			mail.setSubject("짐캐리에서 임시 비밀번호를 보내드립니다:)", "utf-8");
+			mail.setText(htmlStr, "utf-8", "html");
+			mail.addRecipient(RecipientType.TO, new InternetAddress(mememail));
+			sender.send(mail);
+		} catch (MessagingException e) { 
+			e.printStackTrace();
+		}
+		// 비밀번호 암호화해주는 메서드
+		tempPWD = memSha256.encrypt(tempPWD);
+		// 데이터 베이스 값은 암호한 값으로 저장시킨다.
+		dao = template.getMapper(MemberDao.class);
+		dao.setpassword(tempPWD, memname, mememail);
+	}
+	
+	
+	
+	// 캐리 임시비번 생성 및 비번 찾기 이메일 전송
+		public void send_Crpwemail(String crname, String cremail) {
+			//이메일로 임시 비밀번호 보내주기
+			String tempPWD = TempPWD.randomPw();
+			System.out.println("생성된 임시 비밀번호 : "+tempPWD);	
+			
+			MimeMessage mail = sender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 '"+ crname +"' 캐리님!</h2><br><br>" 
+					+ "<p>짐캐리에서 임시 비밀번호를 발급해드립니다.</p>"
+					+ "<p>임시로 발급 드린 비밀번호는 <h2 style='color : blue'>'" + tempPWD +"'</h2>입니다. 로그인 후 마이페이지에서 비밀번호를 변경 후 이용해주세요.</p><br>"
+					+ "감사합니다!";
+			
+			try {
+				mail.setSubject("짐캐리에서 임시 비밀번호를 보내드립니다:)", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(cremail));
+				sender.send(mail);
+			} catch (MessagingException e) { 
+				e.printStackTrace();
+			}
+			// 비밀번호 암호화해주는 메서드
+			tempPWD = carrySha256.encrypt(tempPWD);
+			// 데이터 베이스 값은 암호한 값으로 저장시킨다.
+			dao = template.getMapper(MemberDao.class);
+			dao.setCarrypassword(tempPWD, crname, cremail);
+		}
+	
+	
+	
+	
 	public int alterjoinkey_service(String mememail, String joinkey) {
 		int resultCnt = 0;
 
@@ -181,7 +242,7 @@ public class MailSenderService {
 
 		return resultCnt;
 	}
-	
+
 	public int cr_alterjoinkey_service(String cremail, String joinkey) {
 		int resultCnt = 0;
 
@@ -190,5 +251,10 @@ public class MailSenderService {
 
 		return resultCnt;
 	}
-	
+
+	public void mailSendWithPassword(String memname, String mememail, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>멤버 회원가입</title>
+<title>GYM CARRY : 회원가입</title>
 
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -16,12 +16,11 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
 
-	<!-- 은경 -->
-
 	<!-- Contents -->
 	<div class="wrap wd668">
 		<div class="container">
-			<form id="joinForm" action="<c:url value="/member/join"/>" method="post">
+			<form id="joinForm" action="<c:url value="/member/join"/>"
+				method="post" enctype="multipart/form-data">
 				<div class="form_txtInput">
 					<h1 class="sub_tit_txt">회원 회원가입</h1>
 					<p class="exTxt">회원가입시 이메일 인증을 반드시 진행하셔야 합니다.</p>
@@ -29,64 +28,87 @@
 
 					<div class="join_form">
 						<div class="profile_form">
-							<img src="/gym/images/icon/profile.png"><br> <a
-								href="<input type=" file" name="memphoto">">프로필 사진 등록</a>
+							<div class="profileimg" id="image_container">
+								<img src="/gym/images/icon/profile2.png"><br>
+							</div>
+							<input type="button" value="사진업로드" class="profilebtn"
+								name="memphoto" onclick=document.all.file.click();> <input
+								type="file" name="memphoto" id="file" class="profilebtn"
+								style="display: none;" />
 						</div>
+						<table>
+							<colgroup>
+								<col width="30%" />
+								<col width="auto" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th><span>이름</span></th>
+									<td><input type="text" name="memname" id="memname"
+										placeholder="이름" required />
+										<div class="check_font" id="namecheck"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate">이름</label> <input type="text" name="memname"
-								id="memname" placeholder="이름" required />
-							<div class="check_font" id="namecheck"></div>
-						</div>
+								<tr class="email">
+									<th><span>이메일</span></th>
+									<td><input type="text" name="mememail" id="mememail"
+										placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다." required>
+										<span id="msg" class="display_none"></span>
+										<div class="check_font" id="emailcheck" style="float: left"></div>
+									</td>
+								</tr>
+								<tr>
+									<th><span>비밀번호</span></th>
+									<td><input type="password" name="mempw" id="mempw"
+										placeholder="비밀번호를 입력해주세요.">
+										<div class="check_font" id="pwcheck"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate">이메일</label> <input type="text" name="mememail"
-								id="mememail" placeholder="이메일 형식으로 입력해주세요. 로그인시 아이디로 사용됩니다."
-								required>
-							<div class="check_font" id="emailcheck" style="float: left"></div>
-						</div>
+								<tr>
+									<th><span>비밀번호 확인</span></th>
+									<td><input type="password" name="mempw2" id="mempw2"
+										placeholder="비밀번호를 확인해주세요.">
+										<div class="check_font" id="mempw2check"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate">비밀번호</label> <input type="password" name="mempw"
-								id="mempw" placeholder="비밀번호를 입력해주세요.">
-							<div class="check_font" id="pwcheck"></div>
-						</div>
+								<tr>
+									<th><span>닉네임</span></th>
+									<td><input type="text" name="memnick" id="memnick"
+										placeholder="닉네임"> <span id="msg_nick"
+										class="display_none"></span>
+										<div class="check_font" id="nickcheck"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate">비밀번호 확인</label> <input type="password"
-								name="mempw2" id="mempw2" placeholder="비밀번호를 확인해주세요.">
-							<div class="check_font" id="mempw2check"></div>
-						</div>
+								<tr>
+									<th><span>휴대폰 번호</span></th>
+									<td><input type="text" name="memphone" id="memphone"
+										placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
+										<span id="msg_phone" class="display_none"></span>
+										<div class="check_font" id="phonecheck"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate"><span>닉네임</span></label> <input type="text"
-								name="memnick" id="memnick" placeholder="">
-							<div class="check_font" id="nickcheck"></div>
-						</div>
+								<tr>
+									<th><span>생년월일</span></th>
+									<td><input type="text" name="membirth" id="membirth"
+										placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010">
+										<div class="check_font" id="birthcheck"></div></td>
+								</tr>
 
-						<div class="form-box">
-							<label id="cate">휴대폰 번호</label> <input type="text"
-								name="memphone" id="memphone"
-								placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요.">
-							<div class="check_font" id="phonecheck"></div>
-						</div>
-
-						<div class="form-box">
-							<label id="cate">생년월일</label> <input type="text" name="membirth" id="membirth"
-								placeholder="8자리 형식의 숫자로만 입력해주세요.ex_19901010">
-							<div class="check_font" id="birthcheck"></div>
-						</div>
-
-						<div class="selectbox">
-							<label id="cate">성별</label> 
-							<input type="radio" name="memgender" id="male" value="남자"> <label for="male" id="male_label">남자</label>
-							<input type="radio" name="memgender" id="female" value="여자"> <label for="female" id="female_label">여자</label>
-							<div class="check_font" id="gendercheck"></div>
-						</div>
-
-
+								<tr>
+									<th><span>성별</span></th>
+									<td>
+										<div class="selectbox">
+									<input type="radio" name="memgender" id="male"
+										value="남자"> <label for="male" id="male_label">남자</label>
+										<input type="radio" name="memgender" id="female" value="여자">
+										<label for="female" id="female_label">여자</label>
+										</div>
+										<div class="check_font" id="gendercheck"></div></td>
+								</tr>
+							</tbody>
+						</table>
 						<div class="exform_txt">
-							<span>표시는 필수적으로 입력해주셔야 가입이 가능합니다.</span>
+							<span>필수 입력사항</span>
 						</div>
 					</div>
 					<!-- join_form E  -->
@@ -99,17 +121,13 @@
 							<input type="submit" id="joinsubmit" value="회원가입">
 						</div>
 						<div class="btn_wrap2">
-							<a href="<c:url value="/index"/>">취소</a>
+							<a href="javascript:history.back()">취소</a>
 						</div>
 					</div>
 				</div>
 				<!-- form_txtInput E -->
 			</form>
 		</div>
-		<!-- content E-->
-		</form>
-	</div>
-	<!-- container E -->
 	</div>
 
 
@@ -118,6 +136,32 @@
 </body>
 
 <script>
+/* const profilebtn = document.querySelector('.profilebtn');
+const realInput = document.querySelector('#realinput');
+
+browseBtn.addEventListener('click',{
+	realInput.click();
+}); */
+</script>
+
+<script>
+
+	//등록 이미지 등록 미리보기
+	function readInputFile(input) {
+	    if(input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('#image_container').html("<img src="+ e.target.result +">");
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	 
+	$(".profilebtn").on('change', function(){
+	    readInputFile(this);
+	});
+
+
 
 	//모든 공백 체크 정규식
 	var empJ = /\s/g;
@@ -147,6 +191,27 @@
 		if (mailJ.test($('#mememail').val())) {
 				console.log(mailJ.test($('#mememail').val()));
 				$("#emailcheck").text('');
+		// 이메일 이맞으면 ajax 실행		
+		$.ajax({
+			type : 'POST',
+			url : '<c:url value="/member/emailCheck"/>',
+			data : { 
+				mememail : $(this).val()
+			},
+			success : function(data) {
+				if(data == 0){
+					$('#msg').html('사용가능');
+					$('#msg').addClass('color_blue');
+					$('#msg').removeClass('display_none');
+				} else {
+					$('#msg').html('사용 불가능');
+					$('#msg').addClass('color_red');
+					$('#msg').removeClass('display_none');
+					$('#mememail').val('');
+				}
+			}
+		});
+				
 		} else {
 			$('#emailcheck').text('이메일 형식으로 입력해주세요.');
 			$('#emailcheck').css('color', 'red');
@@ -189,6 +254,26 @@
 		if(phoneJ.test($('#memphone').val())){
 			console.log(phoneJ.test($('#memphone').val()));
 			$("#phonecheck").text('');
+			// 번호가 맞으면 ajax 실행
+			$.ajax({
+				type : 'POST',
+				url : '<c:url value="/member/phoneCheck"/>',
+				data : { 
+					memphone : $(this).val()
+				},
+				success : function(data) {
+					if(data == 0){
+						$('#msg_phone').html('사용가능');
+						$('#msg_phone').addClass('color_blue');
+						$('#msg_phone').removeClass('display_none');
+					} else {
+						$('#msg_phone').html('사용 불가능');
+						$('#msg_phone').addClass('color_red');
+						$('#msg_phone').removeClass('display_none');
+						$('#memphone').val('');
+					}
+				}
+			});
 		} else {
 			$('#phonecheck').text('휴대폰번호를 확인해주세요.');
 			$('#phonecheck').css('color', 'red');
@@ -213,22 +298,22 @@
 			// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환
 		    if (1900 > year || year > yearNow){
 		    	
-		    	$('#birthcheck').text('8자리 숫자형식으로 정확하게 입력해주세요.');
+		    	$('#birthcheck').text('태어난 연도를 정확하게 입력해주세요.');
 				$('#birthcheck').css('color', 'red');
 		    	
 		    }else if (month < 1 || month > 12) {
 		    		
-		    	$('#birthcheck').text('8자리 숫자형식으로 정확하게 입력해주세요.');
+		    	$('#birthcheck').text('태어난 월을 정확하게 입력해주세요.');
 				$('#birthcheck').css('color', 'red'); 
 		    
 		    }else if (day < 1 || day > 31) {
 		    	
-		    	$('#birthcheck').text('8자리 숫자형식으로 정확하게 입력해주세요.');
+		    	$('#birthcheck').text('태어난 날짜를 정확하게 입력해주세요.');
 				$('#birthcheck').css('color', 'red'); 
 		    	
 		    }else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
 		    	 
-		    	$('#birthcheck').text('8자리 숫자형식으로 정확하게 입력해주세요.');
+		    	$('#birthcheck').text('생년월일을 정확하게 입력해주세요.');
 				$('#birthcheck').css('color', 'red'); 
 		    	 
 		    }else if (month == 2) {
@@ -237,7 +322,7 @@
 		       	
 		     	if (day>29 || (day==29 && !isleap)) {
 		     		
-		     		$('#birthcheck').text('8자리 숫자형식으로 정확하게 입력해주세요.');
+		     		$('#birthcheck').text('생년월일을 정확하게 입력해주세요.');
 					$('#birthcheck').css('color', 'red'); 
 		    	
 				}else{
@@ -274,8 +359,57 @@
 		}
 	});
 
+	var nickJ = /^[가-힣a-zA-Z]{2,6}$/;
+	$("#memnick").focusout(function() {
+		if (nickJ.test($('#memnick').val())) {
+				console.log(nickJ.test($('#memnick').val()));
+				$("#nickcheck").text('');
+				// 닉네임이맞으면 ajax 실행
+				$.ajax({
+					type : 'POST',
+					url : '<c:url value="/member/nickCheck"/>',
+					data : { 
+						memnick : $(this).val()
+					},
+					success : function(data) {
+						if(data == 0){
+							$('#msg_nick').html('사용가능');
+							$('#msg_nick').addClass('color_blue');
+							$('#msg_nick').removeClass('display_none');
+						} else {
+							$('#msg_nick').html('사용 불가능');
+							$('#msg_nick').addClass('color_red');
+							$('#msg_nick').removeClass('display_none');
+							$('#memnick').val('');
+						}
+						
+					}
+				});
+				
+		} else {
+			$('#nickcheck').text('2~6글자의 한글, 영어만 사용 가능합니다.');
+			$('#nickcheck').css('color', 'red');
+		}
+		error : console.log('닉 실패');
+	});	
 		
-		
+</script>
+<!-- alert('입력해주신 이메일로 인증 메일이 발송되었습니다. 이메일 인증을 완료해주세요.') -->
+
+<!-- 회원가입 이메일,닉네임,핸드폰 중복체크 ajax -->
+<script>
+$('#mememail, #memnick, #memphone').focusin(function() {
+	$('#msg').addClass('display_none');
+	$('#msg').removeClass('color_blue');
+	$('#msg').removeClass('color_red');
+	$('#msg').val('');
+	$('#msg_nick').addClass('display_none');
+	$('#msg_nick').removeClass('color_blue');
+	$('#msg_nick').removeClass('color_red');
+	$('#msg_phone').addClass('display_none');
+	$('#msg_phone').removeClass('color_blue');
+	$('#msg_phone').removeClass('color_red');
+});
 	
 </script>
 

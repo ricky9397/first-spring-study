@@ -39,7 +39,7 @@
 
 			<br> <br>
 			
-				<form action="<c:url value='/payment/complete'/>" id="paymentForm" name="paymentForm" method="post">
+				<form id="paymentForm" name="paymentForm" method="post">
 				<div>
 					<h3>결제 정보</h3>
 					<p>
@@ -50,7 +50,7 @@
 					<p>
 						연락처 <span style="color: blue">*</span>
 					</p>
-					<input type="text" class="input_box" placeholder="연락처를 입력해주세요"
+					<input type="text" class="input_box" placeholder="'-'없이 번호만 11자리 형식으로 입력해주세요."
 						name="payphone" required> <br> <br> <br> <br>
 					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="now" />
 					<%-- <c:out value="${now}" /> --%>
@@ -59,14 +59,14 @@
 					<input type ="hidden" name="memidx" value="${loginSession.memidx}">
 					<input type ="hidden" name="payprice" value="${payprice}">
 					<input type ="hidden" name="paynum" value="${paynum}">
-					<h3>대면 / 비대면 여부</h3>
+					<!-- <h3>대면 / 비대면 여부</h3>
 					<div class="faceornot_selectbox">
 						<input type="radio" name="faceornot" value="1" id="rd1" checked="checked">
 						<label for="rd1" class="label">대면</label>
 						<br>
 						<input type="radio" name="faceornot" value="2" id="rd2" checked="checked">
 						<label for="rd2" class="label">비대면</label>
-					</div>
+					</div> -->
 					
 					<br> <br>
 
@@ -80,15 +80,12 @@
 					</div>
 				</div>
 				
-				
-				<div class="pay_btn">
-					<input type="submit" value="결제하기" onclick="requestPay();">
+				<div class="btn_wrap">
+					<input type="button" value="결제하기" onclick="requestPay();" class="pay_btn">
 					<input type="button" value="취소" onclick="location.href='javascript:window.history.back();'">
 				</div>
 				</form>
-				
 		</div>
-		
 
 	</div>
 
@@ -104,6 +101,7 @@
 	<script>
 	  document.getElementById('currentDatetime').value= new Date().toISOString().slice(0, 18);
 	</script>
+
 
 
 
@@ -128,7 +126,7 @@
 				buyer_postcode : ""
 			}, function(rsp) { // callback
 				if (rsp.success) {
-					// 결제 성공 시 로직,
+					// 결제 성공 시 로직
             		$.ajax({
 					type : 'POST',
 					url : "<c:url value='/payment/complete'/>",
@@ -136,7 +134,7 @@
 					});	
 					location.href='/gym/payment/complete'
       			} else {
-					alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+					alert("결제에 실패하였습니다. \n에러 내용: " + rsp.error_msg);
 				}	
 			});
 			/* 이니시스API 호출 END*/

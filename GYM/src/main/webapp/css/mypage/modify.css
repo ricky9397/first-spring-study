@@ -1,14 +1,6 @@
 @charset "utf-8";
-* {
-    margin:0;
-    padding:0;
-}
-html {
-    height:auto;
-}
-body {
-    height:auto;
-}
+
+
 table, tr, td, th, div, p, em, ol, ul, li, dl, dt, dd, a, address, img, h2, h3, h4, h5, h6 {
     font-size:11pt; 
     color:#666;
@@ -31,6 +23,7 @@ img {
     min-width: 473px;
 }
 
+/*캐리 프로필 영역*/
 h1 {
     text-align: center;
     padding:0 0 0 0px;
@@ -39,23 +32,25 @@ h1 {
 .profile_form{
     margin-bottom: 20px;
     justify-content: center;
+    display: grid;
 }
 
-.profile_form>img {
+.profile_form .profile_photo {
     width: 150px;
     height: 150px;
     margin-bottom: 10px;
+    border-radius: 50%;
 }
-
+.profile_form .profile_photo img {
+	width:100%;
+	height:100%;
+}
 .wrap{
-    width: 60%;
+    width: 50%;
     height: auto;
     box-shadow: 0 0 3em rgba(0, 0, 0, 0.15);
     max-width:960px; 
-    margin: 140px auto 0;}
-
-.wrap.wd668{
-    width: 50%;
+    margin: 140px auto 0;
     min-width: 473px;
     text-align: center;
 }
@@ -96,18 +91,18 @@ h1 {
     margin: auto auto 20px;
 }
 
-.btn_wrap, .btn_wrap2{
+.btn_wrap, .btn_wrap2 {
     display: inline-block;
     width: fit-content;
     text-align:center;
     margin: 30px 5px;
 }
 
-.btn_wrap a.wide, .btn_wrap2 a.wide{
+.btn_wrap .wide, .btn_wrap2 a.wide{
     width: 70px;
     margin: 0 15px;}
 
-.btn_wrap a{
+.btn_update {
     color: #fff; 
     background-color: #4380ce; 
     font-weight: bold; 
@@ -116,7 +111,10 @@ h1 {
     width: 130px; 
     display: inline-block; 
     text-align: center;
-    margin: 0 auto;}
+    margin: 0 auto;
+    cursor: pointer;
+    border: none;
+}
 
 .btn_wrap2 a{
     color: #fff; 
@@ -130,7 +128,7 @@ h1 {
     margin: 0 auto;
 }
 
-.btn_wrap a:hover{
+.btn_update:hover{
     background: #0094ff;
     color: #fff;
 }
@@ -154,10 +152,6 @@ h1 {
 }
 
 
-.edit_form table th{
-    text-align:left;
-}
-
 .edit_form table th span{
     color:#404040;
     font-size:14px; 
@@ -171,7 +165,7 @@ h1 {
     position: relative;
 }
 
-.edit_form table input{ 
+.edit_form table input, textarea{
     border:1px solid #ececec;
     font-size:14px;
     color:#4c4c4c; 
@@ -182,12 +176,17 @@ h1 {
     float:left;
 }
 
+.edit_form table textarea {
+    height: 150px;
+    resize: none
+}
+
 .edit_form p{
     text-align:left;
     font-size: 12px;
     font-weight: lighter;
     margin-top: 5px;
-    color: #ccc;
+    color: #8a8a8a;
 }
 
 .edit_form table #btnbox{
@@ -222,8 +221,7 @@ h1 {
     display: grid;
     justify-content : center;
     grid-template-columns: 50px 1fr;
-    grid-template-rows: repeat(minmax(50px, auto));
-   
+
 }
 
 .selectbox>label {

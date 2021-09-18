@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
 <link rel="stylesheet" href="/gym/css/joinlogin/loginform.css">
 
 </head>
@@ -17,10 +19,8 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
 
-	<!-- 은경 -->
 
 	<!-- Contents -->
-
 	<div class="wrap wd668">
 		<div class="form_txtInput">
 
@@ -48,9 +48,8 @@
 					</div>
 
 					<div class="selectbox">
-						<input type="checkbox" value="true" id="rememberemail"
-							name="rememberemail"> 이메일 기억하기 <input type="hidden"
-							name="redirectUri">
+						<input type="checkbox" value="on" id="reemail"> 이메일 기억하기 <input
+							type="hidden" name="redirectUri">
 					</div>
 
 					<div id="btnbox">
@@ -67,47 +66,136 @@
 			<div class="change">
 				<ul>
 					<li><a href="<c:url value="/member/join"/>">일반 회원가입</a></li>
-					<li class="tab2"><a href="<c:url value="/find/findid"/>">아이디
+					<li class="tab2"><a href="<c:url value="/find/findid"/>">회원 아이디
 							찾기</a></li>
-					<li class="tab2"><a href="<c:url value="/find/findpassword"/>">비밀번호
+					<li class="tab2"><a href="<c:url value="/find/findpassword"/>">회원 비밀번호
 							찾기</a></li>
 				</ul>
 			</div>
+
+			<ul class="apiLogin">
+				<li class="kakao">
+					<button  onclick="kakaoLogin()" class="kaka_btn">
+					<img src="<c:url value="/images/icon/kakao_login_medium_btn.png"/>">
+					</button>
+				</li>
+			</ul>
+
+
 		</div>
 	</div>
 	<!-- content E-->
 
 
-
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 </body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<!-- 카카오 로그인 API -->
+<script>
+	Kakao.init('0ecec0f1529ce019d44a9de3e0b3bb22'); //발급받은 키 중 javascript키를 사용해준다.
+	console.log(Kakao.isInitialized()); // sdk초기화여부판단
+	//카카오 로그인
+	function kakaoLogin() {
+		Kakao.Auth.login({
+			/* scope: 'profile, account_email,  gender',  */
+			success : function(response) {
+				Kakao.API.request({
+					url : '/v2/user/me',
+					success : function(response) {
+						console.log(response);
+						var nick = response.properties.nickname;
+						var email = response.kakao_account.email;
+						var id = response.id;
+						
+						$.ajax({
+							type : 'POST',
+							url : '<c:url value="/member/kakaologin"/>',
+							data : { 
+									joinkey_status : id,
+									mememail : email,
+									memnick : nick
+								},
+							dataType : 'json',
+							success : function(data){
+								console.log(data);
+								if(data == 0){
+									window.location.href = "<c:url value='/member/kakaojoin?joinkey_status="+id+"'/>";
+								} else if(data == 1){
+									window.location.href = "<c:url value='/member/kakaojoin?joinkey_status="+id+"'/>";
+								} else if(data == 2){
+									window.location.href = "<c:url value='/index'/>";
+								}
+							}
+						});
+								
+						
+					},
+					fail : function(error) {
+						console.log(error)
+					},
+				})
+			},
+			fail : function(error) {
+				console.log(error)
+			},
+		})
+	}
+	
+/* 	function kakaoLoginPro(response){
+		var data = {id:response.id,email:response.kakao_account.email}
+		$.ajax({
+			type : 'POST',
+			url : '/member/kakaologin',
+			data : data,
+			dataType : 'json',
+			success : function(data){
+				console.log(data)
+				if(data.JavaData == "YES"){
+					alert("로그인되었습니다.");
+					location.href = '/index'
+				}else if(data.JavaData == "register"){
+					$("#kakaoEmail").val(response.kakao_account.email);
+					$("#kakaoId").val(response.id);
+					$("#kakaoForm").submit();
+				}else{
+					alert("로그인에 실패했습니다");
+				}
+				
+			},
+			error: function(xhr, status, error){
+				alert("로그인에 실패했습니다."+error);
+			}
+		}); */
+	
+	
+	
+	
+</script>
 
 <script>
-// input = "userId"  // mememail
-// idsavecheck // rememberemail
-/* 
 $(document).ready(function(){
 	 
     // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
     var key = getCookie("key");
-    $("#mememail").val(key); 
+    $("#into").val(key); 
      
-    if($("#mememail").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-        $("#rememberemail").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+    if($("#into").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+        $("#reemail").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
     }
      
-    $("#rememberemail").change(function(){ // 체크박스에 변화가 있다면,
-        if($("#rememberemail").is(":checked")){ // ID 저장하기 체크했을 때,
-            setCookie("key", $("#mememail").val(), 7); // 7일 동안 쿠키 보관
+    $("#reemail").change(function(){ // 체크박스에 변화가 있다면,
+        if($("#reemail").is(":checked")){ // ID 저장하기 체크했을 때,
+            setCookie("key", $("#into").val(), 7); // 7일 동안 쿠키 보관
         }else{ // ID 저장하기 체크 해제 시,
             deleteCookie("key");
         }
     });
      
     // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-    $("#mememail").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
-        if($("#rememberemail").is(":checked")){ // ID 저장하기를 체크한 상태라면,
-            setCookie("key", $("#mememail").val(), 7); // 7일 동안 쿠키 보관
+    $("#into").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#reemail").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            setCookie("key", $("#into").val(), 7); // 7일 동안 쿠키 보관
         }
     });
 });
@@ -138,10 +226,8 @@ function getCookie(cookieName) {
     }
     return unescape(cookieValue);
 }
- */
-	
-	
-</script>
 
+
+</script>
 
 </html>

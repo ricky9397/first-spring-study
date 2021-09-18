@@ -39,36 +39,28 @@
 		infodate[2].value = name;
 		infodate[3].value = name;
 	}
+</script>
 
-	function reviewList() {
 
-		$
-				.ajax({
-					url : '<c:url value="/myapge/select"/>',
-					type : 'POST',
-					datatype : 'JSON',
-					data : {
-						cridx : $("# EMPTY ").val()
-					},
-					success : function(data) {
-						var tag = '<div>'
-						$
-								.each(
-										data,
-										function(index, item) {
-										
-										});
+<script>
+	function loginLog() {
+		printName()
+		$.ajax({
+			url : '<c:url value="/mypage/mypass"/>',
+			type : "POST",
+			dataType : "json",
+			data : {
+				memidx : $("#memidx").val(),
+				infodate : $("#infodate").val()
+			},
+			success : function(data) {
+				alert("go");
 
-						$('#TEST').html(tag);
-					},
-
-					error : function() {
-						alert("error");
-
-					}
-
-				});
-
+			},
+			error : function() {
+				alert("err");
+			}
+		});
 	}
 </script>
 
@@ -85,10 +77,12 @@
 
 			<div class="col">
 
+
 				<div class="col-right-top">
 					<h2 style="float: none;">
 						<input type="text" id="alternate" class="datepick" size="30"
-							readonly>
+							readonly> <input name="infodate" id="infodate"> <input
+							name="memidx" id="memidx" value="${memidx}">
 					</h2>
 				</div>
 				<div class="col-flex">
@@ -110,18 +104,20 @@
 
 								</div>
 								<div style="text-align: left; width: 35%; padding-left: 2%">
-									<img class="edit_text2"
-										src="<c:url value="/images/icon/edit.png"/>">
+									<a href="<c:url value="/mypage/myinfo"/>"> <img
+										class="edit_text2"
+										src="<c:url value="/images/icon/edit.png"/>"></a>
 								</div>
 							</div>
 
-							<div id="datepicker" onclick="printName()"></div>
+							<div id="datepicker" onclick="loginLog()"></div>
+							<input type="hidden">
 						</div>
 
 						<div class="my-info-develope">
 							<h3 class="info_title">My page</h3>
 							<ul class="info_contents">
-								<li data-tab="info" class="list_tab info_list" id="default"><a>내
+								<li data-tab="mymemo" class="list_tab info_list" id="default"><a>내
 										메모</a></li>
 
 								<li class="info_list"><a
@@ -133,75 +129,77 @@
 								<li data-tab="mycash" class="list_tab info_list"><a>내
 										결제 내역</a></li>
 
-								<li class="info_list"><a href="#">내가 찜한 캐리</a></li>
+								<li class="info_list"><a
+									href="<c:url value="/mypage/mycarry"/>">내가 찜한 캐리</a></li>
+
 							</ul>
 						</div>
 					</div>
+
 					<div class="col-right"></div>
+
 				</div>
 
 			</div>
 
 		</div>
 	</div>
-</body>
 
-<footer>
+
 	<!-- footer -->
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
-</footer>
-<!-- 탭 ajax-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script>
-	$(function() {
-		$('.list_tab').click(function() {
 
-			var activeTab = $(this).attr('data-tab');
-			$.ajax({
-				type : 'GET',
-				url : activeTab,
-				dataType : "html",
 
-				success : function(data) {
-					$('.col-right').html(data);
+	<!-- 탭 ajax-->
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+			$('.list_tab').click(function() {
 
-				},
+				var activeTab = $(this).attr('data-tab');
+				$.ajax({
+					type : 'POST',
+					url : activeTab,
+					dataType : "html",
 
-				error : function() {
+					success : function(data) {
+						$('.col-right').html(data);
 
-					alert('나가 임마');
-				},
+					},
+
+					error : function() {
+
+						alert('나가 임마');
+					},
+
+				});
+			});
+
+			$('#default').click();
+
+			$.datepicker.setDefaults({
+				dateFormat : 'yymmdd',
+				prevText : '이전 달',
+				nextText : '다음 달',
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+						'9월', '10월', '11월', '12월' ],
+				monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+						'8월', '9월', '10월', '11월', '12월' ],
+				dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+				showMonthAfterYear : true,
+				yearSuffix : '년',
+				currentText : '오늘 날짜'
+			});
+
+			$("#datepicker").datepicker({
+				altField : "#alternate",
+				altFormat : "yy년 mm월 dd일"
 
 			});
-		});
-
-		$('#default').click();
-		$.datepicker.setDefaults({
-			dateFormat : 'yymmdd',
-			prevText : '이전 달',
-			nextText : '다음 달',
-			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-					'9월', '10월', '11월', '12월' ],
-			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-					'9월', '10월', '11월', '12월' ],
-			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-			showMonthAfterYear : true,
-			yearSuffix : '년',
-			currentText : '오늘 날짜'
-		});
-
-		$("#datepicker").datepicker({
-			altField : "#alternate",
-			altFormat : "yy년 mm월 dd일"
 
 		});
-
-	});
-</script>
-
-
-</html>
-
+	</script>

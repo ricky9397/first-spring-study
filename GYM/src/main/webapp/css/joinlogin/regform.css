@@ -20,6 +20,19 @@ body {
     font-size: 28px;
 }
 
+.display_none {
+	display: none;
+}
+
+.color_blue {
+	color: blue;
+}
+
+.color_red {
+	color: red;
+}
+
+
 img {
     border:0; 
 }
@@ -34,15 +47,54 @@ h1 {
     padding:0 0 0 0px;
 }
 
+.exTxt{
+	font-size:14px;
+	color:#9a9a9a;
+	display: block;
+	margin:0 0 20px 20px;
+}
+
 .profile_form{
     margin-bottom: 20px;
     justify-content: center;
 }
 
-.profile_form>img {
+.profile_form>.profileimg{
+	margin: auto;
+	border-radius:50%;
+	overflow:hidden;
+	width: 150px;
+    height: 150px;
+}
+
+button.profilebtn{
+	margin-top : 15px;
+}
+
+.profilebtn[type="button"]{
+	width: 80px;
+    background-color: white;
+    margin-top: 9px;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px -1px rgb(0 0 0 / 20%), 0 2px 2px -1px rgb(0 0 0 / 20%);
+    border: none;
+    text-align: center;
+    padding: 5px
+}
+.profilebtn[type="button"]:hover{
+	cursor: pointer;
+}
+
+
+input[type=file]{
+	display : none;
+}
+
+.profileimg>img {
     width: 150px;
     height: 150px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 ul, li { list-style:none;}
@@ -147,6 +199,7 @@ ul{list-style:none; }
 
 .join_form{
     width:100%;
+    margin: 0px auto;
 }
 
 .join_form table {

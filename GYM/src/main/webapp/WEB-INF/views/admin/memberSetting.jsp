@@ -10,8 +10,6 @@
 
 <script src="/gym/js/scripts.js"></script>
 <script src="/gym/js/datatables-simple-demo.js"></script>
-<script src="/gym/assets/demo/chart-area-demo.js"></script>
-<script src="/gym/assets/demo/chart-bar-demo.js"></script>
         
 <%@ include file="/WEB-INF/views/frame/metaheader_admin.jsp"%>
 <link rel="stylesheet" href="/gym/css/admin/adminStyle.css">
@@ -77,6 +75,12 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		<!-- footer -->
+		<%@ include file="/WEB-INF/views/frame/footer_admin.jsp"%>
+
+	</div>
 
 		<script>
 		function delMember(memidx) {
@@ -89,9 +93,9 @@
 		}
 		</script>
 				
-		<!-- footer -->
-		<%@ include file="/WEB-INF/views/frame/footer_admin.jsp"%>
 		
+		
+	</div>
 			
 </body>
 </html>	

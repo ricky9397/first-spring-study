@@ -2,19 +2,13 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"  %>
-<title>Community</title>
+<title>내 주변 운동시설 찾아보기</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
 <link rel="stylesheet" href="/gym/css/place/placeList.css">
 
 
 <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ql9vcy7uun"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 <!-- header -->
@@ -91,9 +85,10 @@
                 map: map,
                 position: areaArr[i].latlng,
                 icon: {
+                    // 마커 이미지 설정
                     content: [
                         '<div style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">' +
-                        '<div> <img src="/gym/images/icon/gym_location1.png" style="width:40px; height:55px;"></div>' +
+                        '<div> <img src="/gym/images/icon/gym-location.png" style="width:42px; height:42px;"></div>' +
                         '</div>'
                     ].join(''),
                     size: new naver.maps.Size(50, 52),
