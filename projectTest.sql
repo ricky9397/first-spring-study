@@ -575,7 +575,10 @@ select *
 		l.chatidx=r.chatidx
 		where l.chatidx=7;
         
-        select * from mypage;
-select infocontent,infotype 
+select * from mypage;
+select *
 from mypage 
-where memidx=20 and infodate = '2021년 09월 15일';        
+where memidx=20 and infodate = '2021년 09월 14일';     
+
+select infocontent from mypage where memidx = 20 and
+		infodate = '2021년 09월 20일' and infotype = 'dddd'; 
