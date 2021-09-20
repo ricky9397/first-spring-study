@@ -1,14 +1,19 @@
 package com.project.gymcarry.mypage;
 
-public class MypageDto {
+import org.springframework.web.multipart.MultipartFile;
 
+public class MypagePhotoDto {
 	private int infoidx;
 	private String memidx;
-	private String infocontent;
+	private MultipartFile infocontent;
 	private String infodate;
 	private String infotype;
 
-	public MypageDto(int infoidx, String memidx, String infocontent, String infodate, String infotype) {
+	public MypagePhotoDto() {
+	}
+
+	public MypagePhotoDto(int infoidx, String memidx, MultipartFile infocontent, String infodate, String infotype) {
+		super();
 		this.infoidx = infoidx;
 		this.memidx = memidx;
 		this.infocontent = infocontent;
@@ -32,11 +37,11 @@ public class MypageDto {
 		this.memidx = memidx;
 	}
 
-	public String getInfocontent() {
+	public MultipartFile getInfocontent() {
 		return infocontent;
 	}
 
-	public void setInfocontent(String infocontent) {
+	public void setInfocontent(MultipartFile infocontent) {
 		this.infocontent = infocontent;
 	}
 
@@ -56,14 +61,9 @@ public class MypageDto {
 		this.infotype = infotype;
 	}
 
-	@Override
-	public String toString() {
-		return "MypageDto [infoidx=" + infoidx + ", memidx=" + memidx + ", infocontent=" + infocontent + ", infodate="
-				+ infodate + ", infotype=" + infotype + "]";
+	public MypageDto getMypageDto() {
+		return new MypageDto(infoidx, memidx, infocontent.getOriginalFilename(), infodate, infotype);
 	}
-
-	public MypageDto() {
-
-	}
+		
 
 }

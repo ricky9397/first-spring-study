@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.gymcarry.board.Pagination;
-import com.project.gymcarry.board.service.BoardService;
 import com.project.gymcarry.carry.CarryListDto;
-
 import com.project.gymcarry.member.SessionDto;
 import com.project.gymcarry.mypage.MypageDto;
 import com.project.gymcarry.mypage.MypageDto2;
@@ -35,7 +32,7 @@ public class MypageSubController {
 
 	@Autowired
 	private MypageSubService mypService;
-
+	
 	@Autowired
 	private MypageService mypService2;
 
@@ -86,7 +83,8 @@ public class MypageSubController {
 		String formatedNow = now.format(formatter);
 
 		List<MypageDto2> list2 = mypService2.loadMemo2(sdt.getMemidx(), formatedNow);
-
+		
+		
 		if (list2.size() != 0) {
 
 			for (int i = 0; i < list2.size(); i++) {
@@ -117,41 +115,11 @@ public class MypageSubController {
 	}
 
 	@PostMapping("/mypage/mypass")
-	public String infopass(HttpSession session, Model model, MypageDto2 mypdto, @RequestParam("memidx") int memidx,
+	@ResponseBody
+	public List<MypageDto2> infopass(HttpSession session, Model model, MypageDto2 mypdto, @RequestParam("memidx") int memidx,
 			@RequestParam("infodate") String infodate) {
-
-		List<MypageDto2> list2 = mypService2.loadMemo2(memidx, infodate);
-		System.out.println(list2);
-		System.out.println(memidx);
-		System.out.println(infodate);
-
-		if (list2.size() != 0) {
-
-			for (int i = 0; i < list2.size(); i++) {
-				if (list2.get(i).getInfotype().equals("food")) {
-					System.out.println(i + "번째 가 푸드다!");
-					System.out.println(list2.get(i).getInfocontent() + " 이거다 ! 이걸  모델에 !");
-					model.addAttribute("list", list2.get(i).getInfocontent());
-				}
-				if (list2.get(i).getInfotype().equals("memo")) {
-					System.out.println(i + "번째 가 메모다!");
-					System.out.println(list2.get(i).getInfocontent() + " 이거다 ! 이걸  모델에 !");
-					model.addAttribute("list2", list2.get(i).getInfocontent());
-				}
-				if (list2.get(i).getInfotype().equals("kg")) {
-					System.out.println(i + "번째 가 kg다!");
-					System.out.println(list2.get(i).getInfocontent() + " 이거다 ! 이걸  모델에 !");
-					model.addAttribute("list3", list2.get(i).getInfocontent());
-				}
-				if (list2.get(i).getInfotype().equals("photo")) {
-					System.out.println(i + "번째 가 사진이다!");
-					System.out.println(list2.get(i).getInfocontent() + " 이거다 ! 이걸  모델에 !");
-					model.addAttribute("list4", list2.get(i).getInfocontent());
-				}
-			}
-		}
-
-		return "jsonView";
+		List<MypageDto2> list = mypService2.selectMypageView(memidx, infodate);
+		return list;
 	}
 
 	@PostMapping("/mypage/mycash")
@@ -203,5 +171,6 @@ public class MypageSubController {
 
 		return "/mypage/mycommunity";
 	}
+	
 
 }

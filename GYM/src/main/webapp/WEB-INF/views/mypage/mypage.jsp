@@ -40,9 +40,9 @@
 		infodate[3].value = name;
 	}
 </script>
-
-
 <script>
+
+
 	function loginLog() {
 		printName()
 		$.ajax({
@@ -54,7 +54,22 @@
 				infodate : $("#infodate").val()
 			},
 			success : function(data) {
-				alert("go");
+				if(data == 0){
+					$('.sum_mypage').html('');
+				}else {
+					$('.sum_mypage').html('');
+					$.each(data, function(index, item){
+						if(item.infotype === 'memo'){
+							$('.memo_view').html(item.infocontent);
+						} else if (item.infotype === 'kg'){
+							$('.input-kg').html(item.infocontent+'kg');
+						} else if (item.infotype === 'food'){
+							$('.food_view').html(item.infocontent);
+						} else {
+							$('.view_photo').html('<img src="<c:url value="/uploadfile/'+item.infocontent+'"/>" style="width: 345px; height: 570px;">');	
+						}
+					});
+				}
 
 			},
 			error : function() {
@@ -63,10 +78,6 @@
 		});
 	}
 </script>
-
-
-
-
 </head>
 <body style="padding-right: 0px">
 	<!-- header -->
@@ -81,8 +92,8 @@
 				<div class="col-right-top">
 					<h2 style="float: none;">
 						<input type="text" id="alternate" class="datepick" size="30"
-							readonly> <input name="infodate" id="infodate"> <input
-							name="memidx" id="memidx" value="${memidx}">
+							readonly> <input name="infodate" id="infodate" type="hidden"> <input
+							name="memidx" id="memidx" value="${memidx}" type="hidden">
 					</h2>
 				</div>
 				<div class="col-flex">
@@ -154,6 +165,7 @@
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	
 	<script>
 		$(function() {
 			$('.list_tab').click(function() {

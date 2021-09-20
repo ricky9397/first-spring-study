@@ -32,13 +32,14 @@
 							location.href='javascript:chatList(${list.chatidx})'"
 								class="on_btn">
 								<div class="float_left">
-									<img src="<c:url value="/images/icon/profile2.png"/>">
+									<%-- <img src="<c:url value="/images/icon/profile2.png"/>"> --%>
+									<img src="<c:url value="/uploadfile/${list.crphoto}"/>">
 								</div>
 								<div class="float_left chat_name">
 									<h3>${list.crnick}</h3>
 								</div>
 								<div class="chat_title">
-									<span>${list.placename}</span>
+									<span>${list.placename}</span>w
 								</div>
 								<c:if test="${list.chatread == 1}">
 								<div class="chat_title_img"></div>
@@ -324,7 +325,6 @@
 			success : function(data){
 				if(data == 0){
 					$('.onlike').attr('src','<c:url value="/images/icon/heart02.png"/>');
-					
 						toastr.options.escapeHtml = true;
 						toastr.options.closeButton = true;
 						toastr.options.newestOnTop = false;
@@ -416,10 +416,12 @@
 							}
 							chattting(item.cridx); 
 							$('.carry_message_warp').html(htmlStr);
+							
 							if(item.likecheck == 1){
 								$('.onlike').attr('src','<c:url value="/images/icon/heart01.png"/>');
-							} else if(item.likecheck == 0)
+							} else if(item.likecheck == 0){
 								$('.onlike').attr('src','<c:url value="/images/icon/heart02.png"/>');
+							}
 						});
 						
 						$.each(data.crList, function(index, item) {

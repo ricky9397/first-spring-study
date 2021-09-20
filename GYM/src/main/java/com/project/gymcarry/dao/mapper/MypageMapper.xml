@@ -15,14 +15,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(memidx,infocontent,infodate,infotype) values
 		(#{memidx},#{infocontent},#{infodate},#{infotype});
 	</insert>
-
+	
 	<update id="updateMemo">
 		update mypage set infocontent = #{infocontent} where
 		memidx = #{memidx} and
 		infodate = #{infodate} and infotype =
 		#{infotype}
 	</update>
-
+	
 	<select id="selectMemo"
 		resultType="com.project.gymcarry.mypage.MypageDto">
 		select infocontent from mypage where memidx = #{arg0} and
@@ -110,5 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		'kg','memo') DESC, infotype ASC;
 	</select>
 
+	<select id="selectMypageView"
+		resultType="com.project.gymcarry.mypage.MypageDto2">
+		select *
+		from mypage
+		where memidx=#{param1} and infodate =#{param2};
+	</select>
 
 </mapper>

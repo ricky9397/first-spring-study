@@ -5,7 +5,6 @@ import java.util.List;
 import com.project.gymcarry.board.BoardDto;
 import com.project.gymcarry.board.Pagination;
 import com.project.gymcarry.carry.CarryListDto;
-import com.project.gymcarry.member.SessionDto;
 import com.project.gymcarry.mypage.MypageDto;
 import com.project.gymcarry.mypage.MypageDto2;
 import com.project.gymcarry.mypage.MypageMemberDto;
@@ -34,4 +33,6 @@ public interface MypageDao {
 	List<MypageDto> loadMemo(String arg0, String arg1);
 
 	List<MypageDto2> loadMemo2(int i, String arg1);
+
+	List<MypageDto2> selectMypageView(int memidx, String infodate);
 }

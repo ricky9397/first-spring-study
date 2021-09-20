@@ -574,3 +574,8 @@ select *
 		left outer join chatroom r on
 		l.chatidx=r.chatidx
 		where l.chatidx=7;
+        
+        select * from mypage;
+select infocontent,infotype 
+from mypage 
+where memidx=20 and infodate = '2021년 09월 15일';        

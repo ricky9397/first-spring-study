@@ -41,7 +41,7 @@
 			data-backdrop="static"><img onclick="printName()"
 			class="edit_text" src="<c:url value="/images/icon/edit.png"/>"></a>
 		<div class="memo-input-div">
-			<textarea class="memo-input" type="text" readonly="readonly">${list2}</textarea>
+			<div class="memo-input memo_view sum_mypage">${list2}</div>
 		</div>
 
 	</div>
@@ -53,8 +53,8 @@
 			data-backdrop="static"><img onclick="printName()"
 			class="edit_text" src="<c:url value="/images/icon/upload.png"/>"></a>
 		<div class="memo-input-div">
-			<input class="memo-input" value="${list4}" type="text"
-				readonly="readonly">
+			<div class="memo-input sum_mypage view_photo">
+			<img src="<c:url value="/uploadfile/${list4}"/>" style="width: 100%; height: 100%;"></div>
 		</div>
 
 	</div>
@@ -65,10 +65,7 @@
 			data-backdrop="static"> <img onclick="printName()"
 			class="edit_text" src="<c:url value="/images/icon/edit.png"/>"></a>
 		<div class="memo-input-div">
-			<input class="input-kg" type="text" value="${list3} kg "
-				readonly="readonly">
-
-
+			<div class="input-kg sum_mypage">${list3}<span>kg</span></div>
 		</div>
 	</div>
 
@@ -79,8 +76,7 @@
 			data-backdrop="static"><img onclick="printName()"
 			class="edit_text" src="<c:url value="/images/icon/edit.png"/>"></a>
 		<div class="memo-input-div">
-			<input class="memo-input" type="text" value="${list}"
-				readonly="readonly">
+			<div class="memo-input food_view sum_mypage">${list}</div>
 
 
 
@@ -100,7 +96,8 @@
 						</button>
 
 					</div>
-					<form id="memoform" name="memoform" class="reg_form" method="post">
+					
+					<form id="memoform" name="memoform" class="reg_form" method="post" action="<c:url value="/mypage/insert"/>">
 						<div class="modal-body modal-mypage">
 							<div class="content">
 								<span class="left"></span> <span class="editor"> <textarea
@@ -136,14 +133,18 @@
 						</button>
 
 					</div>
-					<form method="post">
+					<form method="post" enctype="multipart/form-data" action="<c:url value="/mypage/insertphoto"/>">
 						<div class="modal-body modal-mypage">
-
 							<div class="content">
-								<span class="left"></span> <span class="editor"> <textarea
+								<!-- <span class="left"></span> <span class="editor"> <textarea
 										class="form-control memo_input" name="infocontent"
 										id="infocontent" style="resize: none;"></textarea>
-								</span>
+								</span> -->
+								<input type="button" value="사진업로드" class="profilebtn"
+								name="infocontent" onclick=document.all.file.click();> <input
+								type="file" name="infocontent" id="file" class="profilebtn"
+								style="display: none;" />
+								
 							</div>
 							<div class="btn modal-submit-btn">
 								<button onClick="fn_review()" type="submit" class="btn"
@@ -172,7 +173,7 @@
 						</button>
 
 					</div>
-					<form class="reg_form3" method="post">
+					<form class="reg_form3" method="post" action="<c:url value="/mypage/insert"/>">
 						<div class="modal-body modal-mypage">
 
 							<div class="content">
@@ -215,7 +216,7 @@
 						</button>
 
 					</div>
-					<form class="reg_form4" method="post">
+					<form class="reg_form4" method="post" action="<c:url value="/mypage/insert"/>">
 						<div class="modal-body modal-mypage">
 
 							<div class="content">
