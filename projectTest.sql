@@ -570,10 +570,44 @@ select * from chatlist where memidx=20 and cridx=19;
 select * from member;
 
 select *
+from chatlist l
+left outer join chatroom r on l.chatidx=r.chatidx 
+and l.outdate < r.chatdate 
+left outer join likelist k on k.memidx=l.memidx and
+k.cridx=l.cridx
+where l.chatidx=38;
+	select * from likelist;
+    
+select * from chatroom where chatidx=68;
+select * from chatroom;
+select * from chatlist;
+select *
 		from chatlist l
 		left outer join chatroom r on
 		l.chatidx=r.chatidx
 		where l.chatidx=7;
+
+
+update chatlist set outcount=outcount -1, outdate=now() where
+		chatidx=66;
+
+
+select * 
+from chatlist l
+join chatroom r on l.chatidx=r.chatidx
+join carry c on l.cridx=c.cridx
+where c.crnick='김종국이' and outdate < indate and r.chatdate > l.outdate group by c.cridx order by indate desc;
+
+select l.chatidx
+from chatlist l
+join member m on m.memidx=l.memidx
+join carry c on l.cridx=c.cridx
+join chatroom r on l.chatidx=r.chatidx
+where c.crnick='김종국이' and m.memnick='test'
+group by l.chatidx order by r.chatdate desc;
+
+
+select * from carry;
         
 select * from mypage;
 select *
