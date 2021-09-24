@@ -616,3 +616,8 @@ where memidx=20 and infodate = '2021년 09월 14일';
 
 select infocontent from mypage where memidx = 20 and
 		infodate = '2021년 09월 20일' and infotype = 'dddd'; 
+        
+        
+        
+        select concat('kill ',id,';') from INFORMATION_SCHEMA.PROCESSLIST where user="gym";
+
