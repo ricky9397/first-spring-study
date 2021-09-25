@@ -32,7 +32,7 @@
 								<img src="/gym/images/icon/profile2.png"><br>
 							</div>
 							<input type="button" value="사진업로드" class="profilebtn"
-								name="memphoto" onclick=document.all.file.click();> <input
+								name="memphoto" onclick =document.all.file.click();> <input
 								type="file" name="memphoto" id="file" class="profilebtn"
 								style="display: none;" />
 						</div>
@@ -98,10 +98,12 @@
 									<th><span>성별</span></th>
 									<td>
 										<div class="selectbox">
-									<input type="radio" name="memgender" id="male"
-										value="남자"> <label for="male" id="male_label">남자</label>
-										<input type="radio" name="memgender" id="female" value="여자">
-										<label for="female" id="female_label">여자</label>
+											<label for="male" id="male_label">
+												<input type="radio" name="memgender" id="male" value="남자">남자
+											</label>
+											<label for="female" id="female_label">
+												<input type="radio" name="memgender" id="female" value="여자">여자
+											</label>
 										</div>
 										<div class="check_font" id="gendercheck"></div></td>
 								</tr>
@@ -380,7 +382,7 @@ browseBtn.addEventListener('click',{
 							$('#msg_nick').html('사용 불가능');
 							$('#msg_nick').addClass('color_red');
 							$('#msg_nick').removeClass('display_none');
-							$('#memnick').val('');
+							$('#meX1mnick').val('');
 						}
 						
 					}

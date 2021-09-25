@@ -8,7 +8,6 @@
 <title>Community</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
 <link rel="stylesheet" href="/gym/css/community/postContent.css">
-<script src="/gym/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 </head>
 <body>
 <!-- header -->
@@ -39,8 +38,8 @@
         <!-- Profile -->
         <div class="space_between">
             <div class="btn_right">
-                <button class="title_btn" type="button" onclick="">${boardDetail.boardcategory}</button>
-                <h2 class="board_title"><a href="#">${boardDetail.postname}</a></h2>
+                <button class="title_btn" type="button">${boardDetail.boardcategory}</button>
+                <h2 class="board_title">${boardDetail.postname}</h2>
             </div>
             <div class="profile">
                 <div class="profile_img">
@@ -98,7 +97,7 @@
             <!-- /Comment -->
 
             <!-- Comment Input -->
-            <div class="comment_input_wrap">
+            <div class="comment_input_wrap off">
                 <div class="search_wrap search_wrap_6">
                     <div class="search_box">
                         <input type="text" class="comm_input" placeholder="댓글을 작성해주세요.">
@@ -124,8 +123,8 @@
             var postidx = "${boardDetail.postidx}"; // 글번호
             var memidx = "${loginSession.memidx}"; // 회원번호
 
-            if(${loginSession == null}) {
-                alert("로그인 후 이용해 주세요.");
+            if(${loginSession.memidx == 0 || loginSession == null}) {
+                alert("일반회원 로그인 후 이용해 주세요.");
             } else {
                 if($(this).hasClass('on')){ // 이미 좋아요를 누른 상태(클릭하면 좋아요가 취소된다)
                     $.ajax({
@@ -205,7 +204,19 @@
                 }
             }
         });
+        
+        
+        // 댓글 작성 로그인 검사
+        $(function(){
+			console.log(${loginSession.memidx})
+            if (${loginSession.memidx != 0}) {
+            	 $(".comment_input_wrap").removeClass('off');
+            }
+        }); 
+	        
     </script>
+
+
 
     <script>
         // 댓글 등록

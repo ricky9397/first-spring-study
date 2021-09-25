@@ -130,8 +130,7 @@ public class JoinService {
 		String extension = "";
 		// 업로드 파일의 contentType
 		String contentType = file.getContentType();
-		if (!(contentType.equals("image/jpeg") || contentType.equals("image/jpg") || contentType.equals("image/png")
-				|| contentType.equals("image/gif"))) {
+		if (!(contentType.equals("image/jpeg") || contentType.equals("image/jpg") || contentType.equals("image/png") || contentType.equals("image/gif"))) {
 			throw new Exception("허용하지 않는 파일 타입 : " + contentType);
 		}
 		// 파일 확장자 구하기
@@ -143,7 +142,7 @@ public class JoinService {
 		extension = nameTokens[nameTokens.length - 1].toLowerCase();
 		// 이미지 파일 이외의 파일 업로드 금지
 		// 파일 확장자 체크
-		if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
+		if (!(extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif"))) {
 			throw new Exception("허용하지 않는 파일 확장자 타입 : " + contentType);
 		}
 		return extension;

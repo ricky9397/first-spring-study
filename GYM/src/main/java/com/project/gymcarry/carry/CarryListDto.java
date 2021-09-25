@@ -12,6 +12,7 @@ public class CarryListDto {
 	private String crcerti3;
 	private String crcerti4;
 	private String crcerti5;
+	private String crbfphoto;
 	
 	
 	// 기본 생성자
@@ -19,7 +20,8 @@ public class CarryListDto {
 
 
 	public CarryListDto(int cridx, String crnick, int placeidx, String placename, int proprice, String crcerti1,
-			String crcerti2, String crcerti3, String crcerti4, String crcerti5) {
+			String crcerti2, String crcerti3, String crcerti4, String crcerti5, String crbfphoto) {
+		super();
 		this.cridx = cridx;
 		this.crnick = crnick;
 		this.placeidx = placeidx;
@@ -30,6 +32,7 @@ public class CarryListDto {
 		this.crcerti3 = crcerti3;
 		this.crcerti4 = crcerti4;
 		this.crcerti5 = crcerti5;
+		this.crbfphoto = crbfphoto;
 	}
 
 
@@ -133,13 +136,24 @@ public class CarryListDto {
 	}
 
 
+	public String getCrbfphoto() {
+		return crbfphoto;
+	}
+
+
+	public void setCrbfphoto(String crbfphoto) {
+		this.crbfphoto = crbfphoto;
+	}
+
+
 	@Override
 	public String toString() {
 		return "CarryListDto [cridx=" + cridx + ", crnick=" + crnick + ", placeidx=" + placeidx + ", placename="
 				+ placename + ", proprice=" + proprice + ", crcerti1=" + crcerti1 + ", crcerti2=" + crcerti2
-				+ ", crcerti3=" + crcerti3 + ", crcerti4=" + crcerti4 + ", crcerti5=" + crcerti5 + "]";
+				+ ", crcerti3=" + crcerti3 + ", crcerti4=" + crcerti4 + ", crcerti5=" + crcerti5 + ", crbfphoto="
+				+ crbfphoto + "]";
 	}
 
-
+	
 	
 }

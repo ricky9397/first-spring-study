@@ -33,7 +33,7 @@
         <!-- 카테고리 영역 -->
         <nav class="community_nav">
             <ul>
-                <li>
+                <li class="active">
                     <a href="<c:url value="/community/boardList"/>">전체</a>
                 </li>
                 <li>
@@ -68,13 +68,12 @@
                         <h2 class="board_title">
                             <a href="<c:url value="/community/postContent?postidx=${list.postidx}"/>">${list.postname}</a>
                         </h2>
-                        <div class="board_post">
+                        <a class="board_post" href="<c:url value="/community/postContent?postidx=${list.postidx}"/>">
                                 ${list.postcontent}
-                        </div>
+                        </a>
                             <%--날짜, 조회수--%>
                         <div class="board_bottom">
-                            <div class="write_date">
-
+                            <ul class="write_date">
                                 <li>
                                     <img class="left_board_icon" img src="<c:url value="/images/icon/time.png"/>"
                                          alt="img">
@@ -87,19 +86,15 @@
                                          img src="<c:url value="/images/icon/board.png"/>" alt="img">
                                         ${list.postview}
                                 </li>
-                            </div>
+                            </ul>
                             <ul class="board_btn">
-
                                 <li>
-                                    <a href="#">
-                                        <img class="board_icon" img src="<c:url value="/images/icon/heart.png"/>" alt="img">
-                                            ${list.likeCnt}
-                                    </a>
+	                                <img class="board_icon" src="<c:url value="/images/icon/heart.png"/>" alt="img">
+	                                ${list.likeCnt}
                                 </li>
                                 <li>
-                                    <a href="#"><img class="board_icon" img src="<c:url value="/images/icon/speech-bubble.png"/>" alt="img">
-                                        ${list.commentCnt}
-                                    </a>
+                                  <img class="board_icon" img src="<c:url value="/images/icon/speech-bubble.png"/>" alt="img">
+                                  ${list.commentCnt}
                                 </li>
                             </ul>
                         </div>
@@ -160,7 +155,13 @@
             alert('로그인이 필요합니다.');
             $(location).attr('href', '<c:url value="/member/login"/>');
         } else {
-            $(location).attr('href', '<c:url value="/community/write"/>');
+        	
+        	if(${loginSession.memidx != 0}) {
+	            $(location).attr('href', '<c:url value="/community/write"/>');
+        	} else {
+        		alert('일반회원만 이용가능한 서비스입니다.');
+        	}
+        	
         }
     };
 
@@ -171,7 +172,7 @@
         var page = ((range - 2) * rangeSize) + 1;
         var range = range - 1;
 
-        var url = "${pageContext.request.contextPath}/community/boardList";
+        var url = '<c:url value="/community/boardList"/>';
         url = url + "?page=" + page;
         url = url + "&range=" + range;
 
@@ -180,7 +181,7 @@
 
     //페이지 번호 클릭
     function fn_pagination(page, range, rangeSize, searchType, keyword) {
-        var url = "${pageContext.request.contextPath}/community/boardList";
+        var url = '<c:url value="/community/boardList"/>';
         url = url + "?page=" + page;
         url = url + "&range=" + range;
 
@@ -192,7 +193,7 @@
         var page = parseInt((range * rangeSize)) + 1;
         var range = parseInt(range) + 1;
 
-        var url = "${pageContext.request.contextPath}/community/boardList";
+        var url = '<c:url value="/community/boardList"/>';
         url = url + "?page=" + page;
         url = url + "&range=" + range;
 

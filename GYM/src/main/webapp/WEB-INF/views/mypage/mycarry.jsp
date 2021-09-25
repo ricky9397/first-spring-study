@@ -19,24 +19,30 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
 
-	<!-- Contents -->
+
+	<!-- ------------------------------------ -->
+
 	<div class="content_main">
 		<div class="content_wrap">
 			<div class="content">
-				<h1 class="all_title">내가 좋아요한 캐리</h1>
-				<nav class="top">
-					<ul>
-						<li></li>
-					</ul>
-					<div class="sort"></div>
-				</nav>
+				<input type="button" value="< 돌아가기" class="backBtn" onclick="location.href='javascript:window.history.back();'">
+				<h1 class="all_title">회원님이 찜한 캐리 목록입니다.</h1>
+				<br>
+				
 				<div class="card_main">
 					<c:forEach items="${allList}" var="alist">
 						<div class="card">
 							<div class="board_sidebar">
-								<img class="profile_image"
-									src="<c:url value="/images/icon/profile.png"/>" /> <input
-									type="hidden" value="${sv1}" name="sv1"> <input
+								<div class="crphoto">
+									<c:if test="${empty alist.crbfphoto}">
+										<img class="profile_image">
+									</c:if>
+									<c:if test="${!empty alist.crbfphoto}">
+										<img class="profile_image"
+											src="<c:url value="/uploadfile/${alist.crbfphoto}"/>" />
+									</c:if>
+								</div>
+								<input type="hidden" value="${sv1}" name="sv1"> <input
 									type="hidden" value="${sv4}" name="sv4">
 							</div>
 							<div class="board_main">
@@ -65,10 +71,12 @@
 									</div>
 									<div class="bottom_btn">
 										<ul class="board_btn">
-											<li><input type="button" value="1:1 문의"
-												class="inquiry_btn"
-												onclick="location.href='<c:url value="/chatting/chatInquire?cridx=${alist.cridx}&memidx=${loginSession.memidx}"/>'">
-											</li>
+											<c:if test="${loginSession.memidx ne 0}">
+												<li><input type="button" value="1:1 문의"
+													class="inquiry_btn"
+													onclick="location.href='<c:url value="/chatting/chatInquire?cridx=${alist.cridx}&memidx=${loginSession.memidx}"/>'">
+												</li>
+											</c:if>
 											<li><input type="button" value="더 알아보기"
 												class="detail_btn"
 												onclick="location.href='<c:url value = "/carry/detail?cridx=${alist.cridx}"/>'">
@@ -85,10 +93,7 @@
 		</div>
 	</div>
 	<!-- Contents end -->
-
-
 	<!-- footer -->
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
-
 </body>
 </html>

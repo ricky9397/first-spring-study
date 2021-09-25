@@ -23,6 +23,8 @@ public class CarryPriceDto {
 		this.proprice4 = proprice4;
 	}
 
+
+
 	public int getCridx() {
 		return cridx;
 	}

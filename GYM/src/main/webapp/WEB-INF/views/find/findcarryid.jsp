@@ -27,8 +27,8 @@
 
 	<!-- Contents -->
 	<!-- 혹시 윗간격 이상하면 container div 지우기 -->
-	<div class="wrap wd668">
-		<div class="container">
+	<div class="container">
+		<div class="wrap wd668">
 			<ul class="tab">
 				<li class="active"><a class="sub_tit_txt"
 					href="<c:url value="/find/findcarryid"/>">캐리 아이디 찾기</a></li>
@@ -54,7 +54,7 @@
 									<button type="submit" value="찾기" id="findBtn">찾기</button>
 							</div>
 							<div class="btn_wrap2">
-								<a onclick="history.go(-1)">취소</a>
+								<a href="/gym/carry/login">취소</a>
 							</div>
 						</div>
 					</div>
@@ -69,6 +69,3 @@
 	<!-- footer -->
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 	
-</body>
-	
-</html>

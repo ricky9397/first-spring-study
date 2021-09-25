@@ -1,87 +1,105 @@
 package com.project.gymcarry.mypage;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.project.gymcarry.carry.CarryJoinDto;
+import com.project.gymcarry.member.MemberJoinDto;
+
 public class MypageMemberDto {
 
-	private int MEMIDX;
-	private String MEMPHOTO;
-	private String MEMNAME;
-	private String MEMEMAIL;
-	private String MEMPW;
-	private String MEMNICK;
-	private String MEMPHONE;
-	private String MEMBIRTH;
+	private int memidx;
+	private String memphoto;
+	private String memname;
+	private String mememail;
+	private String mempw;
+	private String memnick;
+	private String memphone;
+	private String membirth;
 
-	public int getMEMIDX() {
-		return MEMIDX;
+	public int getMemidx() {
+		return memidx;
 	}
 
-	public void setMEMIDX(int mEMIDX) {
-		MEMIDX = mEMIDX;
+	public void setMemidx(int memidx) {
+		this.memidx = memidx;
 	}
 
-	public String getMEMPHOTO() {
-		return MEMPHOTO;
+	public String getMemphoto() {
+		return memphoto;
 	}
 
-	public void setMEMPHOTO(String mEMPHOTO) {
-		MEMPHOTO = mEMPHOTO;
+	public void setMemphoto(String memphoto) {
+		this.memphoto = memphoto;
 	}
 
-	public String getMEMNAME() {
-		return MEMNAME;
+	public String getMemname() {
+		return memname;
 	}
 
-	public void setMEMNAME(String mEMNAME) {
-		MEMNAME = mEMNAME;
+	public void setMemname(String memname) {
+		this.memname = memname;
 	}
 
-	public String getMEMEMAIL() {
-		return MEMEMAIL;
+	public String getMememail() {
+		return mememail;
 	}
 
-	public void setMEMEMAIL(String mEMEMAIL) {
-		MEMEMAIL = mEMEMAIL;
+	public void setMememail(String mememail) {
+		this.mememail = mememail;
 	}
 
-	public String getMEMPW() {
-		return MEMPW;
+	public String getMempw() {
+		return mempw;
 	}
 
-	public void setMEMPW(String mEMPW) {
-		MEMPW = mEMPW;
+	public void setMempw(String mempw) {
+		this.mempw = mempw;
 	}
 
-	public String getMEMNICK() {
-		return MEMNICK;
+	public String getMemnick() {
+		return memnick;
 	}
 
-	public void setMEMNICK(String mEMNICK) {
-		MEMNICK = mEMNICK;
+	public void setMemnick(String memnick) {
+		this.memnick = memnick;
 	}
 
-	public String getMEMPHONE() {
-		return MEMPHONE;
+	public String getMemphone() {
+		return memphone;
 	}
 
-	public void setMEMPHONE(String mEMPHONE) {
-		MEMPHONE = mEMPHONE;
+	public void setMemphone(String memphone) {
+		this.memphone = memphone;
 	}
 
-	public String getMEMBIRTH() {
-		return MEMBIRTH;
+	public String getMembirth() {
+		return membirth;
 	}
 
-	public void setMEMBIRTH(String mEMBIRTH) {
-		MEMBIRTH = mEMBIRTH;
+	public void setMembirth(String membirth) {
+		this.membirth = membirth;
 	}
 
 	@Override
 	public String toString() {
-		return "MypageMemberDto [MEMIDX=" + MEMIDX + ", MEMPHOTO=" + MEMPHOTO + ", MEMNAME=" + MEMNAME + ", MEMEMAIL="
-				+ MEMEMAIL + ", MEMPW=" + MEMPW + ", MEMNICK=" + MEMNICK + ", MEMPHONE=" + MEMPHONE + ", MEMBIRTH="
-				+ MEMBIRTH + "]";
+		return "MypageMemberDto [memidx=" + memidx + ", memphoto=" + memphoto + ", memname=" + memname + ", mememail="
+				+ mememail + ", mempw=" + mempw + ", memnick=" + memnick + ", memphone=" + memphone + ", membirth="
+				+ membirth + "]";
 	}
 
+	public MypageMemberDto(int memidx, String memphoto, String memname, String mememail, String mempw, String memnick,
+			String memphone, String membirth) {
+		super();
+		this.memidx = memidx;
+		this.memphoto = memphoto;
+		this.memname = memname;
+		this.mememail = mememail;
+		this.mempw = mempw;
+		this.memnick = memnick;
+		this.memphone = memphone;
+		this.membirth = membirth;
+	}
+	
 	public MypageMemberDto() {
 
 	}

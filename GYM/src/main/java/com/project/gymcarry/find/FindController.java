@@ -87,7 +87,7 @@ public class FindController {
 		PrintWriter out = response.getWriter();
 		if (email == null) {
 			out.println("<script>");
-			out.println("alert('가입된 계정이 없습니다.');");
+			out.println("alert('가입된 계정이 없습니다.'); location.href='/gym/find/findpassword';");
 			out.println("</script>");
 			out.close();
 		} else {
@@ -127,7 +127,7 @@ public class FindController {
 			PrintWriter out = response.getWriter();
 			if (email == null) {
 				out.println("<script>");
-				out.println("alert('가입된 계정이 없습니다.');");
+				out.println("alert('가입된 계정이 없습니다.'); location.href='/gym/find/findcarrypassword';");
 				out.println("history.go(-1);");
 				out.println("</script>");
 				out.close();

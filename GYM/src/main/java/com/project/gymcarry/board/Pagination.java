@@ -19,7 +19,7 @@ public class Pagination {
 		return memidx;
 	}
 
-	public void setMemidx() {
+	public void setMemidx(int memidx) {
 		this.memidx = memidx;
 	}
 
@@ -102,7 +102,7 @@ public class Pagination {
 		this.listCnt = listCnt;
 
 		// 전체 페이지수
-		this.pageCnt = (int) Math.ceil(listCnt / listSize);
+		this.pageCnt = (int)Math.ceil(listCnt/(double)listSize);
 
 		// 시작 페이지
 		this.startPage = (range - 1) * rangeSize + 1;

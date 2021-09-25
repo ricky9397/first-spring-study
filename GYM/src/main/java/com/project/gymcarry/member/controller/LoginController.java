@@ -60,7 +60,7 @@ public class LoginController {
 				String chatNick = sessionDto.getMemnick();
 
 				out.println("<script>");
-				out.println("alert('로그인 되었습니다!'); location.href='/gym/index';");
+				out.println("alert('로그인되었습니다!'); location.href='/gym/index';");
 				out.println("</script>");
 				out.close();
 
@@ -109,31 +109,39 @@ public class LoginController {
 	@PostMapping("/member/kakaologin")
 	@ResponseBody
 	public int memberKakaoLogin(MemberDto memberDto, HttpSession session) {
-
-		SessionDto sessionDto = loginService.memberLoginCheck(memberDto.getJoinkey_status());
+		SessionDto sessionDto = loginService.memberLoginCheck(memberDto.getSnsjoinid());
 		int result = 0;
 		if (sessionDto == null) {
 			loginService.insertKaKaoJoinOne(memberDto);
-		} else if(sessionDto.getMemnick() == null) {
+			System.out.println(memberDto);
+		} else if (sessionDto.getMemnick() == null) {
 			result = 1;
-		} else if(sessionDto != null && sessionDto.getMemnick() != null) {
+		} else if (sessionDto != null && sessionDto.getMemnick() != null) {
 			result = 2;
 			String chatNick = sessionDto.getMemnick();
 			session.setAttribute("loginSession", sessionDto);
 			session.setAttribute("chatSession", chatNick);
-		} 
-		
+		}
 		return result;
 	}
-	
+
 	@GetMapping("/member/kakaojoin")
-	public String kakaoJoin(@RequestParam("joinkey_status") String joinkey_status,Model model) {
-		SessionDto sessionDto = loginService.memberLoginCheck(joinkey_status);
-		model.addAttribute("email", sessionDto.getMememail());
+	public String kakaoJoinInfo(@RequestParam("snsjoinid") String snsjoinid, Model model) {
+		model.addAttribute("snsjoinid", snsjoinid);
 		return "member/snsJoinForm";
 	}
-	
-		
-	
-	
+
+	@PostMapping("/member/kakaojoininput")
+	public String inputKakaoJoin(MemberDto memberDto,HttpSession session) {
+		System.out.println(memberDto);
+		int result = loginService.updateKakaoJoin(memberDto);
+		if(result == 1) {
+			SessionDto sessionDto = loginService.memberLoginCheck(memberDto.getSnsjoinid());
+			String chatNick = sessionDto.getMemnick();
+			session.setAttribute("loginSession", sessionDto);
+			session.setAttribute("chatSession", chatNick);
+		}
+		return "redirect:/index";
+	}
+
 }

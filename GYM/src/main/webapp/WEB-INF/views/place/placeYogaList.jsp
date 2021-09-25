@@ -207,7 +207,7 @@
 			<c:set var="placeSearchDetail" value="${placeSearchDetail}"/>
 			
 	        return $('<li>') //기본 tag가 li
-	        .append('<a href="gym/place/detail?placeidx="+ placeidx>' + item.value + '</a>') // a태그 추가
+	        .append('<a href="/gym/place/detail?placeidx=' + item.idx + '">' + item.value + '</a>') // a태그 추가
 	        .appendTo(ul);
 	    };   
 	});

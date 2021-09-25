@@ -186,7 +186,7 @@
 				});
 			},
 			select: function(event, ui, item, response) {
-				var placeidx = ui.item.idx;
+				let placeidx = ui.item.idx;
 				$.ajax({
 					url : '<c:url value="/place/detail"/>',
 					type : "get",
@@ -208,8 +208,9 @@
 			
 			<c:set var="placeSearchDetail" value="${placeSearchDetail}"/>
 			
+			
 	        return $('<li>') //기본 tag가 li
-	        .append('<a href="gym/place/detail?placeidx="+ placeidx>' + item.value + '</a>') // a태그 추가
+	        .append('<a href="/gym/place/detail?placeidx=' + item.idx + '">' + item.value + '</a>') // a태그 추가
 	        .appendTo(ul);
 	    };   
 	});

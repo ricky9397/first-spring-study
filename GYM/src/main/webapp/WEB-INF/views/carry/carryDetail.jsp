@@ -15,9 +15,12 @@
 <script src="/gym/js/carryDetail.js"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
+
 
 
 	<!-- Contents -->
@@ -51,8 +54,14 @@
 				<!-- carry info section START -->
 
 				<div class="carryinfo_section">
-
-					<div id="c1"></div>
+					<div>
+						<c:if test="${empty carryDetail.crbfphoto}">
+							<img id="c1">
+						</c:if>
+						<c:if test="${!empty carryDetail.crbfphoto}">
+							<img class="crbfphoto" src="<c:url value="/uploadfile/${carryDetail.crbfphoto}"/>" />
+						</c:if>
+					</div>
 
 
 					<table class="carry_info_message" id="introduce">
@@ -62,7 +71,7 @@
 						</tr>
 
 						<tr>
-							<td><span class="carry_introduce">"${carryDetail.crintro}"</span></td>
+							<td><span class="carry_introduce">${carryDetail.crintro}</span></td>
 						</tr>
 
 						<tr>
@@ -80,11 +89,21 @@
 				<div class="carry_carrer" id="certi">
 					<h3>자격 및 경력</h3>
 					<ul>
-						<li>${carryCerti.crcerti1}</li>
-						<li>${carryCerti.crcerti2}</li>
-						<li>${carryCerti.crcerti3}</li>
-						<li>${carryCerti.crcerti4}</li>
-						<li>${carryCerti.crcerti5}</li>
+						<c:if test="${!empty carryCerti.crcerti1}">					
+							<li>${carryCerti.crcerti1}</li>
+						</c:if>
+						<c:if test="${!empty carryCerti.crcerti2}">
+							<li>${carryCerti.crcerti2}</li>
+						</c:if>
+						<c:if test="${!empty carryCerti.crcerti3}">
+							<li>${carryCerti.crcerti3}</li>
+						</c:if>
+						<c:if test="${!empty carryCerti.crcerti4}">
+							<li>${carryCerti.crcerti4}</li>
+						</c:if>
+						<c:if test="${!empty carryCerti.crcerti5}">
+							<li>${carryCerti.crcerti5}</li>
+						</c:if>
 					</ul>
 				</div>
 
@@ -95,8 +114,9 @@
 					<div class="review_write_wrap" id="review">
 						<div class="carry_review_title">
 							<h2>캐리 후기</h2>
-							<input type="button" value="후기작성" id="write_review_btn"
-								onclick="loginChk();">
+							<c:if test="${loginSession.memidx ne 0}">
+								<input type="button" value="후기작성" id="write_review_btn2" class="off" onclick="loginChk()">
+							</c:if>
 						</div>
 
 						<!-- 리뷰 작성 입력폼 -->
@@ -165,8 +185,8 @@
 						</c:if>
 
 						<p>
-							<span> <a
-								href="<c:url value='/place/detail?placeidx=${carryPlaceInfo.placeidx}'/>">${carryPlaceInfo.placename}</a></span>
+							<span>
+							<a href="<c:url value='/place/detail?placeidx=${carryPlaceInfo.placeidx}'/>">${carryPlaceInfo.placename}</a></span>
 					</div>
 				</div>
 				<!-- 소속 플레이스 section all wrap END -->
@@ -187,9 +207,17 @@
 			<!-- 우측 배너 START -->
 			<div class="right_banner">
 
-				<div id="c2" class="circle"></div>
+					<div>
+						<c:if test="${empty carryDetail.crphoto}">
+							<img id="c2">
+						</c:if>
+						<c:if test="${!empty carryDetail.crphoto}">
+							<img class="crphoto" src="<c:url value="/uploadfile/${carryDetail.crphoto}"/>" />
+						</c:if>
+					</div>
+					
 				<h2>${carryDetail.crnick}</h2>
-
+				
 				<div class="program_all">
 
 					<c:forEach items="${price}" var="price" varStatus="status">
@@ -207,14 +235,16 @@
 										원
 									</h4>
 								</div>
-
-								<div id="purchase_btn">
-									<input type="submit" value="구매하기" class="button">
-								</div>
+								<c:if test="${empty loginSession.crnick}">
+									<div id="purchase_btn">
+										<input type="submit" value="구매하기" class="button" class="purchaseBtn">
+									</div>
+								</c:if>
 							</div>
 
 
 
+							<input type="hidden" name="crnick" value="${carryDetail.crnick}">
 							<input type="hidden" name="crname" value="${carryDetail.crname}">
 						</form>
 					</c:forEach>
@@ -229,57 +259,8 @@
 	</div>
 	<!-- Contents END -->
 
-
-
-	<script>
-
-	// 리뷰 등록 로그인 검사
-    function loginChk() {
-
-        if (${loginSession == null}) {
-            alert('로그인이 필요한 서비스입니다.');
-            $(location).attr('href', '<c:url value="/member/login"/>');
-        } else {
-        }
-    };
 	
-	</script>
 
-
-
-
-
-
-
-	<!-- kakao map api -->
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2791d61cfcb1bc044154adc4c6bc431"></script>
-	<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(${carryPlaceInfo.latitude}, ${carryPlaceInfo.longitude}), // 지도의 중심좌표
-        level: 2 // 지도의 확대 레벨
-    };
-
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-	// 마커가 표시될 위치입니다 
-	var markerPosition  = new kakao.maps.LatLng(${carryPlaceInfo.latitude}, ${carryPlaceInfo.longitude}); 
-	
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-	    position: markerPosition
-	});
-	
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
-	</script>
-
-
-
-
-	<!-- footer -->
-	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 
 	<script>
 
@@ -290,6 +271,29 @@
 		
 	});
 
+	// 리뷰쓰기 로그인 검사
+	 $('#write_review_btn2').click(function(){
+            if(${loginSession == null}) {
+                alert("로그인 후 이용해 주세요.");
+                $(location).attr('href', '<c:url value="/member/login"/>');
+            } else {
+	           	if(${loginSession.memidx != 0}) {
+	           	    $('#write_review_btn2').click(function() {
+	           			$('#review_write').removeClass('display_none');
+	           		});
+	            }   	
+	         }
+	 });
+	
+	
+	// 결제하기 로그인 검사
+	 $('.purchaseBtn').click(function(){
+            if(${loginSession == null && loginSession.memidx != 0}) {
+                alert("로그인 후 이용해 주세요.");
+                $(location).attr('href', '<c:url value="/member/login"/>');
+            } 
+	 });
+	
 	
 	
 	// 리뷰 리스트 출력 ajax
@@ -350,29 +354,6 @@
 		});
 	}
 	
-
-	// 리뷰 등록하기(Ajax)
-	function fn_review(code) {
-
-		$.ajax({
-			type : 'POST',
-			url : "<c:url value='/carry/add'/>",
-			data : $("#reviewForm").serialize(),
-			success : function() {
-				$(".review_input").val("");
-				alert('리뷰가 정상적으로 등록되었습니다.');
-				reviewList();
-			},
-			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-
-		});
-	}
-	
-
-	
 		
 		 // place 이미지 슬라이드
 		var swiper = new Swiper(".mySwiper", {
@@ -391,3 +372,37 @@
 
 		 
 </script>
+
+
+	<!-- kakao map api -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2791d61cfcb1bc044154adc4c6bc431"></script>
+	<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(${carryPlaceInfo.latitude}, ${carryPlaceInfo.longitude}), // 지도의 중심좌표
+        level: 2 // 지도의 확대 레벨
+    };
+
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${carryPlaceInfo.latitude}, ${carryPlaceInfo.longitude}); 
+	
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+	</script>
+
+
+
+
+
+
+<!-- footer -->
+<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
+	

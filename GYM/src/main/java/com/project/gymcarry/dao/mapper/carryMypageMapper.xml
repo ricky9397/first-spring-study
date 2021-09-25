@@ -8,29 +8,59 @@
     <!-- 캐리 정보 수정  -->
     <update id="updateCarryModify"
             parameterType="com.project.gymcarry.carry.CarryInfoDto">
-        update carry a , crcertification c
+        update carry
         set
-            a.crintro = #{crintro}, a.crfield = #{crfield}, a.crplace = #{crplace}, a.crdepart = #{crdepart}, a.crbfphoto = #{crbfphoto},
-            c.crcerti1 = #{crcerti1}, c.crcerti2 = #{crcerti2}, c.crcerti3 = #{crcerti3}, c.crcerti4 = #{crcerti4}, c.crcerti5 = #{crcerti5}
+            crintro = #{crintro}, crfield = #{crfield}, crplace = #{crplace}, crdepart = #{crdepart}, crbfphoto = #{crbfphoto}, placeidx = #{placeidx}
         where
-            a.cridx=c.cridx and a.cridx = #{cridx}
+            cridx = #{cridx}
     </update>
 
-    <!-- 캐리 가격 수정 -->
-    <update id="updateCarryPrice"
-            parameterType="com.project.gymcarry.carry.CarryPriceDto">
-        update crprice
-        set proprice =
-                case
-                    when procount = 1 then #{param1}
-                    when procount = 5 then #{param2}
-                    when procount = 10 then #{param3}
-                    when procount = 20 then #{param4}
-                    end
-        where cridx = #{param5};
-    </update>
-    
-    
+    <!-- 캐리 자격 및 경력 [입력 or 수정]-->
+    <insert id="upsetCarryCerti" parameterType="com.project.gymcarry.carry.CarryCertiDto">
+        insert into crcertification
+            (cridx, crcerti1, crcerti2, crcerti3 , crcerti4 , crcerti5)
+        values
+            (#{cridx}, #{crcerti1}, #{crcerti2}, #{crcerti3}, #{crcerti4} , #{crcerti5})
+            on duplicate key update crcerti1=#{crcerti1}, crcerti2=#{crcerti2}, crcerti3=#{crcerti3}, crcerti4=#{crcerti4} , crcerti5=#{crcerti5}
+    </insert>
+
+
+
+
+		<!-- 캐리 가격 정보 유무 체크 -->
+		 <select id="checkCarryPrice" resultType="int">
+			select COUNT(*) from crprice where cridx = #{cridx}
+		 </select>
+		 
+		 <!-- 캐리 가격 최초 insert -->
+		<insert id="insertCarryPrice" parameterType="com.project.gymcarry.carry.CarryPriceDto">
+		 insert into crprice 
+		 	(cridx, procount, proprice)
+		 values
+		 	(#{param5}, 1, #{param1}),
+		 	(#{param5}, 5, #{param2}),
+		 	(#{param5}, 10, #{param3}),
+		 	(#{param5}, 20, #{param4})
+		</insert>
+		
+		
+		 <!-- 캐리 가격 수정 -->
+		<update id="updateCarryPrice"
+		        parameterType="com.project.gymcarry.carry.CarryPriceDto">
+		    update crprice
+		    set proprice =
+		            case
+		                when procount = 1 then #{param1}
+		                when procount = 5 then #{param2}
+		                when procount = 10 then #{param3}
+		                when procount = 20 then #{param4}
+		                end
+		    where cridx = #{param5};
+		</update>
+
+
+
+
     <!-- 캐리 기본 정보 수정에 필요한 데이터 값 출력 -->
    <select id="selectCarryBasicInfo" resultType="com.project.gymcarry.carry.CarryJoinDto">
       select * from carry where cridx = #{cridx}
@@ -45,5 +75,24 @@
       crpw = #{crpw}, crnick = #{crnick}, crphone = #{crphone}, crgender = #{crgender}, crphoto = #{crphoto}
       where cridx = #{cridx}
    </update>
+
+   
+   <!-- 캐리마이페이지 정보 출력 -->
+   <select id="carryinfoview" resultType="com.project.gymcarry.carry.CarryJoinDto">
+   		select crname, crnick, crphoto from carry where cridx = #{cridx}
+   </select>
+   
+   <select id="myMemberList" resultType="com.project.gymcarry.carry.CarryMyMemberDto">
+   		select 
+   			(select memname from member where payment.memidx = memidx) as memname, 
+   			(select memnick from member where payment.memidx = memidx) as memnick, 
+   			count(memidx) as paycount, 
+   			sum(PAYPRICE) as totalpay, 
+   			max(paydate) as date
+   		from payment 
+   		where cridx = #{cridx} 
+   		group by memidx 
+   		having count(*) > 0;
+   </select>
     
 </mapper>

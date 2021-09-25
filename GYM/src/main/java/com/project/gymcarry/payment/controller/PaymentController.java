@@ -22,9 +22,15 @@ public class PaymentController {
 	private PaymentService paymentService;
 
 	@PostMapping("payment/pay")
-	public String paymentPrice(@RequestParam("cridx") int cridx, @RequestParam("crname") String crname,
-			@RequestParam("paynum") int paynum, @RequestParam("payprice") int payprice, HttpServletRequest request,
-			Model model) {
+	public String paymentPrice(
+					@RequestParam("cridx") int cridx, 
+					@RequestParam("crname") String crname, 
+					@RequestParam("crnick") String crnick,
+					@RequestParam("paynum") int paynum, 
+					@RequestParam("payprice") int payprice, 
+					HttpServletRequest request,
+					Model model
+					) {
 
 		HttpSession session = request.getSession();
 		SessionDto sessionDto = (SessionDto) session.getAttribute("loginSession");
@@ -35,6 +41,7 @@ public class PaymentController {
 
 		model.addAttribute("cridx", cridx);
 		model.addAttribute("crname", crname);
+		model.addAttribute("crnick", crnick);
 		model.addAttribute("paynum", paynum);
 		model.addAttribute("payprice", payprice);
 

@@ -28,15 +28,22 @@
             <input type="button" class="match_btn" value="지금 바로 1:1 매칭하러가기" onclick="location.href='<c:url value="/survey/survey"/>'">
           </li>
         </ul>
-        <div class="sort">
+<%--         <div class="sort">
           <span><a href='<c:url value="/carry/allListP"/>'>가격순</a> / <a href="#">인기순</a></span>
-        </div>
+        </div> --%>
       </nav>
       <div class="card_main">
       <c:forEach items="${allList}" var="alist">
         <div class="card">
           <div class="board_sidebar">
-            <img class="profile_image" src="<c:url value="/images/icon/profile.png"/>" />
+         	 <div class="crphoto">
+	          	<c:if test="${empty alist.crbfphoto}">
+		            <img class="profile_image">
+	          	</c:if>
+	          	<c:if test="${!empty alist.crbfphoto}">
+		            <img class="profile_image" src="<c:url value="/uploadfile/${alist.crbfphoto}"/>" />
+	          	</c:if>
+          	</div>
 			<input type="hidden" value="${sv1}" name="sv1">
 			<input type="hidden" value="${sv4}" name="sv4">
           </div>
@@ -61,10 +68,12 @@
               </div>
               <div class="bottom_btn">
                 <ul class="board_btn">
+                <c:if test="${loginSession.memidx ne 0}">
                   <li>
                   	<input type="button" value="1:1 문의" class="inquiry_btn"
                   	onclick="location.href='<c:url value="/chatting/chatInquire?cridx=${alist.cridx}&memidx=${loginSession.memidx}"/>'">
                   </li>
+                  </c:if>
                   <li>
                     <input type="button" value="더 알아보기" class="detail_btn"
                     onclick="location.href='<c:url value = "/carry/detail?cridx=${alist.cridx}"/>'">
@@ -81,8 +90,6 @@
     </div>
   </div>
   <!-- Contents end -->
-
-	
 	<!-- footer -->
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 	

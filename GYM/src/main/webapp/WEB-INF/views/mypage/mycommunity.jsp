@@ -28,9 +28,9 @@
 	<!-- Contents -->
 	<div class="contents_main">
 		<div class="contents">
+		<input type="button" value="< 돌아가기" class="backBtn" onclick="location.href='javascript:window.history.back();'">
 			<h1 style="margin-bottom: 5%;" class="title">
-				<a style="" href="<c:url value="/community/boardList"/>">MY
-					COMMUNITY</a>
+				<a style="" href="<c:url value="/community/boardList"/>">MY COMMUNITY</a>
 			</h1>
 
 
@@ -41,7 +41,7 @@
 					<div class="card">
 						<div class="board_sidebar">
 							<img class="profile_image" img
-								src="<c:url value="/images/icon/profile2.png"/>" alt="img">
+								src="<c:url value="/uploadfile/${list.memphoto}"/>" alt="img">
 							<div class="nickname">${list.postnick}</div>
 
 						</div>
@@ -64,12 +64,14 @@
 								</div>
 								<ul class="board_btn">
 
-									<li><a href="#"> <img class="board_icon" img
-											src="<c:url value="/images/icon/heart.png"/>" alt="img">2
-									</a></li>
-									<li><a href="#"><img class="board_icon" img
-											src="<c:url value="/images/icon/speech-bubble.png"/>"
-											alt="img">15</a></li>
+									<li>
+										<img class="board_icon" src="<c:url value="/images/icon/heart.png"/>" alt="img">
+										${list.likeCnt}
+									</li>
+									<li>
+										<img class="board_icon" src="<c:url value="/images/icon/speech-bubble.png"/>" alt="img">
+										${list.commentCnt}
+									</li>
 								</ul>
 							</div>
 						</div>

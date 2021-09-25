@@ -63,6 +63,7 @@ public interface MatchingDao {
 	// 방count 가져옴
 	ChatListDto selectRoomCount(int chatidx);
 
+
 	
 
 }

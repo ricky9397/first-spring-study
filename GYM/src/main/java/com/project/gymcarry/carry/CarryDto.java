@@ -7,8 +7,8 @@ public class CarryDto {
 	private int cridx;
 	private String joinkey_status;
 	private String joinkey;
-	private MultipartFile crphoto;
-	private MultipartFile crbfphoto;
+	private String crphoto;
+	private String crbfphoto;
 	private String cremail;
 	private String crpw;
 	private String crname;
@@ -33,7 +33,7 @@ public class CarryDto {
 	public CarryDto() {}
 
 
-	public CarryDto(int cridx, String joinkey_status, String joinkey, MultipartFile crphoto, MultipartFile crbfphoto, String cremail, String crpw, String crname, String crnick, String crgender, String crphone, String crintro, String crdepart, String crfield, int faceornot, int placeidx, String crplace, String crcerti1, String crcerti2, String crcerti3, String crcerti4, String crcerti5) {
+	public CarryDto(int cridx, String joinkey_status, String joinkey, String crphoto, String crbfphoto, String cremail, String crpw, String crname, String crnick, String crgender, String crphone, String crintro, String crdepart, String crfield, int faceornot, int placeidx, String crplace, String crcerti1, String crcerti2, String crcerti3, String crcerti4, String crcerti5) {
 		this.cridx = cridx;
 		this.joinkey_status = joinkey_status;
 		this.joinkey = joinkey;
@@ -82,19 +82,19 @@ public class CarryDto {
 		this.joinkey = joinkey;
 	}
 
-	public MultipartFile getCrphoto() {
+	public String getCrphoto() {
 		return crphoto;
 	}
 
-	public void setCrphoto(MultipartFile crphoto) {
+	public void setCrphoto(String crphoto) {
 		this.crphoto = crphoto;
 	}
 
-	public MultipartFile getCrbfphoto() {
+	public String getCrbfphoto() {
 		return crbfphoto;
 	}
 
-	public void setCrbfphoto(MultipartFile crbfphoto) {
+	public void String(String crbfphoto) {
 		this.crbfphoto = crbfphoto;
 	}
 

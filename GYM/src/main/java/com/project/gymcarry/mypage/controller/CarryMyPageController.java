@@ -1,12 +1,12 @@
 package com.project.gymcarry.mypage.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project.gymcarry.carry.CarryInfoDto;
-import com.project.gymcarry.carry.CarryJoinDto;
-import com.project.gymcarry.carry.CarryToInfoDto;
+import com.project.gymcarry.carry.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.gymcarry.carry.CarryToJoinDto;
 import com.project.gymcarry.member.SessionDto;
 import com.project.gymcarry.member.service.memSha256;
 import com.project.gymcarry.mypage.service.CarryMyPageService;
@@ -27,12 +26,23 @@ public class CarryMyPageController {
 	private CarryMyPageService service;
 
 	@GetMapping("/mypage/carrymypage")
-	public String carryMyPage(HttpSession session,Model model) {
-
+	public String carryMyPage(HttpSession session,Model model) throws Exception {
+		
+		// 캐리 마이페이지 출력
 		SessionDto sdt = (SessionDto) session.getAttribute("loginSession");
-
+		CarryJoinDto carry = service.selectCarryBasicInfo(sdt.getCridx());
+		
 		session.setAttribute("cridx", sdt.getCridx());
-		session.setAttribute("name", sdt.getCrname());
+		session.setAttribute("crname", sdt.getCrname());
+		session.setAttribute("crnick", carry.getCrnick());
+		session.setAttribute("crphoto", carry.getCrphoto());
+		
+		// 내 회원 리스트 출력
+		List<CarryMyMemberDto> memberList = service.selectMyMemberList(sdt.getCridx());
+		model.addAttribute("memberList", memberList);
+		
+		System.out.println("memberList = " + memberList.toString());
+		
 		System.out.println("세션 -> " + sdt + "-> 마이페이지 진입");
 		
 		
@@ -41,24 +51,51 @@ public class CarryMyPageController {
 
 	// 캐리 정보 수정 페이지
 	@GetMapping("/mypage/carrymodify")
-	public String updateCarryModifyView() throws Exception{
+	public String carryModify(HttpServletRequest request ,Model model) throws Exception {
+
+		HttpSession session = request.getSession();
+		int cridx = (int) session.getAttribute("cridx");
+
+		// 캐리소개 출력
+		CarryJoinDto carry = service.selectCarryBasicInfo(cridx);
+		model.addAttribute("carry", carry);
+
+		// 캐리 자격 및 경력 출력
+		CarryCertiDto carryCerti = service.getCarryCerti(cridx);
+		model.addAttribute("carryCerti", carryCerti);
 
 		return "/mypage/carrymypage/modifycarryinfo";
 	}
 
-	// 캐리 정보 수정
+	// 캐리 정보 수정 업데이트
 	@PostMapping("/mypage/update")
 	public String updateCarryModify(CarryToInfoDto carryToInfoDto,
 									@RequestParam("proprice1") int proprice1, @RequestParam("proprice2") int proprice2,
 									@RequestParam("proprice3") int proprice3, @RequestParam("proprice4") int proprice4,
+									@RequestParam("cridx") int cridx,
+									CarryCertiDto certiDto,
 									HttpSession session, HttpServletRequest request, HttpServletResponse respons) throws Exception {
 
 
 		service.updateCarryModify(carryToInfoDto,respons,request);
-		service.updateCarryPrice(proprice1, proprice2, proprice3, proprice4, carryToInfoDto.getCridx());
+		
+		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
+		System.out.println("cridx : " + dto.getCridx());
+		
+		int result = service.checkCarryPrice(cridx);
+		System.out.println("결과2 :" + result);
+		
+		if(result > 0) {
+			service.updateCarryPrice(proprice1, proprice2, proprice3, proprice4, carryToInfoDto.getCridx());
+		} else {
+			service.insertCarryPrice(proprice1, proprice2, proprice3, proprice4, cridx);
+		}
+		
+		service.upsetCarryCerti(certiDto);
 		
 		return "/mypage/carrymypage/carrymypage";
 	}
+	
 
 
 	// 캐리 기본 정보 수정
@@ -98,11 +135,5 @@ public class CarryMyPageController {
 		return "/mypage/carrymypage/carrymypage";
 	}
 
-	
-	// 내 회원 리스트
-	@GetMapping("/mymember")
-	public String myMemberList(Model model) {
-		return "/mypage/carrymypage/carry_mymemberlist";
-	}
 	
 }

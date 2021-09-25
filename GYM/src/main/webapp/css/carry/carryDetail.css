@@ -30,10 +30,11 @@
 	border: 1px solid #CCC;
 	background-color: white;
 	padding: 7px 10px;
+	transition:0.2s;
 }
 
 .button:hover {
-	border: 1px solid #CCC;
+	border: 1px solid #000;
 	color: white;
 	background-color: black;
 	padding: 7px 10px;
@@ -105,6 +106,29 @@
 	margin-bottom: 60px;
 }
 
+.write_review_btn .off {
+    display: none;
+}
+
+
+.crbfphoto {
+	height: 160px;
+	width: 160px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.crphoto {
+	height: 180px;
+	width: 180px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin: 16px 50px 10px 50px;
+	/* 테두리 */
+	border: 1px solid #DDD;
+}
+
+
 #c1 {
 	margin-left: -10px;
 	margin-right : 10px;
@@ -145,6 +169,8 @@
 
 .carry_introduce {
 	font-size: 17px;
+	white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .carry_procategory {
@@ -195,9 +221,9 @@
 	display: inline;
 }
 
-#write_review_btn:hover {
+#write_review_btn2:hover {
 	float: right;
-	border: 1px solid #CCC;
+	border: 1px solid #ccc;
 	background-color: white;
 	color: black;
 	padding: 7px 10px;
@@ -205,9 +231,9 @@
 	transition: .3s all ease;
 }
 
-#write_review_btn {
+#write_review_btn2 {
 	float: right;
-	border: 1px solid #CCC;
+	border: 1px solid #000;
 	background-color: black;
 	color: white;
 	padding: 7px 10px;

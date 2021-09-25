@@ -21,6 +21,7 @@ public class ChatListDto {
 	public ChatListDto(int chatidx, int cridx, int memidx, String crnick, String memnick, String placename,
 			String chatdate, String chatcontent, int chatread, int messageidx, int outcount, String outdate,
 			String memphoto, String crphoto) {
+		super();
 		this.chatidx = chatidx;
 		this.cridx = cridx;
 		this.memidx = memidx;

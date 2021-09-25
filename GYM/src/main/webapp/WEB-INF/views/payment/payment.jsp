@@ -28,7 +28,7 @@
 		<div>
 			<h3>주문 정보</h3>
 				<div class="order_info">
-					<span>${crname} 캐리 : ${paynum}회 이용권</span> <br>
+					<span>${crnick}(${crname}) 캐리 : ${paynum}회 이용권</span> <br>
 					<h4>
 						${paynum}회
 						<fmt:formatNumber type="number" maxFractionDigits="3"

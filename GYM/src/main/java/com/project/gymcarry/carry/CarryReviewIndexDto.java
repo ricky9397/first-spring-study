@@ -5,16 +5,16 @@ public class CarryReviewIndexDto {
 	private int reviewidx;
 	private String reviewcontent;
 	private int cridx;
-	private String crphoto;
+	private String crbfphoto;
 	private String crname;
 	// 기본 생성자
 	public CarryReviewIndexDto() {}
-	public CarryReviewIndexDto(int reviewidx, String reviewcontent, int cridx, String crphoto, String crname) {
+	public CarryReviewIndexDto(int reviewidx, String reviewcontent, int cridx, String crbfphoto, String crname) {
 		super();
 		this.reviewidx = reviewidx;
 		this.reviewcontent = reviewcontent;
 		this.cridx = cridx;
-		this.crphoto = crphoto;
+		this.crbfphoto = crbfphoto;
 		this.crname = crname;
 	}
 	public int getReviewidx() {
@@ -35,11 +35,11 @@ public class CarryReviewIndexDto {
 	public void setCridx(int cridx) {
 		this.cridx = cridx;
 	}
-	public String getCrphoto() {
-		return crphoto;
+	public String getCrbfphoto() {
+		return crbfphoto;
 	}
-	public void setCrphoto(String crphoto) {
-		this.crphoto = crphoto;
+	public void setCrbfphoto(String crbfphoto) {
+		this.crbfphoto = crbfphoto;
 	}
 	public String getCrname() {
 		return crname;
@@ -50,7 +50,7 @@ public class CarryReviewIndexDto {
 	@Override
 	public String toString() {
 		return "CarryReviewIndexDto [reviewidx=" + reviewidx + ", reviewcontent=" + reviewcontent + ", cridx=" + cridx
-				+ ", crphoto=" + crphoto + ", crname=" + crname + "]";
+				+ ", crbfphoto=" + crbfphoto + ", crname=" + crname + "]";
 	}
 
 	

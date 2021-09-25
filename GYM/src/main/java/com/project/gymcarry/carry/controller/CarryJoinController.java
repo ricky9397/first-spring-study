@@ -1,5 +1,7 @@
 package com.project.gymcarry.carry.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,14 +53,22 @@ public class CarryJoinController {
 			System.out.println("캐리 회원가입 성공");
 		}
 		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
 		// 인증메일 보내기 메소드 
 		String result2 = mailsenderservice.crsend_mail(carryDto.getCremail(), carryDto.getCrname());
 		if (result2 != null) {
 			System.out.println("이메일 보내기 성공");
 			System.out.println("carryDto.getCremail = " + carryDto.getCremail());
 		}
+
+		out.println("<script>");
+		out.println("alert('회원가입이 완료되었습니다. 인증메일을 확인해주세요!'); location.href='/gym/index';");
+		out.println("</script>");
+		out.close();
 		
-		return "redirect:/index";
+		return "carry/CarryPlusJoinForm";
 	}
 
 	@RequestMapping(value = "carry/join/cr_alterjoinkey", method = RequestMethod.POST)

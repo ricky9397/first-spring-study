@@ -568,11 +568,9 @@ select concat('kill ',id,';') from INFORMATION_SCHEMA.PROCESSLIST where user="gy
 SHOW PROCESSLIST;
 kill 3661;
 
-<<<<<<< HEAD
 select * from carry;
 select * from member;
 
-=======
 select *
 from chatlist l
 left outer join chatroom r on l.chatidx=r.chatidx 
@@ -625,4 +623,3 @@ select infocontent from mypage where memidx = 20 and
         
         select concat('kill ',id,';') from INFORMATION_SCHEMA.PROCESSLIST where user="gym";
 
->>>>>>> 561d3beec7fa95e6fee105719672f4eb73176482

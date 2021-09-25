@@ -33,7 +33,14 @@
       <c:forEach items="${matchingList}" var="mlist">
         <div class="card">
           <div class="board_sidebar">
-            <img class="profile_image" src="<c:url value="/images/icon/profile.png"/>" />
+         	 <div class="crphoto">
+	          	<c:if test="${empty mlist.crbfphoto}">
+		            <img class="profile_image">
+	          	</c:if>
+	          	<c:if test="${!empty mlist.crbfphoto}">
+		            <img class="profile_image" src="<c:url value="/uploadfile/${mlist.crbfphoto}"/>" />
+	          	</c:if>
+          	</div>
 			<input type="hidden" value="${sv1}" name="sv1">
 			<input type="hidden" value="${sv4}" name="sv4">
           </div>
@@ -58,12 +65,14 @@
               </div>
               <div class="bottom_btn">
                 <ul class="board_btn">
+                <c:if test="${loginSession.memidx ne 0}">
                   <li>
-                  	<input type="button" value="1:1문의" class="inquiry_btn"
+                  	<input type="button" value="1:1 문의" class="inquiry_btn"
                   	onclick="location.href='<c:url value="/chatting/chatInquire?cridx=${mlist.cridx}&memidx=${loginSession.memidx}"/>'">
                   </li>
+                  </c:if>
                   <li>
-                    <input type="button" value="더 알아보기" class="detail_btn" 
+                    <input type="button" value="더 알아보기" class="detail_btn"
                     onclick="location.href='<c:url value = "/carry/detail?cridx=${mlist.cridx}"/>'">
                   </li>
                 </ul>

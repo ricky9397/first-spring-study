@@ -29,55 +29,134 @@
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
+
+
 <script>
 	function printName() {
 		const name = document.getElementById('alternate').value;
 		var infodate = document.getElementsByName("infodate")
 
-		infodate[0].value = name;
-		infodate[1].value = name;
-		infodate[2].value = name;
-		infodate[3].value = name;
+		for (var i = 0; i < 5; i++) {
+			infodate[i].value = name;
+		}
 	}
-</script>
-<script>
 
+	window.onload = function() {
+		loginLog()
+
+		var akey = "${a}";
+
+		if (akey == 1) {
+			handleInputOnkeyup();
+		}
+	}
+
+	function handleInputOnkeyup() {
+		document.getElementById('mycash').click();
+	}
+
+	function StartPrintName() {
+		const name = document.getElementById('alternate').value;
+		var infodate = document.getElementsByName("infodate")
+		infodate[0].value = name;
+	}
 
 	function loginLog() {
-		printName()
+		StartPrintName()
 		$.ajax({
-			url : '<c:url value="/mypage/mypass"/>',
 			type : "POST",
-			dataType : "json",
+			url : '<c:url value="/mypage/mypass.do"/>',
+			dataType : 'JSON',
+
 			data : {
-				memidx : $("#memidx").val(),
-				infodate : $("#infodate").val()
+				arg0 : $("#memidx").val(),
+				arg1 : $("#infodate").val()
 			},
-			success : function(data) {
-				if(data == 0){
-					$('.sum_mypage').html('');
-				}else {
-					$('.sum_mypage').html('');
-					$.each(data, function(index, item){
-						if(item.infotype === 'memo'){
-							$('.memo_view').html(item.infocontent);
-						} else if (item.infotype === 'kg'){
-							$('.input-kg').html(item.infocontent+'kg');
-						} else if (item.infotype === 'food'){
-							$('.food_view').html(item.infocontent);
-						} else {
-							$('.view_photo').html('<img src="<c:url value="/uploadfile/'+item.infocontent+'"/>" style="width: 345px; height: 570px;">');	
-						}
-					});
+
+			success : function(map) {
+
+				list = map;
+
+				var list = map.list;
+				$('#memo-input-food').val(list);
+
+				var list2 = map.list2;
+				$('#memo-input-memo').val(list2);
+
+				var list3 = map.list3;
+				$('#memo-input-kg').val(list3);
+
+				var list4 = map.list4;
+
+				if (list4 == "") {
+					$('#memo-input-photo').attr("src",
+							"/gym/uploadfile/bodydefault.PNG");
+					$('#memo-input-photo2').attr("src",
+					"/gym/uploadfile/bodydefault.PNG");
+				} else if (list4 == null) {
+					$('#memo-input-photo').attr("src",
+							"/gym/uploadfile/bodydefault.PNG");
+					$('#memo-input-photo2').attr("src",
+					"/gym/uploadfile/bodydefault.PNG");
+				} else {
+					$('#memo-input-photo').attr("src",
+							"/gym/uploadfile/" + list4);
+					$('#memo-input-photo2').attr("src",
+							"/gym/uploadfile/" + list4);
 				}
 
+				// 언디파인드 탐색문
+				/* 	if (map.list == undefined) {
+					var list = map.list
+					list = ""
+					$('#memo-input-food').val(list);
+				} else {
+					
+				}
+
+				if (map.list2 == undefined) {
+					var list2 = map.list2
+					list2 = ""
+					$('#memo-input-memo').val(list2);
+					else {
+				
+					}
+				}
+
+				if (map.list3 == undefined) {
+					var list3 = map.list3
+					list3 = ""
+					$('#memo-input-kg').val(list3);
+				} else {
+					
+				}
+
+				if (map.list4 == undefined) {
+					var list4 = map.list4
+					list4 = ""
+					$('#memo-input-photo').attr("src", list4);
+				} else {
+				
+				} */
+
 			},
-			error : function() {
-				alert("err");
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
 			}
-		});
+
+		})
+
+		;
+
 	}
 </script>
+
+<script">
+	
+</script>
+
+
 </head>
 <body style="padding-right: 0px">
 	<!-- header -->
@@ -92,37 +171,41 @@
 				<div class="col-right-top">
 					<h2 style="float: none;">
 						<input type="text" id="alternate" class="datepick" size="30"
-							readonly> <input name="infodate" id="infodate" type="hidden"> <input
-							name="memidx" id="memidx" value="${memidx}" type="hidden">
+							readonly> <input type="hidden" name="infodate"
+							id="infodate"> <input name="memidx" type="hidden"
+							id="memidx" value="${memidx}">
 					</h2>
 				</div>
 				<div class="col-flex">
 					<div class="col-left">
 
 						<div class="my-info">
+							<c:forEach items="${memberList}" var="memberList">
+								<div class="col-profile">
 
-							<div class="col-profile">
-
-								<img id="loadingimg" class="display_none"
-									src="<c:url value="/images/icon/user.png"/>">
-							</div>
-
-							<div class="col-name">
-								<div style="text-align: right; width: 55%; float: left;">
-									<h3>${name}</h3>
-									<!-- 세션 네임 -->
-
+									<img id="loadingimg" class="display_none"
+										src="<c:url value="/uploadfile/${memberList.memphoto}"/>">
 
 								</div>
-								<div style="text-align: left; width: 35%; padding-left: 2%">
-									<a href="<c:url value="/mypage/myinfo"/>"> <img
-										class="edit_text2"
-										src="<c:url value="/images/icon/edit.png"/>"></a>
-								</div>
-							</div>
 
-							<div id="datepicker" onclick="loginLog()"></div>
-							<input type="hidden">
+								<div class="col-name">
+									<div style="text-align: right; width: 55%; float: left;">
+										<h3>${memberList.memnick}</h3>
+										<!-- 세션 네임 -->
+
+
+									</div>
+									<div style="text-align: left; width: 35%; padding-left: 2%">
+										<a href="<c:url value="/mypage/myinfo"/>"> <img
+											class="edit_text2"
+											src="<c:url value="/images/icon/edit.png"/>"></a>
+									</div>
+								</div>
+
+								<div id="datepicker" onclick="loginLog()"></div>
+								<input type="hidden">
+							</c:forEach>
+
 						</div>
 
 						<div class="my-info-develope">
@@ -137,7 +220,7 @@
 								<li class="info_list"><a
 									href="<c:url value="/mypage/mycommunity"/>">내가 작성한 글</a></li>
 
-								<li data-tab="mycash" class="list_tab info_list"><a>내
+								<li data-tab="mycash" class="list_tab info_list" id="mycash"><a>내
 										결제 내역</a></li>
 
 								<li class="info_list"><a
@@ -147,8 +230,8 @@
 						</div>
 					</div>
 
-					<div class="col-right"></div>
-
+					<div class="col-right" id="col-right" name="col-right"></div>
+					
 				</div>
 
 			</div>
@@ -165,7 +248,6 @@
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-	
 	<script>
 		$(function() {
 			$('.list_tab').click(function() {

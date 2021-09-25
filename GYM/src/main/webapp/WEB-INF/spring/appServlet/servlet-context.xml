@@ -40,7 +40,7 @@
 		<beans:property name="port" value="587" /><!-- 465 or 25 -->
 		<beans:property name="username"
 			value="gymcarryemail@gmail.com" />
-		<beans:property name="password" value="gymcarry1234" />
+		<beans:property name="password" value="jvzeotqyriwjskwn" />
 		<beans:property name="defaultEncoding" value="utf-8" />
 		<beans:property name="javaMailProperties">
 			<beans:props>

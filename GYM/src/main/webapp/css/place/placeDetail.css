@@ -69,7 +69,7 @@
 .place_banner {
     width:330px;
     padding:25px;
-    height:340px;
+    height:360px;
     border-radius: 10px;
     box-shadow: 1px 4px 16px 5px rgb(18 32 41 / 22%);
     position:absolute;
@@ -77,9 +77,9 @@
 }
 .place_banner > img { 
     width:100%;
-    height:180px;
+    height:200px;
     border-radius: 7px;
-
+	object-fit: cover;
 }
 .place_banner .place_name {
     font-size: 18px;

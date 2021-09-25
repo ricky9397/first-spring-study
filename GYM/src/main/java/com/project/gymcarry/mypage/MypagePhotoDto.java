@@ -3,7 +3,8 @@ package com.project.gymcarry.mypage;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MypagePhotoDto {
-	private int infoidx;
+
+	private String infoidx;
 	private String memidx;
 	private MultipartFile infocontent;
 	private String infodate;
@@ -12,20 +13,17 @@ public class MypagePhotoDto {
 	public MypagePhotoDto() {
 	}
 
-	public MypagePhotoDto(int infoidx, String memidx, MultipartFile infocontent, String infodate, String infotype) {
-		super();
-		this.infoidx = infoidx;
-		this.memidx = memidx;
-		this.infocontent = infocontent;
-		this.infodate = infodate;
-		this.infotype = infotype;
+	@Override
+	public String toString() {
+		return "MypagePhotoDto [infoidx=" + infoidx + ", memidx=" + memidx + ", infocontent=" + infocontent
+				+ ", infodate=" + infodate + ", infotype=" + infotype + "]";
 	}
 
-	public int getInfoidx() {
+	public String getInfoidx() {
 		return infoidx;
 	}
 
-	public void setInfoidx(int infoidx) {
+	public void setInfoidx(String infoidx) {
 		this.infoidx = infoidx;
 	}
 
@@ -61,9 +59,8 @@ public class MypagePhotoDto {
 		this.infotype = infotype;
 	}
 
-	public MypageDto getMypageDto() {
-		return new MypageDto(infoidx, memidx, infocontent.getOriginalFilename(), infodate, infotype);
+	public MypageDto2 getMypageDto2() {
+		return new MypageDto2(infoidx, memidx, infocontent.getOriginalFilename(), infodate, infotype);
 	}
-		
 
 }

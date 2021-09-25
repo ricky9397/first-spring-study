@@ -70,6 +70,7 @@ body {
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     transition: 0.5s;
+    cursor:default;
 }
 
 .space_between .profile {
@@ -146,7 +147,8 @@ body {
     bottom: 50%;
 }
 
-.content_right.off {
+.content_right.off,
+.comment_input_wrap.off {
     display: none;
 }
 
