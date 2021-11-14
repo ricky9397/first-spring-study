@@ -63,7 +63,7 @@
 									<td>${list.boardcategory}</td>
 									<td>${list.postnick}</td>
 									<td>
-										<a href="<c:url value="/community/postContent?postidx=${list.postidx}"/>">${list.postname}</a>
+										<a href="<c:url value="/community/postContent?postidx=${list.postidx}"/>" class="text-over-cut">${list.postname}</a>
 										<small class="d-block text-over-cut content-style">${list.postcontent}</small>
 									</td>
 									

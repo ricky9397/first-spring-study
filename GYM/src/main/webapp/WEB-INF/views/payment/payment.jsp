@@ -97,11 +97,9 @@
 	<%@ include file="/WEB-INF/views/frame/footer.jsp"%>
 
 
-
 	<script>
 	  document.getElementById('currentDatetime').value= new Date().toISOString().slice(0, 18);
 	</script>
-
 
 
 
@@ -112,32 +110,43 @@
 		IMP.init("imp65837574"); // 예: imp00000000
 
 		function requestPay() {
-			// IMP.request_pay(param, callback) 결제창 호출
-			IMP.request_pay({ // param
-				pg : 'html5_inicis', //ActiveX 결제창은 inicis를 사용
-				pay_method : 'card', //card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
-				merchant_uid : "${payidx}",
-				name : "수업${paynum}회 이용권",
-				amount : "${payprice}",
-				buyer_email : "",
-				buyer_name : "${loginSession.memname}",
-				buyer_tel : "${payphone}",
-				buyer_addr : "",
-				buyer_postcode : ""
-			}, function(rsp) { // callback
-				if (rsp.success) {
-					// 결제 성공 시 로직
-            		$.ajax({
-					type : 'POST',
-					url : "<c:url value='/payment/complete'/>",
-					data : $("#paymentForm").serialize()
-					});	
-					location.href='/gym/payment/complete'
-      			} else {
-					alert("결제에 실패하였습니다. \n에러 내용: " + rsp.error_msg);
-				}	
-			});
-			/* 이니시스API 호출 END*/
-
+			
+			// 주문자명, 연락처 input이 비어있을 경우에 alert 띄움
+			if(!document.paymentForm.payname.value || !document.paymentForm.payphone.value) {
+				
+				alert('주문자명과 연락처를 입력해주세요.');
+				document.paymentForm.payname.focus();
+				return false;
+			
+			} else {
+			
+				// IMP.request_pay(param, callback) 결제창 호출
+				IMP.request_pay({ // param
+					pg : 'html5_inicis', //ActiveX 결제창은 inicis를 사용
+					pay_method : 'card', //card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
+					merchant_uid : "${payidx}",
+					name : "수업${paynum}회 이용권",
+					amount : "${payprice}",
+					buyer_email : "",
+					buyer_name : "${loginSession.memname}",
+					buyer_tel : "${payphone}",
+					buyer_addr : "",
+					buyer_postcode : ""
+				}, function(rsp) { // callback
+					if (rsp.success) {
+						// 결제 성공 시 로직
+	            		$.ajax({
+						type : 'POST',
+						url : "<c:url value='/payment/complete'/>",
+						data : $("#paymentForm").serialize()
+						});	
+						location.href='/gym/payment/complete'
+	      			} else {
+						alert("결제에 실패하였습니다. \n에러 내용: " + rsp.error_msg);
+					}	
+				});
+				/* 이니시스API 호출 END*/
+				}
 		}
+		
 	</script>

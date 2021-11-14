@@ -27,22 +27,52 @@
 	<div class="container">
 		<div class="carry_image swiper-container mySwiper">
 			<ul class="swiper-wrapper">
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review1.jpg"/>"></li>
-
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review2.jpg"/>"></li>
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review3.jpg"/>"></li>
-
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review4.jpg"/>"></li>
-
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review1.jpg"/>"></li>
-
-				<li class="swiper-slide"><img
-					src="<c:url value="/images/review2.jpg"/>"></li>
+				<c:set var="imageLists" value="${carryPlaceInfo.placeimg}"/>
+				<c:forEach items="${imageLists}" var="image" varStatus="status">
+		            <c:set var="imglen" value="${status.count}"/>
+	            
+           			<c:if test="${!empty imageLists}">
+	            		<li class="swiper-slide">
+		                    <img src="<c:out value="${image}"/>">
+		                </li>
+	                </c:if>
+                
+              		</c:forEach>
+				<c:choose>
+                	<c:when test="${empty imageLists}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                		<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review3.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review4.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+                	</c:when>
+                	<c:when test="${imglen eq 1}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                		<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review3.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review4.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                	</c:when>
+                	<c:when test="${imglen eq 2}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                		<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review3.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review4.jpg"/>"></li>
+                	</c:when>
+                	<c:when test="${imglen eq 3}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                		<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+	                	<li class="swiper-slide"><img src="<c:url value="/images/review3.jpg"/>"></li>
+                	</c:when>
+                	<c:when test="${imglen eq 4}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                		<li class="swiper-slide"><img src="<c:url value="/images/review2.jpg"/>"></li>
+                	</c:when>
+                	<c:when test="${imglen eq 5}">
+                		<li class="swiper-slide"><img src="<c:url value="/images/review1.jpg"/>"></li>
+                	</c:when>
+                </c:choose>
 			</ul>
 			<div class="swiper-pagination"></div>
 		</div>
@@ -177,9 +207,6 @@
 						<c:set var="mainImage"
 							value="${fn:substring(mainimg[2], 0, mainImglength)}" />
 
-						<c:if test="${empty mainImage}">
-							<img src="<c:url value="/images/nullPlaceImg.jpg"/>">
-						</c:if>
 						<c:if test="${!empty mainImage}">
 							<img src="<c:out value="${mainImage}"/>" class="place_main_img">
 						</c:if>
@@ -358,10 +385,10 @@
 		 // place 이미지 슬라이드
 		var swiper = new Swiper(".mySwiper", {
 			spaceBetween : 0,
-			slidesPerView : 4,
+			slidesPerView : 6,
 			centeredSlides : false,
 			autoplay : {
-				delay : 2500,
+				delay : 1500,
 				disableOnInteraction : false,
 			},
 			pagination : {

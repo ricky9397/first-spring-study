@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,8 +65,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String chatNick = (String) session.getAttributes().get("chatSession");
 		logger.info("{}로 부터 {}를 전달 받았습니다.", chatNick, message.getPayload());
 
-		SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+		TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
 		Date time = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+		format.setTimeZone(timeZone);
 		String date = format.format(time);
 
 		// json객체 -> java객체

@@ -27,7 +27,10 @@ function getBaryear(total, year){
 	      		'rgba(255, 159, 64, 0.5)',
 	      		'#FF9DFF',
 	      		'#FF8C8C',
-	      		'#CBFF75'
+	      		'#CBFF75',
+	      		'#FFD700',
+	      		'#0064CD',
+	      		'#9400D3'
 	      ],
 	      borderColor: "rgba(2,117,216,1)",
 	      data: total,
@@ -49,7 +52,7 @@ function getBaryear(total, year){
 	      yAxes: [{
 	        ticks: {
 	          min: 0,
-	          max: 40000000,
+	          max: 80000000,
 	          maxTicksLimit: 5
 	        },
 	        gridLines: {

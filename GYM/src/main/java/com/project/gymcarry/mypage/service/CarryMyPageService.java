@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.project.gymcarry.carry.CarryCertiDto;
 import com.project.gymcarry.carry.CarryJoinDto;
 import com.project.gymcarry.carry.CarryMyMemberDto;
+import com.project.gymcarry.carry.CarryPriceDto;
 import com.project.gymcarry.carry.CarryToInfoDto;
 import com.project.gymcarry.carry.CarryToJoinDto;
 
@@ -17,6 +18,7 @@ public interface CarryMyPageService {
     // 캐리 정보 수정
     public int updateCarryModify(CarryToInfoDto carryToInfoDto, HttpServletResponse response, HttpServletRequest request) throws Exception;
 
+    List<CarryPriceDto> selectCarryPrice(int cridx) throws Exception;
     
     // 캐리 가격 정보 유무 체크
     int checkCarryPrice(int cridx);

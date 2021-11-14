@@ -182,8 +182,19 @@
 							eventAdd : function(obj) { // 이벤트가 추가되면 발생하는 이벤트
 								console.log(obj);
 							},
-							eventChange : function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-								console.log(obj);
+							eventChange : function(eventchange) { // 이벤트가 수정되면 발생하는 이벤트
+								console.log("이벤트 변경  : " + eventchange.event);
+								
+								// 여기서부터 추가
+								$.ajax({
+								type : 'post',
+								url : '<c:url value="/mypage/deleteschedule"/>',
+								data : {},
+								dataType : 'text',
+								success : function(deleteschedule) {
+									console.log(deleteschedule);
+								}
+							})
 							},
 							// 이벤트 클릭시 로직
 							eventClick : function(event_click) {
@@ -191,6 +202,19 @@
 								alert('선택하신 일정을 삭제합니다.'),
 								//Remove event from calendar
 								event_click.event.remove()
+								
+								// 여기서부터 추가
+								$.ajax({
+								type : 'post',
+								url : '<c:url value="/mypage/deleteschedule"/>',
+								data : {},
+								dataType : 'text',
+								success : function(deleteschedule) {
+									console.log(deleteschedule);
+								}
+							})
+								
+								
 							},
 
 							select : function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
@@ -262,7 +286,7 @@
 		}
 
 		function savedata(jsondata) {
-
+			alert('일정 입력이 완료되었습니다.'),
 			$.ajax({
 				type : 'post',
 				url : '<c:url value="/mypage/schedule"/>',

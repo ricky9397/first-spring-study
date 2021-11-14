@@ -24,7 +24,7 @@ public class CarryListController {
 	public String allCarryList(Model model) {
 		List<CarryListDto> alist = carryInfoService.getAllCarryList();
 		model.addAttribute("allList", alist);
-		
+		System.out.println("allList == " + alist);
 		System.out.println("전체 캐리 리스트 출력");
 		
 		return "carry/allCarryList";

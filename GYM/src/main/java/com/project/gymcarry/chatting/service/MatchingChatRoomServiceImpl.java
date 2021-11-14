@@ -2,6 +2,9 @@ package com.project.gymcarry.chatting.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,7 @@ import com.project.gymcarry.chatting.ChatListDto;
 import com.project.gymcarry.chatting.ChatRoomDto;
 import com.project.gymcarry.chatting.MessageDto;
 import com.project.gymcarry.dao.MatchingDao;
+import com.project.gymcarry.member.SessionDto;
 
 @Service
 public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {

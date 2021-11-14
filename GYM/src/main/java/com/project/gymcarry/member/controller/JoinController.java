@@ -66,7 +66,7 @@ public class JoinController {
 		}
 
 		out.println("<script>");
-		out.println("alert('회원가입이 완료되었습니다. 인증메일을 확인해주세요!'); location.href='/gym/index';");
+		out.println("alert('회원가입이 완료되었습니다. 인증메일을 확인해주세요!'); location.href='http://3.144.47.221:8080/gym/index';");
 		out.println("</script>");
 		out.close();
 		

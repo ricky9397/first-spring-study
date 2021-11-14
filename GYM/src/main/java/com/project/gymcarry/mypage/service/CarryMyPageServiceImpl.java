@@ -60,6 +60,13 @@ public class CarryMyPageServiceImpl implements CarryMyPageService {
         return dao.updateCarryModify(carryInfoDto);
     }
 
+    // 캐리 PT 이용 금액 출력
+    @Override
+	public List<CarryPriceDto> selectCarryPrice(int cridx) throws Exception {
+    	dao = template.getMapper(CarryMyPageDao.class);
+		return dao.selectCarryPrice(cridx);
+	}
+    
     // 캐리 가격 정보 유무 체크
 	@Override
 	public int checkCarryPrice(int cridx) {
@@ -164,5 +171,7 @@ public class CarryMyPageServiceImpl implements CarryMyPageService {
 		carryMyPageDao = template.getMapper(CarryMyPageDao.class);
          return carryMyPageDao.myMemberList(cridx);
 	}
+
+	
 
 }

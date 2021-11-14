@@ -56,8 +56,9 @@ public class MypageService {
 		return dao.scheduleview(cridx);
 	}
 
-	public void deleteschedule(int cridx) {
+	public List<CarryMypageDto> deleteschedule(int cridx) {
 		dao = template.getMapper(MypageDao.class);
+		return dao.deleteschedule(cridx);
 	}
 
 }

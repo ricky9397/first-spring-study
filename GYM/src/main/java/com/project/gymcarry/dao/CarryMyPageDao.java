@@ -13,6 +13,8 @@ public interface CarryMyPageDao {
 	// 캐리 정보 수정
 	int updateCarryModify(CarryInfoDto carryInfoDto) throws Exception;
 
+	// 캐리 PT 이용 금액 출력
+	List<CarryPriceDto> selectCarryPrice(int cridx) throws Exception;
 	
 	// 캐리 가격 정보 유무 체크
 	int checkCarryPrice(int cridx);

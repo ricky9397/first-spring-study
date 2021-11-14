@@ -8,8 +8,6 @@ $(document).ready(function(e) {
         
         var bottom_Top = $('.footer').offset().top - 900;
         
-        console.log('123 == ' + scroll_Top);
-        console.log('456 == ' + bottom_Top);
 
         //main
         if (scroll_Top > default_h){

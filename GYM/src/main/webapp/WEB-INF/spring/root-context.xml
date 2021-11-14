@@ -8,16 +8,19 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
    <!-- DataSource 설정 -->
-   <bean id="datasource"
+   <!-- <bean id="datasource"
 		  class="com.zaxxer.hikari.HikariDataSource"
 		  p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
-		  p:jdbcUrl="jdbc:log4jdbc:mysql://mysql205.cszw5wiaeg6n.us-east-2.rds.amazonaws.com:3306/gymcarry?serverTimezone=Asia/Seoul"
+		  p:jdbcUrl="jdbc:log4jdbc:mysql://mysql205.cnw8pmzt7ahn.ap-northeast-2.rds.amazonaws.com:3306/gymcarry?serverTimezone=Asia/Seoul"
 		  p:username="gym"
 		  p:password="gym"
-	>
-	</bean>
-   
-<!--    <bean id="datasource"
+		  p:connectionTimeout="200000"
+		  p:minimumIdle="5"
+		  p:maximumPoolSize="5"
+		  p:validationTimeout="1200000"/> -->
+
+
+   <!-- <bean id="datasource"
             class="com.zaxxer.hikari.HikariDataSource"
             p:driverClassName="com.mysql.cj.jdbc.Driver"
             p:jdbcUrl="jdbc:mysql://mysql205.cszw5wiaeg6n.us-east-2.rds.amazonaws.com:3306/gymcarry?serverTimezone=UTC"
@@ -25,6 +28,15 @@
             p:password="gym"
    >
    </bean> -->
+	
+	<!-- <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+  		<property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
+  		<property value="jdbc:oracle:thin:@localhost:1521:xe" name="url" />
+  		<property value="MYSTUDY" name="username" />
+  		<property value="mystudypw" name="password" />
+	</bean> -->
+	
+	
 	
 	<!-- SqlSessionFactoryBean 등록 -->
 	<bean id="sqlSessionFactoryBean"

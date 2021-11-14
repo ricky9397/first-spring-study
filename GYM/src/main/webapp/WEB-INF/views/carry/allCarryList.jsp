@@ -61,9 +61,15 @@
                 <span class="certifi">경력사항</span>
                 <%-- <span class="pt_nopt2"><img src="<c:url value="/images/icon/movie.png"/>">비대면PT 가능</span> --%>
                 <ul>
-                  <li>${alist.crcerti1}</li>
-                  <li>${alist.crcerti2}</li>
-                  <li>${alist.crcerti3}</li>
+                	<c:if test="${!empty alist.crcerti1}">
+                  		<li>${alist.crcerti1}</li>
+                  	</c:if>
+                  	<c:if test="${!empty alist.crcerti2}">
+                 		<li>${alist.crcerti2}</li>
+                 	</c:if>
+                 	<c:if test="${!empty alist.crcerti3}">
+                  		<li>${alist.crcerti3}</li>
+                  	</c:if>
                 </ul>
               </div>
               <div class="bottom_btn">

@@ -49,7 +49,7 @@
 
 .carry_image {
 	width: 100%;
-	height: 350px;
+	height: 320px;
 }
 
 .carry_image ul {
@@ -58,7 +58,7 @@
 
 .carry_image ul li {
 	height: 100%;
-	width: 25% !important;
+	width: 16.66666% !important;
 }
 
 .carry_image img {
@@ -275,6 +275,7 @@ textarea {
 	padding-right : 8px;
 	margin : 0 20px -20px 20px;
 	font-size : 15px;
+	resize:none;
 }
 
 .review_input:focus {

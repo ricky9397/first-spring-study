@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name ="google-signin-client_id" content="884370396168-lvivvhk8sibtnjq5ns48nug9qrgcuj6h.apps.googleusercontent.com">
+<meta name ="google-signin-client_id" content="549594592719-njuj9rmfspj9asuoqd7e87ecpcr4t8vn.apps.googleusercontent.com">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -108,7 +108,7 @@
 
 <!-- 카카오 로그인 API -->
 <script>
-	Kakao.init('0ecec0f1529ce019d44a9de3e0b3bb22'); //발급받은 키 중 javascript키를 사용해준다.
+	Kakao.init('63464a41c4be0b7873f01ff2d392291a'); //발급받은 키 중 javascript키를 사용해준다.
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오 로그인
 	function kakaoLogin() {

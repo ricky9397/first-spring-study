@@ -49,8 +49,6 @@ public class CarryCalendarController {
 
 		System.out.println("컨트롤러 리퀘스트 : " + request);
 		
-		mypService.deleteschedule(sdt.getCridx());
-		
 		System.out.println();
 		mypService.carrycalendar(request);
 		
@@ -80,5 +78,17 @@ public class CarryCalendarController {
 		
 		
 		return schelist;
+	}
+	
+	
+	@PostMapping("mypage/deleteschedule")
+	public List<CarryMypageDto> deleteschedule(HttpSession session){
+		SessionDto sdt = (SessionDto) session.getAttribute("loginSession");
+		
+		List<CarryMypageDto> deleteschedule = mypService.deleteschedule(sdt.getCridx());
+		
+		System.out.println("캐리 스케줄 삭제합니다 : " + deleteschedule);
+		
+		return deleteschedule;
 	}
 }

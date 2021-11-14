@@ -26,7 +26,10 @@ function getBar(total, month){
 	      		'rgba(255, 159, 64, 0.5)',
 	      		'#FF9DFF',
 	      		'#FF8C8C',
-	      		'#CBFF75'
+	      		'#CBFF75',
+	      		'#FFD700',
+	      		'#0064CD',
+	      		'#9400D3'
 
 	      ],
 	      borderColor: "rgba(2,117,216,1)",

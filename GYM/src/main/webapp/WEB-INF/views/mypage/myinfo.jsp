@@ -43,18 +43,18 @@
 		<div class="contents">
 
 			<div class="col">
-				
+
 				<form action="<c:url value='/mypage/myinfoUpdate'/>" method="post"
 					enctype="multipart/form-data">
 
 					<c:forEach items="${memberList}" var="memberList">
-						
+
 						<input type="hidden" name="memidx" id="memidx"
 							value="${memberList.memidx}">
 
 
 						<div class="my-info profile_form">
-						<h1 class= "title">내 기본 정보 수정</h1>
+							<h1 class="title">내 기본 정보 수정</h1>
 							<div class="display_none profileimg" id="image_container">
 								<img class="imgc"
 									src="<c:url value="/uploadfile/${memberList.memphoto}"/>">
@@ -66,16 +66,19 @@
 								style="display: none;" />
 						</div>
 
-
-						<div class="col-2">
-							<div class="col-3">
-								<h3>이름</h3>
-							</div>
-							<div class="col-9" style="float: right;">
-								<input value="${memberList.memname}" type="text"
-									class="readonly" readonly />
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${memberList.memname ne null	}">
+								<div class="col-2">
+									<div class="col-3">
+										<h3>이름</h3>
+									</div>
+									<div class="col-9" style="float: right;">
+										<input value="${memberList.memname}" type="text"
+											class="readonly" readonly />
+									</div>
+								</div>
+							</c:when>
+						</c:choose>
 						<div class="col-2">
 							<div class="col-3">
 								<h3>이메일 주소</h3>
@@ -86,28 +89,32 @@
 									readonly>
 							</div>
 						</div>
-						<div class="col-2">
-							<div class="col-3">
-								<h3>비밀번호 수정</h3>
-							</div>
-							<div class="col-9" style="float: right;">
-								<input type="password" name="mempw" id="mempw"
-									placeholder="비밀번호를 입력해주세요.">
-								<div class="check_font" id="pwcheck"></div>
+						<c:choose>
+							<c:when test="${memberList.mempw ne null }">
+								<div class="col-2">
+									<div class="col-3">
+										<h3>비밀번호 수정</h3>
+									</div>
+									<div class="col-9" style="float: right;">
+										<input type="password" name="mempw" id="mempw"
+											placeholder="비밀번호를 입력해주세요.">
+										<div class="check_font" id="pwcheck"></div>
 
-							</div>
-						</div>
-						<div class="col-2">
-							<div class="col-3">
-								<h3>비밀번호 수정 확인</h3>
-							</div>
-							<div class="col-9" style="float: right;">
-								<input type="password" name="mempw2" id="mempw2"
-									placeholder="비밀번호를 확인해주세요." >
-								<div class="check_font" id="mempw2check"></div>
+									</div>
+								</div>
+								<div class="col-2">
+									<div class="col-3">
+										<h3>비밀번호 수정 확인</h3>
+									</div>
+									<div class="col-9" style="float: right;">
+										<input type="password" name="mempw2" id="mempw2"
+											placeholder="비밀번호를 확인해주세요.">
+										<div class="check_font" id="mempw2check"></div>
 
-							</div>
-						</div>
+									</div>
+								</div>
+							</c:when>
+						</c:choose>
 
 
 						<div class="col-2">
@@ -133,16 +140,19 @@
 
 							</div>
 						</div>
-
-						<div class="col-2">
-							<div class="col-3">
-								<h3>생년월일</h3>
-							</div>
-							<div class="col-9" style="float: right;">
-								<input value="${memberList.membirth}" type="text"
-									class="readonly" readonly>
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${memberList.membirth ne null	}">
+								<div class="col-2">
+									<div class="col-3">
+										<h3>생년월일</h3>
+									</div>
+									<div class="col-9" style="float: right;">
+										<input value="${memberList.membirth}" type="text"
+											class="readonly" readonly>
+									</div>
+								</div>
+							</c:when>
+						</c:choose>
 						<div class="col-2"
 							style="margin-top: 7%; width: 100%; display: flex;">
 							<div class="col-2" style="width: 50%; margin: auto;">
@@ -158,8 +168,8 @@
 								</div>
 							</div>
 						</div>
-							<input type="hidden" name="oldmemphoto"
-						value="${memberList.memphoto}">
+						<input type="hidden" name="oldmemphoto"
+							value="${memberList.memphoto}">
 					</c:forEach>
 				</form>
 			</div>

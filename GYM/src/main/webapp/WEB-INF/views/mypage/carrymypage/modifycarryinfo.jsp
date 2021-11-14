@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <title>GYM CARRY : 캐리 정보 수정</title>
 
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
@@ -117,10 +117,10 @@
                         <tr>
                             <th><span>PT 이용금액 </span></th>
                             <td>
-                                <input type="text" placeholder="1회 금액 (숫자만 입력해주세요)" name="proprice1" required>
-                                <input type="text" placeholder="5회 금액 (숫자만 입력해주세요)" name="proprice2" required>
-                                <input type="text" placeholder="10회 금액 (숫자만 입력해주세요)" name="proprice3" required>
-                                <input type="text" placeholder="20회 금액 (숫자만 입력해주세요)" name="proprice4" required>
+                                <input type="text" placeholder="1회 금액 (숫자만 입력해주세요)" name="proprice1" required value="${carryPrice[0].proprice}">
+                                <input type="text" placeholder="5회 금액 (숫자만 입력해주세요)" name="proprice2" required value="${carryPrice[1].proprice}">
+                                <input type="text" placeholder="10회 금액 (숫자만 입력해주세요)" name="proprice3" required value="${carryPrice[2].proprice}">
+                                <input type="text" placeholder="20회 금액 (숫자만 입력해주세요)" name="proprice4" required value="${carryPrice[3].proprice}">
                             </td>
                         </tr>
 

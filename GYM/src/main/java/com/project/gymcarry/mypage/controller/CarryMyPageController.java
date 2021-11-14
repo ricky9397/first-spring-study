@@ -63,6 +63,11 @@ public class CarryMyPageController {
 		// 캐리 자격 및 경력 출력
 		CarryCertiDto carryCerti = service.getCarryCerti(cridx);
 		model.addAttribute("carryCerti", carryCerti);
+		
+		// 캐리 PT 이용금액 출력
+		List<CarryPriceDto> carryPrice = service.selectCarryPrice(cridx);
+		model.addAttribute("carryPrice", carryPrice);
+		System.out.println("carryPrice === " + carryPrice.toString());
 
 		return "/mypage/carrymypage/modifycarryinfo";
 	}
