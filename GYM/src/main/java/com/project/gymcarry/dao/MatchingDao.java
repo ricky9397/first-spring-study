@@ -1,6 +1,7 @@
 package com.project.gymcarry.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -62,6 +63,11 @@ public interface MatchingDao {
 
 	// 방count 가져옴
 	ChatListDto selectRoomCount(int chatidx);
+
+	
+	
+	
+	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap);
 
 
 	

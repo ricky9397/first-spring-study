@@ -1,6 +1,7 @@
 package com.project.gymcarry.chatting.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.project.gymcarry.carrylike.CarryLikeDto;
 import com.project.gymcarry.chatting.ChatListDto;
@@ -8,8 +9,10 @@ import com.project.gymcarry.chatting.ChatRoomDto;
 
 public interface MatchingChatRoomService {
 
-	ChatListDto getByChatRoom(int cridx, int memidx);
+	//ChatListDto getByChatRoom(int cridx, int memidx);
 
+	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap);
+	
 	int getByChatIdx(int chatidx);
 
 	int getInChatRoom(int chatidx);
@@ -37,5 +40,9 @@ public interface MatchingChatRoomService {
 	int deleteChatRoom(int chatidx);
 
 	List<ChatRoomDto> getMemberMessage(int chatidx);
+
+	
+
+	
 
 }

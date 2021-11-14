@@ -1,9 +1,7 @@
 package com.project.gymcarry.chatting.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import com.project.gymcarry.chatting.ChatListDto;
 import com.project.gymcarry.chatting.ChatRoomDto;
 import com.project.gymcarry.chatting.MessageDto;
 import com.project.gymcarry.dao.MatchingDao;
-import com.project.gymcarry.member.SessionDto;
 
 @Service
 public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
@@ -60,11 +57,11 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 	}
 
 	// 사용자 아이디로 채팅룸 가져오기
-	@Override
-	public ChatListDto getByChatRoom(int cridx, int memidx) {
-		dao = template.getMapper(MatchingDao.class);
-		return dao.selectByChatRoom(cridx, memidx);
-	}
+//	@Override
+//	public ChatListDto getByChatRoom(int cridx, int memidx) {
+//		dao = template.getMapper(MatchingDao.class);
+//		return dao.selectByChatRoom(cridx, memidx);
+//	}
 
 	// 채팅룸 중복확인
 	@Override
@@ -144,6 +141,13 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 	public ChatListDto selectRoomCount(int chatidx) {
 		dao = template.getMapper(MatchingDao.class);
 		return dao.selectRoomCount(chatidx);
+	}
+
+	
+	@Override
+	public Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) {
+		dao = template.getMapper(MatchingDao.class);
+		return dao.selectByChatRoom(inOutMap);
 	}
 
 }

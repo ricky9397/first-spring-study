@@ -63,9 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 사용자 채팅방 가져오기 -->
 	<select id="selectByChatRoom"
-		resultType="com.project.gymcarry.chatting.ChatListDto">
-		select * from chatlist where cridx=#{cridx} and
-		memidx=#{memidx};
+		resultType="map" parameterType="map">
+		SELECT  * 
+		  FROM  CHATLIST 
+		 WHERE  CRIDX  = #{cridx} 
+		   		AND
+				MEMIDX = #{memidx}
 	</select>
 
 	<!-- 채팅방 중복,찾기 -->
