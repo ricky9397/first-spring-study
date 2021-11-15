@@ -26,6 +26,7 @@ public class JoinController {
 
 	@Autowired
 	JoinService joinservice;
+	
 	@Autowired
 	private MailSenderService mailsenderservice;
 

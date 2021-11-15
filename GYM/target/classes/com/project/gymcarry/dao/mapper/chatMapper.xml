@@ -61,14 +61,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		value(#{cridx}, #{memidx})
 	</insert>
 
-	<!-- 사용자 채팅방 가져오기 -->
+	<!-- 사용자 채팅방 번호 조회 -->
 	<select id="selectByChatRoom"
 		resultType="map" parameterType="map">
-		SELECT  * 
+		SELECT  CHATIDX,
+				OUTCOUNT
 		  FROM  CHATLIST 
-		 WHERE  CRIDX  = #{cridx} 
+		 WHERE  CRIDX		= #{cridx} 
 		   		AND
-				MEMIDX = #{memidx}
+				MEMIDX		= #{memidx}
 	</select>
 
 	<!-- 채팅방 중복,찾기 -->

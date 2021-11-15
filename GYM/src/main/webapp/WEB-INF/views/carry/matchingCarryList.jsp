@@ -17,10 +17,10 @@
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
 	
 	<!-- Contents -->
-  <div class="content_main">
-  <div class="content_wrap">
-    <div class="content">
-    <h1 class="match_title">당신과 함께할 캐리를 소개합니다 !</h1>
+    <div class="content_main">
+    	<div class="content_wrap">
+    		<div class="content">
+    			<h1 class="match_title">당신과 함께할 캐리를 소개합니다 !</h1>
     <div class="re_survey">
     	<a href="<c:url value="/survey/survey"/>">다른 매칭을 원하신다면?</a>
     </div>

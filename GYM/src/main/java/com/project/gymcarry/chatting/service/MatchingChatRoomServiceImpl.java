@@ -56,13 +56,6 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 		return dao.insertAddChatRoom(cridx, memidx);
 	}
 
-	// 사용자 아이디로 채팅룸 가져오기
-//	@Override
-//	public ChatListDto getByChatRoom(int cridx, int memidx) {
-//		dao = template.getMapper(MatchingDao.class);
-//		return dao.selectByChatRoom(cridx, memidx);
-//	}
-
 	// 채팅룸 중복확인
 	@Override
 	public int getByChatIdx(int chatidx) {
@@ -144,10 +137,21 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 	}
 
 	
+	
+	
+	
 	@Override
 	public Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) {
 		dao = template.getMapper(MatchingDao.class);
 		return dao.selectByChatRoom(inOutMap);
 	}
+
+	@Override
+	public int updateOutCount(Object object) throws Exception {
+		dao = template.getMapper(MatchingDao.class);
+		return dao.updateInChat(object);
+	}
+
+	
 
 }

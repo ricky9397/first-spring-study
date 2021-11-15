@@ -32,31 +32,33 @@ public class UserChatController {
 
 	// 채팅 룸 생성 및 중복
 	@RequestMapping(value = "chatting/chatInquire")
-	public String chatInquire(/*@RequestParam("cridx") int cridx, @RequestParam("memidx") int memidx*/
-			HttpServletRequest request,
-			RedirectAttributes redirectAttributes) {
+	public String chatInquire(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		
 		Map<String, Object> inOutMap = CommUtils.getFormParam(request);
 		
-		
 		// 방번호 가져오기
 		Map<String, Object> roomNum = matchingChatRoomService.selectByChatRoom(inOutMap);
+		int result = (int) roomNum.get("OUTCOUNT");
 		
-		if (roomNum != null) {
+		// 방번호가 있으면 생성 되지 않기 위한 조건 
+		if (CommUtils.isEmpty(roomNum)) {
+			
 			// 방이 있으면 생성하지않고 채팅으로 이동
-			int chatidx = matchingChatRoomService.getByChatIdx(chatDto.getChatidx());
-			if (chatidx == 1) {
-				if (chatDto.getOutcount() == 1) {
+			//int chatidx = matchingChatRoomService.getByChatIdx(roomNum.get("CHATIDX"));
+//			
+//			if (chatidx == 1) {
+				if (result == 1) {
 					// 나간채팅방 다시들어가기
-					matchingChatRoomService.getInChatRoom(chatDto.getChatidx());
+					matchingChatRoomService.updateOutCount(roomNum.get("CHATIDX"));
 				}
-				redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
+				//redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
 				return "redirect:/chatting/chatList";
-			}
+//			}
+		
 		}
 		
 		// 캐리와의 중복 방이없을경우 채팅방생성
-		matchingChatRoomService.getAddChatRoom(cridx, memidx);
+//		matchingChatRoomService.getAddChatRoom(cridx, memidx);
 		return "redirect:/chatting/chatList";
 	}
 

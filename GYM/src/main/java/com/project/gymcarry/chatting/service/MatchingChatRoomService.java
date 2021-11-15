@@ -9,9 +9,21 @@ import com.project.gymcarry.chatting.ChatRoomDto;
 
 public interface MatchingChatRoomService {
 
-	//ChatListDto getByChatRoom(int cridx, int memidx);
-
-	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap);
+	/**
+	 * 
+	 * 채팅방 IDX, 채팅방 나간 여부 확인값을 불러와 맵에 저장
+	 * @param inOutMap
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception;
+	
+	int updateOutCount(Object object) throws Exception;
+	
+	
+	
+	
+	
 	
 	int getByChatIdx(int chatidx);
 
@@ -40,6 +52,11 @@ public interface MatchingChatRoomService {
 	int deleteChatRoom(int chatidx);
 
 	List<ChatRoomDto> getMemberMessage(int chatidx);
+
+	
+
+	
+
 
 	
 
