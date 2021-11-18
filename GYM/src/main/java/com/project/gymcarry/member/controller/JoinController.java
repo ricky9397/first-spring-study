@@ -42,12 +42,9 @@ public class JoinController {
 	public String memberJoin(@ModelAttribute MemberJoinDto memberDto, HttpServletRequest request,
 			HttpServletResponse response, Model model) throws Exception {
 
-		// 암호 확인
-		System.out.println("첫번째 암호 : " + memberDto.getMempw());
 		// 비밀번호 암호화(SHA256)
 		String encryPassword = memSha256.encrypt(memberDto.getMempw());
 		memberDto.setMempw(encryPassword);
-		System.out.println("두번째 : " + memberDto.getMempw());
 
 		// 멤버 회원가입 성공
 		System.out.println("입력 정보 : " + memberDto.toString());
@@ -61,10 +58,6 @@ public class JoinController {
 
 		// 인증메일 보내기 메소드
 		String result2 = mailsenderservice.send_mail(memberDto.getMememail(), memberDto.getMemname());
-		if (result2 != null) {
-			System.out.println("이메일 보내기 성공");
-			System.out.println("memberDto.getMememail = " + memberDto.getMememail());
-		}
 
 		out.println("<script>");
 		out.println("alert('회원가입이 완료되었습니다. 인증메일을 확인해주세요!'); location.href='http://3.144.47.221:8080/gym/index';");

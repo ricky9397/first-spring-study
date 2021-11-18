@@ -25,6 +25,7 @@ import com.project.gymcarry.common.CommUtils;
 import com.project.gymcarry.member.SessionDto;
 
 @Controller
+@RequestMapping("chatting")
 public class UserChatController {
 
 	@Autowired
@@ -38,7 +39,7 @@ public class UserChatController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "chatting/chatInquire")
+	@RequestMapping(value = "/chatInquire")
 	public String chatInquire(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		Map<String, Object> inOutMap = CommUtils.getFormParam(request);
 
@@ -67,17 +68,17 @@ public class UserChatController {
 	}
 
 	// 채팅룸 리스트
-	@GetMapping("chatting/chatList")
+	@RequestMapping(value = "/chatList")
 	public String matching(Model model, HttpSession session) {
 		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
-		session.getAttribute("loginSession");
-		
 		
 		List<ChatListDto> list = null;
+		
 		if (dto.getMemidx() != 0) {
 			// 맴버가 접속했을때 채팅방
 			list = matchingChatRoomService.getChatList(dto.getMemidx());
 			model.addAttribute("chatList", list);
+			
 		} else if (dto.getCridx() != 0) {
 			// 캐리가 접속했을때 채팅방
 			list = matchingChatRoomService.getChatLists(dto.getCridx());
@@ -91,7 +92,7 @@ public class UserChatController {
 	@ResponseBody
 	public Map<String, Object> chatList(@RequestParam("chatidx") int chatidx, HttpSession session) {
 		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
-
+		
 		Map<String, Object> mapList = new HashMap<String, Object>();
 		List<ChatRoomDto> chatList = null;
 		if (dto.getMemidx() != 0) {

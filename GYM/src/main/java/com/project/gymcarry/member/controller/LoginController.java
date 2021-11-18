@@ -52,20 +52,20 @@ public class LoginController {
 
 			if (memberDto.getJoinkey_status().equals("1")) {
 
-//				SessionDto sessionDto = new SessionDto();
-//				sessionDto.setMemidx(memberDto.getMemidx());
-//				sessionDto.setMemname(memberDto.getMemname());
-//				sessionDto.setMemnick(memberDto.getMemnick());
+				SessionDto sessionDto = new SessionDto();
+				sessionDto.setMemidx(memberDto.getMemidx());
+				sessionDto.setMemname(memberDto.getMemname());
+				sessionDto.setMemnick(memberDto.getMemnick());
 				
-				//String chatNick = sessionDto.getMemnick();
+				String chatNick = sessionDto.getMemnick();
 
 				out.println("<script>");
 				out.println("alert('로그인되었습니다!'); location.href='/gym/index';");
 				out.println("</script>");
 				out.close();
 
-				session.setAttribute("loginSession", memberDto);
-				session.setAttribute("chatSession", memberDto.getMemnick());
+				session.setAttribute("loginSession", sessionDto);
+				session.setAttribute("chatSession", chatNick);
 
 				return "redirect:/index";
 

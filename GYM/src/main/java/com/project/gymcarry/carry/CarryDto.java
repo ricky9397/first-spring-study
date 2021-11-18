@@ -1,7 +1,5 @@
 package com.project.gymcarry.carry;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class CarryDto {
 
 	private int cridx;
