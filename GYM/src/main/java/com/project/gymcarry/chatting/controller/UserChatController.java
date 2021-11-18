@@ -52,7 +52,7 @@ public class UserChatController {
 //			if (chatidx == 1) {
 				if (result == 1) {
 					// 나간채팅방 다시들어가기
-					matchingChatRoomService.updateInCount("chatIdx");
+					//matchingChatRoomService.updateInCount("chatIdx");
 				}
 				//redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
 				return "redirect:/chatting/chatList";
