@@ -141,16 +141,17 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 	
 	
 	@Override
-	public Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) {
+	public Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception {
 		dao = template.getMapper(MatchingDao.class);
 		return dao.selectByChatRoom(inOutMap);
 	}
 
 	@Override
-	public int updateOutCount(Object object) throws Exception {
+	public int updateInCount(String string) throws Exception {
 		dao = template.getMapper(MatchingDao.class);
-		return dao.updateInChat(object);
+		return dao.updateInCount(string);
 	}
+
 
 	
 

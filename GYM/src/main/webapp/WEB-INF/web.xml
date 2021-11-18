@@ -60,8 +60,7 @@
 	</error-page>
 
 	<bean id="beanNameResolver"
-		class="org.springframework.web.servlet.view.BeanNameViewResolver"
-		p:order="0" />
+		class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
 
 	<!-- jsonView -->
 	<bean id="jsonView"

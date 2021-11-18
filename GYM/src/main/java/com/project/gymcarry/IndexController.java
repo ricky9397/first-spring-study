@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.gymcarry.carry.CarryReviewDto;
 import com.project.gymcarry.carry.service.CarryInfoService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class IndexController {
 	

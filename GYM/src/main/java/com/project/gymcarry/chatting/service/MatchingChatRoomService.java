@@ -18,8 +18,7 @@ public interface MatchingChatRoomService {
 	 */
 	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception;
 	
-	int updateOutCount(Object object) throws Exception;
-	
+	int updateInCount(String string) throws Exception;
 	
 	
 	
@@ -52,6 +51,14 @@ public interface MatchingChatRoomService {
 	int deleteChatRoom(int chatidx);
 
 	List<ChatRoomDto> getMemberMessage(int chatidx);
+
+
+
+
+
+
+
+	
 
 	
 

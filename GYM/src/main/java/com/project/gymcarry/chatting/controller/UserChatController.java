@@ -38,7 +38,10 @@ public class UserChatController {
 		
 		// 방번호 가져오기
 		Map<String, Object> roomNum = matchingChatRoomService.selectByChatRoom(inOutMap);
+		roomNum.put("chatIdx", roomNum.get("CHATIDX"));
+		// 방 나감여부 OUTCOUNT
 		int result = (int) roomNum.get("OUTCOUNT");
+		
 		
 		// 방번호가 있으면 생성 되지 않기 위한 조건 
 		if (CommUtils.isEmpty(roomNum)) {
@@ -49,7 +52,7 @@ public class UserChatController {
 //			if (chatidx == 1) {
 				if (result == 1) {
 					// 나간채팅방 다시들어가기
-					matchingChatRoomService.updateOutCount(roomNum.get("CHATIDX"));
+					matchingChatRoomService.updateInCount("chatIdx");
 				}
 				//redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
 				return "redirect:/chatting/chatList";

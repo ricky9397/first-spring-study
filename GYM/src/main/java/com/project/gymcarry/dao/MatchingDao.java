@@ -67,7 +67,9 @@ public interface MatchingDao {
 	
 	
 	
-	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap);
+	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception;
+
+	int updateInCount(String string) throws Exception;
 
 
 	
