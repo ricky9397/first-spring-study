@@ -44,32 +44,28 @@ public class LoginController {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		System.out.println("멤버 로그인 프로세스 입장>>");
 		String password = memSha256.encrypt(pw);
-		System.out.println(password);
+		
 		MemberDto memberDto = loginService.memberjoinkeycheck(id, password);
 
 		if (memberDto != null) {
 
 			if (memberDto.getJoinkey_status().equals("1")) {
 
-				SessionDto sessionDto = new SessionDto();
-				sessionDto.setMemidx(memberDto.getMemidx());
-				sessionDto.setMemname(memberDto.getMemname());
-				sessionDto.setMemnick(memberDto.getMemnick());
-				String chatNick = sessionDto.getMemnick();
+//				SessionDto sessionDto = new SessionDto();
+//				sessionDto.setMemidx(memberDto.getMemidx());
+//				sessionDto.setMemname(memberDto.getMemname());
+//				sessionDto.setMemnick(memberDto.getMemnick());
+				
+				//String chatNick = sessionDto.getMemnick();
 
 				out.println("<script>");
 				out.println("alert('로그인되었습니다!'); location.href='/gym/index';");
 				out.println("</script>");
 				out.close();
 
-				System.out.println("로그인 성공");
-				session.setAttribute("loginSession", sessionDto);
-				session.setAttribute("chatSession", chatNick);
-
-				System.out.println("sessionDto : " + sessionDto);
-				System.out.println("chatNick : " + chatNick);
+				session.setAttribute("loginSession", memberDto);
+				session.setAttribute("chatSession", memberDto.getMemnick());
 
 				return "redirect:/index";
 

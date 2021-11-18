@@ -140,16 +140,25 @@ public class MatchingChatRoomServiceImpl implements MatchingChatRoomService {
 	
 	
 	
+	/** 채팅방 번호 select */
 	@Override
 	public Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception {
 		dao = template.getMapper(MatchingDao.class);
 		return dao.selectByChatRoom(inOutMap);
 	}
 
+	/** 채팅방 나갔다 다시 들어왔을때 update */
 	@Override
-	public int updateInCount(String string) throws Exception {
+	public int updateInCount(Map<String, Object> roomNum) throws Exception {
 		dao = template.getMapper(MatchingDao.class);
-		return dao.updateInCount(string);
+		return dao.updateInCount(roomNum);
+	}
+	
+	/** 채팅 처음 생성 insert */
+	@Override
+	public int insertChatRoom(Map<String, Object> inOutMap) throws Exception {
+		dao = template.getMapper(MatchingDao.class);
+		return dao.insertChatRoom(inOutMap);
 	}
 
 

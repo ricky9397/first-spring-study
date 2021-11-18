@@ -53,12 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and r.messageidx=(SELECT MAX(r.MESSAGEIDX) from chatroom r where r.chatidx=l.chatidx)
 	</select>
 
-	<!-- 채팅룸 생성 -->
-	<insert id="insertAddChatRoom"
-		parameterType="com.project.gymcarry.chatting.ChatListDto"
-		useGeneratedKeys="true">
-		insert into chatlist(cridx, memidx)
-		value(#{cridx}, #{memidx})
+	<!-- 처음 채팅방 생성 -->
+	<insert id="insertAddChatRoom" parameterType="map">
+		INSERT 
+		  INTO CHATLIST ( CRIDX, 
+		  				  MEMIDX    )
+		  				  
+		 VALUE 			( #{cridx},
+		 		 		  #{memidx} )
 	</insert>
 
 	<!-- 사용자 채팅방 번호 조회 -->
@@ -126,10 +128,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 멤버 나간방 다시들어가기 -->
-	<update id="updateInCount" parameterType="com.project.gymcarry.chatting.ChatListDto">
+	<update id="updateInCount" parameterType="map">
 		UPDATE CHATLIST 
 		   SET OUTCOUNT 	= OUTCOUNT +1 
-		 WHERE CHATIDX 		= #{chatIdx}
+		 WHERE CHATIDX 		= #{CHATIDX}
 	</update>
 
 	<!-- 캐리 방나가기 -->

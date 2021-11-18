@@ -30,38 +30,39 @@ public class UserChatController {
 	@Autowired
 	private MatchingChatRoomService matchingChatRoomService;
 
-	// 채팅 룸 생성 및 중복
+	
+	/**
+	 * 1:1 채팅 문의 버튼 클릭시 실행 메소드
+	 * @param request
+	 * @param redirectAttributes
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "chatting/chatInquire")
 	public String chatInquire(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-		
 		Map<String, Object> inOutMap = CommUtils.getFormParam(request);
-		
-		// 방번호 가져오기
+
+		// 채팅 방 번호 가져오기
 		Map<String, Object> roomNum = matchingChatRoomService.selectByChatRoom(inOutMap);
-		roomNum.put("chatIdx", roomNum.get("CHATIDX"));
+
 		// 방 나감여부 OUTCOUNT
 		int result = (int) roomNum.get("OUTCOUNT");
-		
-		
-		// 방번호가 있으면 생성 되지 않기 위한 조건 
-		if (CommUtils.isEmpty(roomNum)) {
+
+		// 방번호가 있으면 생성 되지 않기 위한 조건
+		if (!CommUtils.isEmpty(roomNum)) {
+
+			// OUTCOUNT가 1일 경우 ture
+			if (result == 1) {
+				// 나간채팅방 다시들어가기
+				matchingChatRoomService.updateInCount(roomNum);
+			}
 			
-			// 방이 있으면 생성하지않고 채팅으로 이동
-			//int chatidx = matchingChatRoomService.getByChatIdx(roomNum.get("CHATIDX"));
-//			
-//			if (chatidx == 1) {
-				if (result == 1) {
-					// 나간채팅방 다시들어가기
-					//matchingChatRoomService.updateInCount("chatIdx");
-				}
-				//redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
-				return "redirect:/chatting/chatList";
-//			}
-		
+			// redirectAttributes.addAttribute("chatidx", chatDto.getChatidx());
+			return "redirect:/chatting/chatList";
 		}
-		
+
 		// 캐리와의 중복 방이없을경우 채팅방생성
-//		matchingChatRoomService.getAddChatRoom(cridx, memidx);
+		matchingChatRoomService.insertChatRoom(inOutMap);
 		return "redirect:/chatting/chatList";
 	}
 
@@ -69,6 +70,9 @@ public class UserChatController {
 	@GetMapping("chatting/chatList")
 	public String matching(Model model, HttpSession session) {
 		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
+		session.getAttribute("loginSession");
+		
+		
 		List<ChatListDto> list = null;
 		if (dto.getMemidx() != 0) {
 			// 맴버가 접속했을때 채팅방
@@ -85,15 +89,15 @@ public class UserChatController {
 	// 채팅 대화리스트
 	@PostMapping("chatting/dochat")
 	@ResponseBody
-	public Map<String, Object> chatList(@RequestParam("chatidx") int chatidx,HttpSession session) {
+	public Map<String, Object> chatList(@RequestParam("chatidx") int chatidx, HttpSession session) {
 		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
-		
+
 		Map<String, Object> mapList = new HashMap<String, Object>();
-		List<ChatRoomDto> chatList = null; 
-		if(dto.getMemidx() != 0) {
+		List<ChatRoomDto> chatList = null;
+		if (dto.getMemidx() != 0) {
 			chatList = matchingChatRoomService.getMemberMessage(chatidx);
 			mapList.put("memList", chatList);
-		} else if(dto.getCridx() != 0) {
+		} else if (dto.getCridx() != 0) {
 			chatList = matchingChatRoomService.getChatIdx(chatidx);
 			mapList.put("crList", chatList);
 		}
@@ -126,7 +130,7 @@ public class UserChatController {
 	public int chatDelete(@RequestParam("chatidx") int chatidx, HttpSession session) {
 		SessionDto dto = (SessionDto) session.getAttribute("loginSession");
 		int result = 0;
-		if(dto.getMemidx() != 0) {
+		if (dto.getMemidx() != 0) {
 			result = matchingChatRoomService.getOutChatRoom(chatidx);
 		} else {
 			result = matchingChatRoomService.getOutCarryChatRoom(chatidx);
@@ -135,5 +139,5 @@ public class UserChatController {
 		result = matchingChatRoomService.deleteChatRoom(chatidx);
 		return result;
 	}
-	
+
 }

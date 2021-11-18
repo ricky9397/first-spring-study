@@ -67,9 +67,29 @@ public interface MatchingDao {
 	
 	
 	
+	/**
+	 * 채팅방 IDX, 채팅방 나간 여부 확인값을 불러와 맵에 저장 DAO
+	 * @param inOutMap
+	 * @return
+	 * @throws Exception
+	 */
 	Map<String, Object> selectByChatRoom(Map<String, Object> inOutMap) throws Exception;
 
-	int updateInCount(String string) throws Exception;
+	/**
+	 * 채팅방 나갔다 다시 들어 왔을때 나감여부 update DAO
+	 * @param roomNum
+	 * @return
+	 * @throws Exception
+	 */
+	int updateInCount(Map<String, Object> roomNum) throws Exception;
+	
+	/**
+	 * 채팅방 처음 생성 insert DAO
+	 * @param inOutMap
+	 * @return
+	 * @throws Exception
+	 */
+	int insertChatRoom(Map<String, Object> inOutMap) throws Exception;
 
 
 	

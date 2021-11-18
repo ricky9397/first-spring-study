@@ -70,7 +70,7 @@ public class CarryLoginController {
 				
 				System.out.println("로그인 성공");
 				session.setAttribute("loginSession", sessionDto);
-				 session.setAttribute("chatSession", chatNick);
+				session.setAttribute("chatSession", chatNick);
 				
 				System.out.println("sessionDto : " + sessionDto);
 				System.out.println("chatNick : " + chatNick);
