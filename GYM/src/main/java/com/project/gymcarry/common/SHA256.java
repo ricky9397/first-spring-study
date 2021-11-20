@@ -1,8 +1,8 @@
-package com.project.gymcarry.member.service;
+package com.project.gymcarry.common;
 
 import java.security.MessageDigest;
 
-public class memSha256 {
+public class SHA256 {
 	public static String encrypt(String planText) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");

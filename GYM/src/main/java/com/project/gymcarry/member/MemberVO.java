@@ -1,6 +1,6 @@
 package com.project.gymcarry.member;
 
-public class MemberDto {
+public class MemberVO {
 	private int memidx;
 	private String mememail;
 	private String mempw;
@@ -14,10 +14,10 @@ public class MemberDto {
 	private String joinkey_status;
 	private String snsjoinid;
 
-	public MemberDto() {
+	public MemberVO() {
 	}
 
-	public MemberDto(int memidx, String mememail, String mempw, String memname, String memnick, String memphone,
+	public MemberVO(int memidx, String mememail, String mempw, String memname, String memnick, String memphone,
 			int membirth, String memgender, String memphoto, String joinkey, String joinkey_status, String snsjoinid) {
 		this.memidx = memidx;
 		this.mememail = mememail;
@@ -33,7 +33,7 @@ public class MemberDto {
 		this.snsjoinid = snsjoinid;
 	}
 
-	public MemberDto(int i, String mEMEMAIL2, String mempw2, String mEMNAME2, String memnick2, String memphone2,
+	public MemberVO(int i, String mEMEMAIL2, String mempw2, String mEMNAME2, String memnick2, String memphone2,
 			String originalFilename) {
 		// TODO Auto-generated constructor stub
 	}

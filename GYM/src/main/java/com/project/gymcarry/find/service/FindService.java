@@ -14,11 +14,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.gymcarry.common.SHA256;
 import com.project.gymcarry.dao.MemberDao;
 import com.project.gymcarry.find.TempPWD;
-import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.service.MailSenderService;
-import com.project.gymcarry.member.service.memSha256;
 
 @Service
 public class FindService {

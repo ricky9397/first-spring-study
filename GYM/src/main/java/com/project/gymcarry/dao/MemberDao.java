@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.project.gymcarry.carry.CarryDto;
 import com.project.gymcarry.carry.CarryJoinDto;
-import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.SessionDto;
 
 public interface MemberDao {
@@ -17,7 +17,7 @@ public interface MemberDao {
 	SessionDto carryLogin(String id, String pw);
 	
 	// 멤버 회원가입
-	int insertMember(MemberDto memberDto);
+	int insertMember(MemberVO memberDto);
 	// 캐리회원가입
 	int insertCarry(CarryJoinDto carryDto);
 
@@ -42,7 +42,7 @@ public interface MemberDao {
 	int cr_alterjoinkey(String cremail, String joinkey);
 	
 	// 멤버 로그인시 joinkey_status 확인
-	public MemberDto memberjoinkeycheck(String id, String pw);
+	public MemberVO memberjoinkeycheck(String id, String pw);
 	// 캐리 로그인시 joinkey_status 확인
 	public CarryDto carryjoinkeycheck(String id, String pw);
 	
@@ -62,11 +62,11 @@ public interface MemberDao {
 	int setCarrypassword(String crpw, String crname, String cremail);
 	
 	// 카카오 로그인
-	int insertKaKaoJoinOne(MemberDto memberDto);
+	int insertKaKaoJoinOne(MemberVO memberDto);
 	// 카카오 로그인체크용(세션도 저장)
 	SessionDto selectKakaoLoginCheck(String snsjoinid);
 	// sns조인
-	int updateKakaoJoin(MemberDto memberDto);
+	int updateKakaoJoin(MemberVO memberDto);
 	
 	
 	

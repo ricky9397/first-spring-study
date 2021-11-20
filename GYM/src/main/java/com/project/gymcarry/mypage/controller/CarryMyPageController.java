@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.project.gymcarry.carry.*;
+import com.project.gymcarry.common.SHA256;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.gymcarry.member.SessionDto;
-import com.project.gymcarry.member.service.memSha256;
 import com.project.gymcarry.mypage.service.CarryMyPageService;
 
 @Controller
@@ -124,7 +125,7 @@ public class CarryMyPageController {
 		// 암호 확인
 		System.out.println("첫번째 암호 : " + carryDto.getCrpw());
 		// 비밀번호 암호화(SHA256)
-		String encryPassword = memSha256.encrypt(carryDto.getCrpw());
+		String encryPassword = SHA256.encrypt(carryDto.getCrpw());
 		carryDto.setCrpw(encryPassword);
 		System.out.println("두번째:" + carryDto.getCrpw());
 

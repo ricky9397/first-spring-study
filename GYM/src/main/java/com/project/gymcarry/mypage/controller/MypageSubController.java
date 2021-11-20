@@ -24,9 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.gymcarry.board.Pagination;
 
 import com.project.gymcarry.carry.CarryListDto;
-
+import com.project.gymcarry.common.SHA256;
 import com.project.gymcarry.member.SessionDto;
-import com.project.gymcarry.member.service.memSha256;
 import com.project.gymcarry.mypage.MypageDto2;
 import com.project.gymcarry.mypage.MypageMemberDto;
 import com.project.gymcarry.mypage.MypageMemberUpdateDto;
@@ -85,7 +84,7 @@ public class MypageSubController {
 		// 암호 확인
 		System.out.println("첫번째 암호 : " + MDTO.getMempw());
 		// 비밀번호 암호화(SHA256)
-		String encryPassword = memSha256.encrypt(MDTO.getMempw());
+		String encryPassword = SHA256.encrypt(MDTO.getMempw());
 		MDTO.setMempw(encryPassword);
 		System.out.println("두번째:" + MDTO.getMempw());
 

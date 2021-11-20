@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.gymcarry.carry.CarryJoinDto;
 import com.project.gymcarry.carry.CarryToJoinDto;
 import com.project.gymcarry.dao.MemberDao;
-import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.MemberJoinDto;
 
 @Service
@@ -66,7 +66,7 @@ public class JoinService {
 		dao = template.getMapper(MemberDao.class);
 		File newFile = null;
 
-		MemberDto meberDto = memberJoinDto.getMemberDto();
+		MemberVO meberDto = memberJoinDto.getMemberDto();
 
 		if (memberJoinDto.getMemphoto() != null && !memberJoinDto.getMemphoto().isEmpty()) {
 			// 파일객체에 경로 지정!
@@ -121,7 +121,7 @@ public class JoinService {
 		return dao.insertCarry(carryJoinDto);
 	}
 
-	public int alterjoinkey(MemberDto memberDto) {
+	public int alterjoinkey(MemberVO memberDto) {
 		return template.update("alterjoinkey");
 	}
 

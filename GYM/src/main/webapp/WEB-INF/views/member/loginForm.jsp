@@ -35,7 +35,7 @@
 							<label id="cate"><grid>이메일</grid></label>
 						</div>
 						
-						<input type="text" id="into" name="mememail">
+						<input type="text" id="memEmail" name="memEmail" class="into">
 						<div class="check_font" id="emailcheck" style=float:left></div>
 					</div>
 
@@ -44,7 +44,7 @@
 							<label id="cate"><grid>비밀번호</grid></label>
 						</div>
 						
-						<input type="password" id="into" name="mempw">
+						<input type="password" id="memPw" name="memPw" class="into">
 						<div class="check_font" id="pwcheck"></div>
 					</div>
 
@@ -96,31 +96,48 @@
 </body>
 
 
-
+<script>
+	var member_email = $('#memEmail').val();
+	var member_pw = $('#memPw').val();
+	$('#loginbtn').click(function(){
+		$.ajax({
+			type : 'POST',
+	        url : '<c:url value="/member/memberLogin"/>',
+	        data : { 
+	              memEmail : member_email,
+	              memPw : member_pw,
+	           },
+	        success : function(data){
+	        	console.log('asd');
+	        }
+		});
+	});
+	
+</script>
 
 <script>
 $(document).ready(function(){
 	 
     // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
     var key = getCookie("key");
-    $("#into").val(key); 
+    $("#memEmail").val(key); 
      
-    if($("#into").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+    if($("#memEmail").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
         $("#reemail").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
     }
      
     $("#reemail").change(function(){ // 체크박스에 변화가 있다면,
         if($("#reemail").is(":checked")){ // ID 저장하기 체크했을 때,
-            setCookie("key", $("#into").val(), 7); // 7일 동안 쿠키 보관
+            setCookie("key", $("#memEmail").val(), 7); // 7일 동안 쿠키 보관
         }else{ // ID 저장하기 체크 해제 시,
             deleteCookie("key");
         }
     });
      
     // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-    $("#into").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+    $("#memEmail").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
         if($("#reemail").is(":checked")){ // ID 저장하기를 체크한 상태라면,
-            setCookie("key", $("#into").val(), 7); // 7일 동안 쿠키 보관
+            setCookie("key", $("#memEmail").val(), 7); // 7일 동안 쿠키 보관
         }
     });
 });

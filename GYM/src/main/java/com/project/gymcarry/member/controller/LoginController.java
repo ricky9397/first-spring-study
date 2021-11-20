@@ -2,6 +2,7 @@ package com.project.gymcarry.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.common.CommUtils;
+import com.project.gymcarry.common.SHA256;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.SessionDto;
 import com.project.gymcarry.member.service.LoginService;
-import com.project.gymcarry.member.service.memSha256;
 
 @Controller
 public class LoginController {
@@ -37,25 +39,27 @@ public class LoginController {
 
 	// 로그인 세션 저장
 	@PostMapping("/member/memberLogin")
-	public String login(@RequestParam("mememail") String id, @RequestParam("mempw") String pw,
-			MemberDto memberjoinkeycheck, SessionDto memberLogin, HttpServletRequest request,
+	@ResponseBody
+	public String login(MemberVO memberjoinkeycheck, SessionDto memberLogin, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
-
+		
+		Map<String, Object> inOutMap = CommUtils.getFormParam(request);
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String password = memSha256.encrypt(pw);
+		String password = SHA256.encrypt((String) inOutMap.get("MEMPW"));
 		
-		MemberDto memberDto = loginService.memberjoinkeycheck(id, password);
+		MemberVO memberVO = loginService.selectLogin(request);
 
-		if (memberDto != null) {
+		if (memberVO != null) {
 
-			if (memberDto.getJoinkey_status().equals("1")) {
+			if (memberVO.getJoinkey_status().equals("1")) {
 
 				SessionDto sessionDto = new SessionDto();
-				sessionDto.setMemidx(memberDto.getMemidx());
-				sessionDto.setMemname(memberDto.getMemname());
-				sessionDto.setMemnick(memberDto.getMemnick());
+				sessionDto.setMemidx(memberVO.getMemidx());
+				sessionDto.setMemname(memberVO.getMemname());
+				sessionDto.setMemnick(memberVO.getMemnick());
 				
 				String chatNick = sessionDto.getMemnick();
 
@@ -98,13 +102,12 @@ public class LoginController {
 	public String memberLogOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		System.out.println("로그아웃");
 		return "redirect:/index";
 	}
 
 	@PostMapping("/member/kakaologin")
 	@ResponseBody
-	public int memberKakaoLogin(MemberDto memberDto, HttpSession session) {
+	public int memberKakaoLogin(MemberVO memberDto, HttpSession session) {
 		SessionDto sessionDto = loginService.memberLoginCheck(memberDto.getSnsjoinid());
 		int result = 0;
 		if (sessionDto == null) {
@@ -128,7 +131,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/member/kakaojoininput")
-	public String inputKakaoJoin(MemberDto memberDto,HttpSession session) {
+	public String inputKakaoJoin(MemberVO memberDto,HttpSession session) {
 		System.out.println(memberDto);
 		int result = loginService.updateKakaoJoin(memberDto);
 		if(result == 1) {

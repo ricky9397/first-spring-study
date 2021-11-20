@@ -186,7 +186,7 @@ h1 {
     /* text-indent:20px; */
 }
 
-.login_form #into{
+.login_form .into{
     padding:6px 0;
     position: relative;
 	border:1px solid #ececec;

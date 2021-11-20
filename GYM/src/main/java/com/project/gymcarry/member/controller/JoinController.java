@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.project.gymcarry.member.MemberDto;
+import com.project.gymcarry.common.SHA256;
+import com.project.gymcarry.member.MemberVO;
 import com.project.gymcarry.member.MemberJoinDto;
 import com.project.gymcarry.member.service.JoinService;
 import com.project.gymcarry.member.service.MailSenderService;
-import com.project.gymcarry.member.service.memSha256;
 
 @Controller
 public class JoinController {
@@ -43,7 +43,7 @@ public class JoinController {
 			HttpServletResponse response, Model model) throws Exception {
 
 		// 비밀번호 암호화(SHA256)
-		String encryPassword = memSha256.encrypt(memberDto.getMempw());
+		String encryPassword = SHA256.encrypt(memberDto.getMempw());
 		memberDto.setMempw(encryPassword);
 
 		// 멤버 회원가입 성공
@@ -68,7 +68,7 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value = "member/join/alterjoinkey", method = RequestMethod.POST)
-	public String alterjoinkey_Check(@ModelAttribute MemberDto memberDto) {
+	public String alterjoinkey_Check(@ModelAttribute MemberVO memberDto) {
 		mailsenderservice.alterjoinkey_service(memberDto.getMememail(), memberDto.getJoinkey());
 		System.out.println("조인키 서비스!");
 		System.out.println("mememail=" + memberDto.getMememail());

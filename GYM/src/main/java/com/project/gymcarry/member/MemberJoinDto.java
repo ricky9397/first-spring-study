@@ -97,7 +97,7 @@ public class MemberJoinDto {
 	public void setSnsjoinid(String snsjoinid) {
 		this.snsjoinid = snsjoinid;
 	}
-	public MemberDto getMemberDto() {
-		return new MemberDto(0, mememail, mempw, memname, memnick, memphone, membirth, memgender, memphoto.getOriginalFilename(), joinkey, joinkey_status, snsjoinid);
+	public MemberVO getMemberDto() {
+		return new MemberVO(0, mememail, mempw, memname, memnick, memphone, membirth, memgender, memphoto.getOriginalFilename(), joinkey, joinkey_status, snsjoinid);
 	}
 }
