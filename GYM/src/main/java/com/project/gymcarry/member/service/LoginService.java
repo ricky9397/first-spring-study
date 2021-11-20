@@ -1,6 +1,6 @@
 package com.project.gymcarry.member.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +61,9 @@ public class LoginService {
 		return dao.updateKakaoJoin(memberDto);
 	}
 
-	public MemberVO selectLogin(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberVO selectLogin(Map<String, Object> inOutMap) {
+		dao = template.getMapper(MemberDao.class);
+		return dao.selectLogin(inOutMap);
 	}
 	
 

@@ -50,7 +50,7 @@ public class LoginController {
 
 		String password = SHA256.encrypt((String) inOutMap.get("MEMPW"));
 		
-		MemberVO memberVO = loginService.selectLogin(request);
+		MemberVO memberVO = loginService.selectLogin(inOutMap);
 
 		if (memberVO != null) {
 
